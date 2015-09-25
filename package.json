@@ -16,7 +16,9 @@
   },
   "description": "--------- Coming Soon!",
   "main": "app.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "should": "^7.1.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cmusv-fse/FSE-F15-SA5-SSNoC.git"
