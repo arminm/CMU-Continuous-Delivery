@@ -4,4 +4,20 @@ block content
   script(src='/javascripts/angular/home.js')
   h1 Welcome to Survivable Social Network on a Chip
   div.progress
-    div.progress-bar(style='width: 100%')
+    div.progress-bar.progress-bar-info(style='width: 100%')
+  form#loginForm.form-horizontal
+    fieldset
+      div.form-group
+        div.col-lg-10
+          input#inputUsername.form-control(placeholder='Username', type='text')
+      div.form-group
+        div.col-lg-10
+          input#inputPassword.form-control(placeholder='Password', type='password')
+      div.form-group
+        div.col-lg-10
+          button.btn.btn-info Login
+      div.form-group
+        div.col-lg-10
+          button.btn.btn-primary Register
+  div(ng-controller='TooltipDemoCtrl')
+    span(tooltip-html-unsafe='Line 1<br />Line 2<br />Line 3' tooltip-placement='bottom') Hover here
