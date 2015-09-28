@@ -22,9 +22,6 @@ describe('Database', function() {
 			var username = 'test';
 			var password = 12345;
 
-			var userFromDB;
-			var passwdFromDB;
-
 			db.serialize(function () {
 				// insert the user into the database
   				var stmt = db.prepare('INSERT INTO users VALUES(?, ?)');
