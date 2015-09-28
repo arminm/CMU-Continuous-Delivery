@@ -12,7 +12,7 @@ describe('Array', function() {
 
 describe('Database', function() {
 	var db;
-    before(function() {
+	before(function() {
         db = new sqlite3.Database('ssnoc.db');
     });
 
