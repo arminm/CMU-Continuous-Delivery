@@ -13,8 +13,8 @@ describe('Array', function() {
 describe('Database', function() {
 	var db;
 	before(function() {
-        db = new sqlite3.Database('ssnoc.db');
-    });
+    db = new sqlite3.Database('ssnoc.db');
+  });
 
 	describe('#checkDB', function() {
 		it('should correctly insert and retrieve a new user into database', function() {
