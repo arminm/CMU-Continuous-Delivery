@@ -1,0 +1,6 @@
+# ignore Database files
+*.db
+*.sqlite3
+
+# ignore node_modules
+node_modules/*
