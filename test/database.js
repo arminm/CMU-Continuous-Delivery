@@ -3,7 +3,6 @@ var sqlite3 = require("sqlite3").verbose();
 
 describe('Database', function() {
   var db;
-  var name = 'testName';
   var username = 'testUsername';
   var password = '123456';
   before(function() {
@@ -21,12 +20,11 @@ describe('Database', function() {
     it('should correctly insert and retrieve a new user into database', function(done) {
       db.serialize(function () {
         // insert a test user into the database
-        var stmt = db.prepare('INSERT INTO users (name, username, password) VALUES (?, ?, ?)');
-        stmt.run(name, username, password);
+        var stmt = db.prepare('INSERT INTO users (username, password) VALUES (?, ?)');
+        stmt.run(username, password);
         stmt.finalize();
         //check that the user can be retrieved from the database
-        db.get("SELECT name, username, password FROM users WHERE username='" + username + "'", function(err, row) {
-          assert.equal(name, row.name);
+        db.get("SELECT username, password FROM users WHERE username='" + username + "'", function(err, row) {
           assert.equal(username, row.username);
           assert.equal(password, row.password);
           // Very important to call done(); since calls are asynchronous
