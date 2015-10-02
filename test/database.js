@@ -3,27 +3,34 @@ var sqlite3 = require("sqlite3").verbose();
 
 describe('Database', function() {
   var db;
+  var name = 'testName';
+  var username = 'testUsername';
+  var password = '123456';
   before(function() {
+    // Connect to database
     db = new sqlite3.Database('ssnoc.db');
+  });
+  
+  after(function() {
+    // Clean up
+    db.run("DELETE FROM users WHERE username='" + username + "'");
+    db.close();
   });
 
   describe('#checkDB', function() {
-    it('should correctly insert and retrieve a new user into database', function() {
-      // create a dump user
-      var username = 'test';
-      var password = 12345;
-
+    it('should correctly insert and retrieve a new user into database', function(done) {
       db.serialize(function () {
-        // insert the user into the database
-        var stmt = db.prepare('INSERT INTO users VALUES(?, ?)');
-        stmt.run(username, password);
+        // insert a test user into the database
+        var stmt = db.prepare('INSERT INTO users (name, username, password) VALUES (?, ?, ?)');
+        stmt.run(name, username, password);
         stmt.finalize();
-
         //check that the user can be retrieved from the database
-        db.all("SELECT username, password FROM users WHERE username='" + username 
-          + "' AND password='" + password + "'", function(err, row) {
+        db.get("SELECT name, username, password FROM users WHERE username='" + username + "'", function(err, row) {
+          assert.equal(name, row.name);
           assert.equal(username, row.username);
-          assert.equal(password, row.password); 
+          assert.equal(password, row.password);
+          // Very important to call done(); since calls are asynchronous
+          done(); 
         });
       });
     });
