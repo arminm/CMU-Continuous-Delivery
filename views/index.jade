@@ -1,7 +1,6 @@
 extends layout
 
 block content
-  script(src='/javascripts/angular/home.js')
   h1 Welcome to Survivable Social Network on a Chip
   div.progress
     div.progress-bar.progress-bar-info(style='width: 100%')
@@ -9,15 +8,19 @@ block content
     fieldset
       div.form-group
         div.col-lg-10
-          input#inputUsername.form-control(placeholder='Username', type='text')
+          input#inputUsername.form-control(placeholder='Username', type='text', ng-model='usernameInput', tooltip-placement='right', tooltip-template="'usernameRuleTemplate.html'", autocomplete='off')
+          script(type='text/ng-template' id='usernameRuleTemplate.html')
+            div {{ usernameInput || '?' | usernameLengthFilter }} Username should be at least 3 characters long
+            div {{ usernameInput || 'about' | reservedUsernameFilter }} Username must not be a reserved username
       div.form-group
         div.col-lg-10
-          input#inputPassword.form-control(placeholder='Password', type='password')
+          input#inputPassword.form-control(placeholder='Password', type='password', ng-model='passwordInput', tooltip-placement='right', tooltip-template="'passwordRuleTemplate.html'", autocomplete='off')
+          script(type='text/ng-template' id='passwordRuleTemplate.html')
+            div {{ passwordInput || '?' | passwordLengthFilter }} Password should be at least 4 characters long
       div.form-group
         div.col-lg-10
           button.btn.btn-info Login
       div.form-group
         div.col-lg-10
           button.btn.btn-primary Register
-  div(ng-controller='TooltipDemoCtrl')
-    span(tooltip-html-unsafe='Line 1<br />Line 2<br />Line 3' tooltip-placement='bottom') Hover here
+    
