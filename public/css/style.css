@@ -6,7 +6,7 @@ a {
   color: #00B7FF;
 }
 
-h1, #loginForm, #inputUsername, #inputPassword {
+h1, #loginForm, #inputUsername, #inputPassword, #ConfirmPassword, #inputFullname {
 	clear: both;
 	text-align: center;
 }
@@ -17,7 +17,7 @@ h1, #loginForm, #inputUsername, #inputPassword {
 	padding: 10px;
 }
 
-#inputUsername, #inputPassword {
+#inputUsername, #inputPassword,#confirmPassword, #inputFullname {
 	display: inline;
 	max-width: 100%;
 }

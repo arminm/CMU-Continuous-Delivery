@@ -1,26 +1,40 @@
 extends layout
 
 block content
+  script(src='/js/controllers/homePageController.js')
   h1 Welcome to Survivable Social Network on a Chip
   div.progress
     div.progress-bar.progress-bar-info(style='width: 100%')
-  form#loginForm.form-horizontal
+  form#loginForm.form-horizontal(name="loginForm", ng-controller="homePageController")
     fieldset
       div.form-group
         div.col-lg-10
-          input#inputUsername.form-control(placeholder='Username', type='text', ng-model='usernameInput', tooltip-placement='right', tooltip-template="'usernameRuleTemplate.html'", autocomplete='off')
-          script(type='text/ng-template' id='usernameRuleTemplate.html')
-            div {{ usernameInput || '?' | usernameLengthFilter }} Username should be at least 3 characters long
-            div {{ usernameInput || 'about' | reservedUsernameFilter }} Username must not be a reserved username
+          input#inputUsername.form-control(name="inputUsername", placeholder='Username', type='text', ng-minlength='3', autocomplete='off', required, ng-model='inputUsername', reserved-username)
+          div(ng-messages="loginForm.inputUsername.$error")
+            div.invalid(ng-message='minlength') Username must be at least 3 characters long
+            div.invalid(ng-message='required') Username is required
+            div.invalid(ng-message='reservedUsername') {{inputUsername}} is a reserved username
       div.form-group
         div.col-lg-10
-          input#inputPassword.form-control(placeholder='Password', type='password', ng-model='passwordInput', tooltip-placement='right', tooltip-template="'passwordRuleTemplate.html'", autocomplete='off')
-          script(type='text/ng-template' id='passwordRuleTemplate.html')
-            div {{ passwordInput || '?' | passwordLengthFilter }} Password should be at least 4 characters long
+          input#inputPassword.form-control(name="inputPassword", placeholder='Password', type='password', ng-minlength='4', autocomplete='off', required, ng-model='inputPassword')
+          div(ng-messages="loginForm.inputPassword.$error")
+            div.invalid(ng-message='minlength') Password must be at least 4 characters long
+            div.invalid(ng-message='required') Password is required
+      div.form-group.animate-hide(ng-hide='isRegistration')
+        div.col-lg-10
+          button.btn.btn-info(ng-click='login()', ng-disabled='loginForm.$invalid') Login
+      div.form-group.animate-hide(ng-show='isRegistration')
+        div.col-lg-10
+          input#confirmPassword.form-control(name="confirmPassword", placeholder='Confirm Password', type='password', autocomplete='off', ng-model='passwordConfirm', firstPassword='{{ inputPassword }}', password-equality)
+          div(ng-messages="loginForm.confirmPassword.$error")
+            div.invalid(ng-message='passwordEquality') Passwords must match
+      div.form-group.animate-hide(ng-show='isRegistration')
+        div.col-lg-10
+          input#inputFullname.form-control(placeholder='Full Name (optional)', type='text', ng-model='fullnameInput', autocomplete='off')
       div.form-group
         div.col-lg-10
-          button.btn.btn-info Login
-      div.form-group
-        div.col-lg-10
-          button.btn.btn-primary Register
+          button.btn.btn-primary(ng-click='register()', ng-disabled='loginForm.$invalid') Register
+
+
+
     

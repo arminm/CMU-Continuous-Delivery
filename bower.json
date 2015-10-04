@@ -5,6 +5,7 @@
         "bootstrap": "latest",
         "angular": "latest",
         "angular-bootstrap": "latest",
-        "bootswatch-dist": "united"
+        "bootswatch-dist": "united",
+        "angular-messages": "latest"
     }
 }
