@@ -16,23 +16,40 @@ angular.module('myApp')
       require: '?ngModel',
       link: function(scope, elem, attr, ngModel) {
           ngModel.$parsers.unshift(function (input1) {
-             var input2 = attr.firstpassword;
+             var input2 = attr.firstPassword;
              ngModel.$setValidity('passwordEquality', input1 === input2);
-             return value;
+             return input1;
           });
       }
    };
   })
   .controller('homePageController', function($scope) {
-    $scope.isRegistration = false; 
+    $scope.formData = {
+      isRegistration: '',
+      username: '',
+      password: '',
+      confirmPassword: '',
+      fullName: ''
+    };
     $scope.register = function () {
-      if ($scope.isRegistration) {
+      if ($scope.formData.isRegistration) {
         // Call factory
+        var registerData = {
+          password: $scope.formData.password,
+          fullName: $scope.formData.fullName,
+          createdAt: Date.now()
+        };
       } else {
-        $scope.isRegistration = true;
+        $scope.formData.isRegistration = true;
       }
     };
     $scope.login = function () {
+      $scope.formData.isRegistration = false;
       // Call factory
+      var loginData = {
+        password: $scope.formData.password,
+        lastLoginAt: Date.now()
+      };
     };
   });
+
