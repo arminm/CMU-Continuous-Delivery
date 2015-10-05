@@ -3,10 +3,16 @@ var type = dbm.dataType;
 
 exports.up = function(db, callback) {
   db.createTable('users', {
-    id: { type: 'int', primaryKey: true },
-    name: 'string',
-    username: 'string',
-    password: 'string'
+    id: {type: 'int', primaryKey: true, autoIncrement: true,
+                    notNull: true},
+    username: {type: 'string', notNull: true, unique: true},
+    password: {type: 'string', notNull: true},
+    fullName: 'string',
+    createdAt: {type: 'timestamp', notNull: true},
+    updatedAt: 'timestamp',
+    lastLoginAt: 'timestamp',
+    lastStatusCode: {type: 'string', defaultValue: 'GREEN'},
+    isActive: 'boolean'
   }, callback);
 };
 
