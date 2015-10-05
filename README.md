@@ -1,9 +1,9 @@
 # Fantastic4 SSNoC
----------
+
 A Standalone Social Network on a Chip!
 
 ## GitHub
------------
+
 PLEASE create a new branch for your work and avoid working on the master branch.
 
 You can use `$ git checkout -b NAME_OF_NEW_BRANCH` when on `master` to create a new branch.
@@ -13,7 +13,7 @@ Before you commit anything, make sure you're on the right branch (Check with `$ 
 When pushing your changes, use: `$ git push origin NAME_OF_YOUR_BRANCH`
 
 ## Database
---------------
+
 We use `db-migrate` to *create* and update the schema of the database.
 (if you don't have `db-migrate` installed globally, you can run `$ npm install -g db-migrate`)
 
@@ -23,7 +23,7 @@ We use `db-migrate` to *create* and update the schema of the database.
 
 3. Creating Migrations: `$ db-migrate create [name of migration]` (e.g. `$ db-migrate create add-user` or `$ db-migrate create update-message`)
 
-More info on `db-migrate`: ![Documentaion](http://db-migrate.readthedocs.org/en/latest/), ![GitHub](https://github.com/db-migrate/node-db-migrate)
+More info on `db-migrate`: [Documentaion](http://db-migrate.readthedocs.org/en/latest/), [GitHub](https://github.com/db-migrate/node-db-migrate)
 
 
 ![](https://s-media-cache-ak0.pinimg.com/236x/d9/8a/99/d98a99d92253adf6c694e014ea3ee9af.jpg)
