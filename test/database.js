@@ -8,7 +8,7 @@ describe('Database', function() {
   var now = new Date();
   before(function() {
     // Connect to database
-    db = new sqlite3.Database('ssnoc.db');
+    db = new sqlite3.Database('ssnoc-dev.db');
   });
   
   after(function() {

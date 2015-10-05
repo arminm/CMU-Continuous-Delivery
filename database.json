@@ -1,6 +1,16 @@
 {
   "dev": {
     "driver": "sqlite3",
+    "filename": "ssnoc-dev.db"
+  },
+
+  "production": {
+    "driver": "sqlite3",
     "filename": "ssnoc.db"
+  },
+
+  "test": {
+    "driver": "sqlite3",
+    "filename": "ssnoc-test.db"
   }
 }
