@@ -23,7 +23,7 @@ We use `db-migrate` to *create* and update the schema of the database.
 
 3. Creating Migrations: `$ db-migrate create [name of migration]` (e.g. `$ db-migrate create add-user` or `$ db-migrate create update-message`)
 
-More info on `db-migrate`: [Documentaion](http://db-migrate.readthedocs.org/en/latest/), [GitHub](https://github.com/db-migrate/node-db-migrate)
+More info on `db-migrate`: [Documentation](http://db-migrate.readthedocs.org/en/latest/), [GitHub](https://github.com/db-migrate/node-db-migrate)
 
 
 ![](https://s-media-cache-ak0.pinimg.com/236x/d9/8a/99/d98a99d92253adf6c694e014ea3ee9af.jpg)
