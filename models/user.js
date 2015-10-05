@@ -8,9 +8,6 @@ function User(name, username, password) {
 };
 
 User.prototype.create = function() {
-	console.log('inside create,' + this.username);
-	console.log("SELECT EXISTS(SELECT username FROM users WHERE username='" 
-		+ this.username + "' LIMIT 1);");
 	var exists = db.get("SELECT EXISTS(SELECT username FROM users WHERE username='" 
 		+ this.username + "' LIMIT 1);");
 	if (exists === 1) {
@@ -25,8 +22,6 @@ User.prototype.create = function() {
 };
 
 User.prototype.get = function() {
-	console.log('inside get, ' + this.username);
-	console.log("SELECT username FROM users WHERE username='" + this.username + "';");
 	db.get("SELECT username FROM users WHERE username='" + this.username + "';", function(err, row) {
 		if (row !== undefined) {
 			return row.username;
