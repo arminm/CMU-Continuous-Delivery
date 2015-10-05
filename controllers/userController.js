@@ -10,6 +10,6 @@ module.exports = {
 	},
 
 	update: function(username) {
-		// TODO
+	// TODO
 	}
 } 

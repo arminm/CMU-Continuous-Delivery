@@ -4,7 +4,7 @@ var messageController = require('../controllers/messageController.js');
 
 // POST a message on the public wall
 router.post('/:username', function(req, res, next) {
-  messageController.postMessageOnWall(req.params.username);
+	messageController.postMessageOnWall(req.params.username);
 });
 
 // GET all messages on the public wall

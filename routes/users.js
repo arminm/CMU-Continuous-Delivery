@@ -4,7 +4,7 @@ var userController = require('../controllers/userController.js');
 
 // GET users listing. 
 router.get('/', function(req, res, next) {
-  userController.getAllUsers();
+	userController.getAllUsers();
 });
 
 // GET specific user info

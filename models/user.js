@@ -7,7 +7,6 @@ function User(name, username, password) {
 };
 
 User.prototype.create = function() {
-	// console.log('inside create, ' + this.db);
 	db.get("SELECT username FROM users WHERE username='" + this.username + "'", function(err, row) {
 		if (err)
 			throw err;
