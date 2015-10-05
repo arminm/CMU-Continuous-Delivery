@@ -21,11 +21,10 @@ User.prototype.create = function() {
 	}
 };
 
-User.prototype.get = function() {
+User.prototype.get = function(callback) {
 	db.get("SELECT username FROM users WHERE username='" + this.username + "';", function(err, row) {
 		if (row !== undefined) {
-			return row.username;
-			done();
+			callback(row.username);
 		}
 	});
 };

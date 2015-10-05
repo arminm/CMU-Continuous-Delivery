@@ -7,7 +7,9 @@ module.exports = {
 
 	getUser: function(username) {
 		var user = new User(null, username, null);
-		console.log('Return result: ' + user.get());
+		user.get(function(data) {
+			console.log('Result is: ' + data);
+		});
 	},
 
 	update: function(username) {
