@@ -9,8 +9,17 @@ router.get('/', function(req, res, next) {
 
 // handle signup
 router.post('/signup/:username', function(req, res){
-	joinCommunityController.signup(req.body.name, req.params.username, req.body.password);
-	res.send("ok");
+	joinCommunityController.signup(req.body.fullName, req.params.username, req.body.password, function(returnMessage) {
+		if (returnMessage === 'Created') {
+			res.status(201);
+		} 
+		else if (returnMessage === 'Unauthorized') {
+			res.status(401);
+		} else {
+			res.status(200);
+		}
+		res.send();
+	});
 }); 
 
 // handle login

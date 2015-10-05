@@ -1,29 +1,35 @@
 var db = require('../config/db.js');
 
-function User(name, username, password) {
-	this.fullname = name;
+function User(fullName, username, password) {
+	this.fullName = fullName;
 	this.username = username;
 	this.password = password;
 };
 
-User.prototype.create = function(fullname, username, password, callback) {
+User.prototype.create = function(fullName, username, password, callback) {
 	db.get("SELECT username FROM users WHERE username='" + username + "';", function(err, row) {
 		if (row !== undefined) {
 			callback(false);
 		}
 		else {
-			var stmt = db.prepare('INSERT INTO users (name, username, password) VALUES (?, ?, ?);');
-  		stmt.run(fullname, username, password);
+			var stmt = db.prepare('INSERT INTO users (fullName, username, password, createdAt, isActive) VALUES (?, ?, ?, ?, ?);');
+  		stmt.run(fullName, username, password, new Date(), true);
   		stmt.finalize();
   		callback(true);
 		}
 	});
 };
 
-User.prototype.get = function(callback) {
-	db.get("SELECT username FROM users WHERE username='" + this.username + "';", function(err, row) {
+User.prototype.get = function(password, callback) {
+	db.get("SELECT username, password FROM users WHERE username='" + this.username + "';", function(err, row) {
 		if (row !== undefined) {
-			callback(row.username);
+			if (row.password === password) {
+				callback(row.username, true);
+			} else {
+				callback(row.username, false);
+			}
+		} else {
+			callback(undefined, undefined);
 		}
 	});
 };
