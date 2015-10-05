@@ -12,7 +12,8 @@ exports.up = function(db, callback) {
     updatedAt: 'timestamp',
     lastLoginAt: 'timestamp',
     lastStatusCode: {type: 'string', defaultValue: 'GREEN'},
-    isActive: 'boolean'
+    isActive: 'boolean',
+    isOnline: 'boolean'
   }, callback);
 };
 
