@@ -6,7 +6,8 @@ module.exports = {
 	},
 
 	getUser: function(username) {
-		// TODO
+		var user = new User(null, username, null);
+		console.log('Return result: ' + username);
 	},
 
 	update: function(username) {

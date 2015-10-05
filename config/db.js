@@ -4,7 +4,7 @@ var db = null;
 module.exports = {
 	getDB: function() {
 		if (db === null) {
-			db = new sqlite3.Database('../ssnoc.db')
+			db = new sqlite3.Database('ssnoc.db');
 		}
 		return db;
 	}

@@ -11,7 +11,7 @@ var users = require('./routes/users');
 var messages = require('./routes/messages');
 
 var app = express();
-var db = require('./config/db.js').getDB();
+// var db = require('./config/db.js').getDB();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -59,7 +59,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-db.serialize(function() {
+/*db.serialize(function() {
   db.run('CREATE TABLE users (username TEXT, password TEXT)', function(err) {
     if (err) {
       console.log("Table users already exists!");
@@ -67,6 +67,6 @@ db.serialize(function() {
       console.log("Successfully created table!");
     }
   });
-});
+});*/
 
 module.exports = app;
