@@ -7,18 +7,18 @@ function User(name, username, password) {
 	this.password = password;
 };
 
-User.prototype.create = function() {
-	var exists = db.get("SELECT EXISTS(SELECT username FROM users WHERE username='" 
-		+ this.username + "' LIMIT 1);");
-	if (exists === 1) {
-		return false;
-	}
-	else {
-		var stmt = db.prepare('INSERT INTO users (name, username, password) VALUES (?, ?, ?);');
-    stmt.run(this.fullname, this.username, this.password);
-    stmt.finalize();
-		return true;
-	}
+User.prototype.create = function(fullname, username, password, callback) {
+	db.get("SELECT username FROM users WHERE username='" + username + "';", function(err, row) {
+		if (row !== undefined) {
+			callback(false);
+		}
+		else {
+			var stmt = db.prepare('INSERT INTO users (name, username, password) VALUES (?, ?, ?);');
+  		stmt.run(fullname, username, password);
+  		stmt.finalize();
+  		callback(true);
+		}
+	});
 };
 
 User.prototype.get = function(callback) {
