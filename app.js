@@ -10,7 +10,6 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
-var db = new sqlite3.Database('ssnoc.db');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -55,16 +54,6 @@ app.use(function(err, req, res, next) {
   res.render('error', {
     message: err.message,
     error: {}
-  });
-});
-
-db.serialize(function() {
-  db.run('CREATE TABLE users (username TEXT, password TEXT)', function(err) {
-    if (err) {
-      console.log("Table users already exists!");
-    } else {
-      console.log("Successfully created table!");
-    }
   });
 });
 
