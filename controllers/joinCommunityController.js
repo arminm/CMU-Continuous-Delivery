@@ -11,10 +11,10 @@ module.exports = {
 	},
 
 	login: function(username, password) {
-		// TODO
+	// TODO
 	},
 
 	logout: function(username) {
-		// TODO
+	// TODO
 	}
 } 
