@@ -8,6 +8,7 @@ var sqlite3 = require('sqlite3').verbose();
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var messages = require('./routes/messages');
 
 var app = express();
 var db = new sqlite3.Database('ssnoc.db');
