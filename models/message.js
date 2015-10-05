@@ -1,4 +1,4 @@
-var db = require('../config/db.js').getDB();
+var db = require('../config/db.js');
 
 function Message(content, author, messageType, target, createdAt) {
 	this.content = content;

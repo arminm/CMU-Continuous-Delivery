@@ -1,11 +1,5 @@
+var path = require('path');
 var sqlite3 = require('sqlite3').verbose();
-var db = null;
+var db = new sqlite3.Database(path.join(__dirname, '../ssnoc.db'));
 
-module.exports = {
-	getDB: function() {
-		if (db === null) {
-			db = new sqlite3.Database('ssnoc.db');
-		}
-		return db;
-	}
-}
+module.exports = db;
