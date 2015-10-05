@@ -11,7 +11,7 @@ var users = require('./routes/users');
 var messages = require('./routes/messages');
 
 var app = express();
-var db = new sqlite3.Database('ssnoc.db');
+var db = require('./config/db.js').getDB();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

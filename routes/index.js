@@ -10,11 +10,13 @@ router.get('/', function(req, res, next) {
 // handle signup
 router.post('/signup/:username', function(req, res){
 	joinCommunityController.signup(req.body.name, req.params.username, req.body.password);
+	res.send("ok");
 }); 
 
 // handle login
 router.post('login/:username', function(req, res) {
 	joinCommunityController.login(req.params.username, req.body.password);
+	res.send("ok");
 });
 
 module.exports = router;
