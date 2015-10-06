@@ -34,11 +34,14 @@ angular.module('myApp')
     $scope.register = function () {
       if ($scope.formData.isRegistration) {
         // Call factory
-        var registerData = {
-          password: $scope.formData.password,
-          fullName: $scope.formData.fullName,
-          createdAt: Date.now()
-        };
+        if (($scope.formData.password != nil) && ($scope.formData.password != nil) && ($scope.formData.confirmPassword != nil)) {
+          var registerData = {
+            password: $scope.formData.password,
+            fullName: $scope.formData.fullName,
+            createdAt: Date.now()
+          };
+        }
+
       } else {
         $scope.formData.isRegistration = true;
       }
