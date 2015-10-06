@@ -1,21 +1,17 @@
 var User = require('../models/user.js');
 
 module.exports = {
-	signup: function(name, username, password, callback) {
-		var user = new User(name, username, password);
-		user.get(user.password, function(username, isPasswordCorrect) {
-			console.log();
-			if (username !== undefined) {
+	signup: function(fullName, username, password, callback) {
+		var user = new User(fullName, username, password);
+		user.get(user.password, function(data, isPasswordCorrect) {
+			if (data !== undefined) {
 				if (isPasswordCorrect) {
-					console.log('username already exists and password correct');
 					callback('OK');
 				} else {
-					console.log('username exists but password wrong');
 					callback('Unauthorized');
 				}
 			}
 			else {
-				console.log('username: ' + user.username);
 				user.create(user.fullName, user.username, user.password, function(isCreated) {
 					if (isCreated) {
 						console.log('new user inserted successfully');
@@ -26,11 +22,29 @@ module.exports = {
 		});
 	},
 
-	login: function(username, password) {
-	// TODO
+	login: function(username, password, callback) {
+		var user = new User(null, username, password);
+		user.get(user.password, function(username, isPasswordCorrect) {
+			if (username !== undefined) {
+				if (isPasswordCorrect) {
+					callback('OK');
+				} else {
+					callback('Unauthorized');
+				}
+			} else {
+				callback('Not Found');
+			}
+		})
 	},
 
-	logout: function(username) {
-	// TODO
+	logout: function(username, callback) {
+		var user = new User(null, username, null);
+		user.logout(function(isLoggedIn) {
+			if (isLoggedIn) {
+				callback('OK');
+			} else {
+				callback('Bad Request');
+			}
+		});
 	}
 } 

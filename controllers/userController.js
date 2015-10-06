@@ -1,14 +1,17 @@
 var User = require('../models/user.js');
 
 module.exports = {
-	getAllUsers: function() {
-		// TODO
+	getAllUsers: function(callback) {
+		var user = new User(null, null, null);
+		user.getAllUsers(function(users) {
+			callback(users);
+		});
 	},
 
-	getUser: function(username) {
+	getUser: function(username, callback) {
 		var user = new User(null, username, null);
-		user.get(function(data) {
-			console.log('Result is: ' + data);
+		user.get(null, function(data, dummy) {
+			callback(data);
 		});
 	},
 

@@ -23,9 +23,30 @@ router.post('/signup/:username', function(req, res){
 }); 
 
 // handle login
-router.post('login/:username', function(req, res) {
-	joinCommunityController.login(req.params.username, req.body.password);
-	res.send("ok");
+router.post('/login/:username', function(req, res) {
+	joinCommunityController.login(req.params.username, req.body.password, function(returnMessage) {
+		if (returnMessage === 'OK') {
+			res.status(200);
+		} 
+		else if (returnMessage === 'Unauthorized') {
+			res.status(401);
+		} else {
+			res.status(404);
+		}
+		res.send();
+	});
+});
+
+// handle logout
+router.get('/logout/:username', function(req, res) {
+	joinCommunityController.logout(req.params.username, function(returnMessage) {
+		if (returnMessage === 'Bad Request') {
+			res.status(400);
+		} else {
+			res.status(200);
+		}
+		res.send();
+	});
 });
 
 module.exports = router;
