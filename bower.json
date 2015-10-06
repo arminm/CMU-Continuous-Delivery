@@ -1,0 +1,11 @@
+{
+    "name": "fantastic4-angular",
+    "version": "1.0.0",
+    "dependencies": {
+        "bootstrap": "latest",
+        "angular": "latest",
+        "angular-bootstrap": "latest",
+        "bootswatch-dist": "united",
+        "angular-messages": "latest"
+    }
+}
