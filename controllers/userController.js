@@ -10,12 +10,8 @@ module.exports = {
 
 	getUser: function(username, callback) {
 		var user = new User(null, username, null);
-		user.get(null, function(data, dummy) {
+		user.get(null, function(data) {
 			callback(data);
 		});
-	},
-
-	update: function(username) {
-	// TODO
 	}
 } 

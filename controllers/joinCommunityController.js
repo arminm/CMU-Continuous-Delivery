@@ -1,7 +1,7 @@
 var User = require('../models/user.js');
 
 module.exports = {
-	signup: function(fullName, username, password, callback) {
+	signup: function(fullName, username, password, createdAt, callback) {
 		var user = new User(fullName, username, password);
 		user.get(user.password, function(data, isPasswordCorrect) {
 			if (data !== undefined) {
@@ -12,11 +12,12 @@ module.exports = {
 				}
 			}
 			else {
-				user.create(user.fullName, user.username, user.password, function(isCreated) {
+				user.create(user.fullName, user.username, user.password, createdAt, function(isCreated) {
 					if (isCreated) {
-						console.log('new user inserted successfully');
+						callback('Created');
+					} else {
+						callback('Not created');
 					}
-					callback('Created');
 				});
 			}
 		});
@@ -24,10 +25,11 @@ module.exports = {
 
 	login: function(username, password, callback) {
 		var user = new User(null, username, password);
-		user.get(user.password, function(username, isPasswordCorrect) {
+		user.get(password, function(username, isPasswordCorrect) {
 			if (username !== undefined) {
 				if (isPasswordCorrect) {
 					callback('OK');
+					user.setIsOnline(username, 1);
 				} else {
 					callback('Unauthorized');
 				}
@@ -41,6 +43,7 @@ module.exports = {
 		var user = new User(null, username, null);
 		user.logout(function(isLoggedIn) {
 			if (isLoggedIn) {
+				user.setIsOnline(username, 0);
 				callback('OK');
 			} else {
 				callback('Bad Request');

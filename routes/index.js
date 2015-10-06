@@ -9,13 +9,14 @@ router.get('/', function(req, res, next) {
 
 // handle signup
 router.post('/signup/:username', function(req, res){
-	joinCommunityController.signup(req.body.fullName, req.params.username, req.body.password, function(returnMessage) {
+	joinCommunityController.signup(req.body.fullName, req.params.username, req.body.password, req.body.createdAt, function(returnMessage) {
 		if (returnMessage === 'Created') {
 			res.status(201);
 		} 
 		else if (returnMessage === 'Unauthorized') {
 			res.status(401);
-		} else {
+		} 
+		else if (returnMessage === 'OK'){
 			res.status(200);
 		}
 		res.send();
