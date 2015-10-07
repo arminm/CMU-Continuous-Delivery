@@ -4,10 +4,10 @@ app.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/lobby', {
-        templateUrl: 'lobby.jade'
+        templateUrl: 'partials/lobby.jade'
       }).
       when('/', {
-        templateUrl: 'layout.jade',
+        templateUrl: 'partials/index.jade',
       }).
       otherwise({
         redirectTo: '/'
