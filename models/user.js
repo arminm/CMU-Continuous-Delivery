@@ -67,12 +67,12 @@ User.prototype.getAllUsers = function(callback) {
 	);
 };
 
-User.prototype.setIsOnline = function(username, isOnline) {
-	db.run("UPDATE users SET isOnline = " + isOnline + " WHERE username = '" + username + "';");
+User.prototype.updateUser = function(username, lastLoginAt, isOnline) {
+	db.run("UPDATE users SET lastLoginAt = '" + lastLoginAt + "', isOnline = " + isOnline + " WHERE username = '" + username + "';");
 };
 
 User.prototype.logout = function(callback) {
-	db.get("SELECT isOnline FROM users WHERE username='" + this.username + "';", function(err, row) {
+	db.get("SELECT isOnline FROM users WHERE username = '" + this.username + "';", function(err, row) {
 		if (err) {
 			throw err;
 		}

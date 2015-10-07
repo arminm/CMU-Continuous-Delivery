@@ -23,13 +23,13 @@ module.exports = {
 		});
 	},
 
-	login: function(username, password, callback) {
+	login: function(username, password, lastLoginAt, callback) {
 		var user = new User(null, username, password);
 		user.get(password, function(username, isPasswordCorrect) {
 			if (username !== undefined) {
 				if (isPasswordCorrect) {
 					callback('OK');
-					user.setIsOnline(username, 1);
+					user.updateUser(username, lastLoginAt, 1);
 				} else {
 					callback('Unauthorized');
 				}
@@ -43,7 +43,7 @@ module.exports = {
 		var user = new User(null, username, null);
 		user.logout(function(isLoggedIn) {
 			if (isLoggedIn) {
-				user.setIsOnline(username, 0);
+				user.updateUser(username, null, 0);
 				callback('OK');
 			} else {
 				callback('Bad Request');

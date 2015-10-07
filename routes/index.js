@@ -25,7 +25,7 @@ router.post('/signup/:username', function(req, res){
 
 // handle login
 router.post('/login/:username', function(req, res) {
-	joinCommunityController.login(req.params.username, req.body.password, function(returnMessage) {
+	joinCommunityController.login(req.params.username, req.body.password, req.body.lastLoginAt, function(returnMessage) {
 		if (returnMessage === 'OK') {
 			res.status(200);
 		} 
