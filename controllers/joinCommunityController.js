@@ -25,11 +25,11 @@ module.exports = {
 
 	login: function(username, password, lastLoginAt, callback) {
 		var user = new User(null, username, password);
-		user.get(password, function(username, isPasswordCorrect) {
-			if (username !== undefined) {
+		user.get(password, function(data, isPasswordCorrect) {
+			if (data !== undefined) {
 				if (isPasswordCorrect) {
-					callback('OK');
 					user.updateUser(username, lastLoginAt, 1);
+					callback('OK');
 				} else {
 					callback('Unauthorized');
 				}
