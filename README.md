@@ -27,3 +27,12 @@ More info on `db-migrate`: [Documentation](http://db-migrate.readthedocs.org/en/
 
 
 ![](https://s-media-cache-ak0.pinimg.com/236x/d9/8a/99/d98a99d92253adf6c694e014ea3ee9af.jpg)
+
+## To install bower
+
+Run `$sudo npm install -g bower`. Since bower needs admin permission, its not included in package.json.
+
+## Run the app
+
+1. You must execute `$ npm install` and `$ bower install` to make sure you have all the library dependencies to run the app. ( We are using npm for back-end dependencies and bower for front-end dependencies. Note that node_modules and public/libs/ folders are ignored by git.)
+

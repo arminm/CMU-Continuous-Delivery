@@ -1,0 +1,33 @@
+body {
+  padding: 10px;
+}
+
+a {
+  color: #00B7FF;
+}
+
+h1, #loginForm, input#username, input#password, input#confirmPassword, #inputFullname {
+	clear: both;
+	text-align: center;
+}
+#loginForm,#welcomeMessageForm {
+	margin: 0 auto;
+	background-color: #EDEDED;
+	max-width: 70%;
+	padding: 10px;
+}
+
+#input#username, input#password, input#confirmPassword, #inputFullname {
+	display: inline;
+	max-width: 100%;
+}
+
+.col-lg-10 {
+    width: 100%;
+}
+
+h3{
+	clear: both;
+	text-align: left;
+}
+
