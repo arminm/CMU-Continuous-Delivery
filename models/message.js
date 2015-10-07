@@ -1,36 +1,27 @@
 var db = require('../config/db.js');
+var utils = require('../utilities.js');
 
-function Message(content, author, messageType, target, createdAt) {
-	this.content = content;
-	this.author = author;
-	this.messageType = messageType;
-	this.target = target;
-	this.createdAt = createdAt;
-};
 
-Message.prototype.create = function(callback) {
-	var stmt = db.prepare('INSERT INTO messages (content, author, messageType, target, createdAt) VALUES (?, ?, ?, ?, ?);');
-  stmt.run(this.content, this.author, this.messageType, this.target, this.createdAt);
-  stmt.finalize();
-  callback();
-};
+module.exports = {
+	create: function(info, callback) {
+		var stmt = db.prepare('INSERT INTO messages (content, author, messageType, target, createdAt) VALUES (?, ?, ?, ?, ?);');
+  		stmt.run(info.content, info.author, info.messageType, info.target, info.createdAt);
+  		stmt.finalize();
+  		callback();
+	},
 
-Message.prototype.getAllMessages = function(callback) {
-	var messages = [];
-	db.each("SELECT * FROM messages WHERE messageType='WALL';", 
-		function(err, row) {
-			messages.push(
-				{
-					content: row.content, 
-					author: row.author, 
-					target: row.target,
-					messageType: row.messageType,
-					createdAt: row.createdAt,
-				});
-		}, function() {
-			callback(messages);
-		}
-	);
-};
-
-module.exports = Message;
+	getAllMessages: function(messageType, callback) {
+		var messages = [];
+		db.each("SELECT * FROM messages WHERE messageType='" + messageType + "';", 
+			function(error, row) {
+				if (error) {
+					console.log(error);
+					callback(null, error);
+				}
+				messages.push(utils.replacer(row, ['id', 'messageType']));
+			}, function() {
+				callback(messages, null);
+			}
+		);
+	}
+}

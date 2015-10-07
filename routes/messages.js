@@ -2,23 +2,10 @@ var express = require('express');
 var router = express.Router();
 var messageController = require('../controllers/messageController.js');
 
-// POST a message on the public wall
-router.post('/:username', function(req, res, next) {
-	messageController.postMessageOnWall(req.params.username, req.body.content, req.body.postedAt, function(returnMessage) {
-		if (returnMessage === 'Not Found') {
-			res.status(404);
-		} else {
-			res.status(200);
-		}
-		res.send();
-	});
-});
+// POST a message (author is the sender's username)
+router.post('/:author', messageController.postMessage);
 
-// GET all messages from the public wall
-router.get('/wall', function(req, res, next) {
-	messageController.getAllMessages(function (messages) {
-		res.send(messages);
-	});
-});
+// GET all messages (parameter messageType should be provided)
+router.get('/', messageController.getAllMessages);
 
 module.exports = router;

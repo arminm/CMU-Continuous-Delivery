@@ -1,17 +1,30 @@
 var User = require('../models/user.js');
 
 module.exports = {
-	getAllUsers: function(callback) {
-		var user = new User(null, null, null);
-		user.getAllUsers(function(users) {
-			callback(users);
+	getAllUsers: function(req, res) {
+		User.getAllUsers(function(users, error) {
+			if (error) {
+				res.status(500);
+				res.send();
+			} else {
+				res.status(200);
+				res.send(users);
+			}
 		});
 	},
 
-	getUser: function(username, callback) {
-		var user = new User(null, username, null);
-		user.get(null, function(data) {
-			callback(data);
+	getUser: function(req, res) {
+		User.get(req.params.username, function(user, password, error) {
+			if (error) {
+				res.status(500);
+				res.send();
+			} else if (user) {
+				res.status(200);
+				res.send(user);
+			} else {
+				res.status(404);
+				res.send();
+			}
 		});
 	}
 } 

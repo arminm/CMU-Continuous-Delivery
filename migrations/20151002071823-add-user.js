@@ -11,9 +11,9 @@ exports.up = function(db, callback) {
     createdAt: {type: 'timestamp', notNull: true},
     updatedAt: 'timestamp',
     lastLoginAt: 'timestamp',
-    lastStatusCode: {type: 'string', defaultValue: 'GREEN'},
-    isActive: 'boolean',
-    isOnline: 'boolean'
+    lastStatusCode: {type: 'string', notNull: true, defaultValue: 'GREEN'},
+    isActive: {type: 'boolean', notNull: true, defaultValue: true},
+    isOnline: {type: 'boolean', notNull: true, defaultValue: true}
   }, callback);
 };
 

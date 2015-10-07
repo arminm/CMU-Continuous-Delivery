@@ -1,53 +1,67 @@
 var User = require('../models/user.js');
 
 module.exports = {
-	signup: function(fullName, username, password, createdAt, callback) {
-		var user = new User(fullName, username, password);
-		user.get(user.password, function(data, isPasswordCorrect) {
-			if (data !== undefined) {
-				if (isPasswordCorrect) {
-					callback('OK');
+	signup: function(req, res){
+		var fullName = req.body.fullName;
+		var username = req.params.username;
+		var password = req.body.password;
+		var createdAt = req.body.createdAt;
+		var now = (new Date()).getTime();
+		User.get(username, function(user, actualPassword) {
+			if (user !== undefined) {
+				if (password === actualPassword) {
+					User.updateUser(username, now, true);
+					res.status(200);
 				} else {
-					callback('Unauthorized');
+					res.status(401);
 				}
-			}
-			else {
-				user.create(user.fullName, user.username, user.password, createdAt, function(isCreated) {
+				res.send();
+			}else {
+				User.create(fullName, username, password, createdAt, function(isCreated) {
 					if (isCreated) {
-						callback('Created');
+						res.status(201);
 					} else {
-						callback('Not created');
+						res.status(500);
 					}
+					res.send();
 				});
 			}
 		});
 	},
 
-	login: function(username, password, lastLoginAt, callback) {
-		var user = new User(null, username, password);
-		user.get(password, function(data, isPasswordCorrect) {
-			if (data !== undefined) {
-				if (isPasswordCorrect) {
-					user.updateUser(username, lastLoginAt, 1);
-					callback('OK');
+	login: function(req, res) {
+		var username = req.params.username;
+		var password = req.body.password;
+		var lastLoginAt = req.body.lastLoginAt;
+		User.get(username, function(user, actualPassword) {
+			if (user !== undefined) {
+				if (password === actualPassword) {
+					User.updateUser(username, lastLoginAt, true);
+					res.status(200);
 				} else {
-					callback('Unauthorized');
+					res.status(401);
 				}
 			} else {
-				callback('Not Found');
+				res.status(404);
 			}
-		})
+			res.send();
+		});
 	},
 
-	logout: function(username, callback) {
-		var user = new User(null, username, null);
-		user.logout(function(isLoggedIn) {
-			if (isLoggedIn) {
-				user.updateUser(username, null, 0);
-				callback('OK');
+	logout: function(req, res) {
+		var username = req.params.username;
+		User.logout(username, function(isLoggedIn, error) {
+			if (error) {
+				res.status(500);
 			} else {
-				callback('Bad Request');
+				if (isLoggedIn) {
+					User.updateUser(username, null, false);
+					res.status(200);
+				} else {
+					res.status(400);
+				}
 			}
+			res.send();
 		});
 	}
 } 
