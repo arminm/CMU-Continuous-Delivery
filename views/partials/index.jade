@@ -5,21 +5,23 @@ form#loginForm.form-horizontal(name="loginForm", ng-controller="homePageControll
   fieldset
     div.form-group
       div.col-lg-10
-        input#username.form-control(name="username", placeholder='Username', type='text', ng-minlength='3', autocomplete='off', required, ng-model='loginData.username', reserved-username)
+        input#username.form-control(name="username", placeholder='Username', type='text', ng-minlength='3', autocomplete='off', required, ng-model='formData.username', reserved-username, server-error)
         div(ng-messages="loginForm.username.$error")
           div.invalid(ng-message='minlength') Username must be at least 3 characters long
-          div.invalid(ng-message='reservedUsername') {{username}} is a reserved username
+          div.invalid(ng-message='reservedUsername') {{formData.username}} is a reserved username
+          div.invalid(ng-message='server') {{formError.username}}
     div.form-group
       div.col-lg-10
-        input#password.form-control(name="password", placeholder='Password', type='password', ng-minlength='4', autocomplete='off', required, ng-model='loginData.password')
+        input#password.form-control(name="password", placeholder='Password', type='password', ng-minlength='4', autocomplete='off', required, ng-model='formData.password', server-error)
         div(ng-messages="loginForm.password.$error")
           div.invalid(ng-message='minlength') Password must be at least 4 characters long
-    div.form-group.animate-hide(ng-show='loginData.isRegistration')
+          div.invalid(ng-message='server') {{formError.password}}
+    div.form-group.animate-hide(ng-show='formData.isRegistration')
       div.col-lg-10
-        input#confirmPassword.form-control(name="confirmPassword", placeholder='Confirm Password', type='password', autocomplete='off', required, ng-model='loginData.passwordConfirm', first-password='{{ password }}', password-equality)
+        input#confirmPassword.form-control(name="confirmPassword", placeholder='Confirm Password', type='password', autocomplete='off', ng-model='formData.passwordConfirm', first-password='{{ formData.password }}', password-equality)
         div(ng-messages="loginForm.confirmPassword.$error")
           div.invalid(ng-message='passwordEquality') Passwords must match
-    div.form-group.animate-hide(ng-show='loginData.isRegistration')
+    div.form-group.animate-hide(ng-show='formData.isRegistration')
       div.col-lg-10
         input#inputFullname.form-control(placeholder='Full Name (optional)', type='text', ng-model='fullnameInput', autocomplete='off')
     div.form-group
@@ -27,7 +29,8 @@ form#loginForm.form-horizontal(name="loginForm", ng-controller="homePageControll
         button.btn.btn-info(ng-click='login()') Login
         span(style='padding-right: 10px')
         button.btn.btn-primary(ng-click='register()') Register
-
+      div(ng-messages="loginForm.$error")
+        div.invalid(ng-message='server') {{formError.generic}}
 
 
     

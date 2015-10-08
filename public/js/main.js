@@ -13,3 +13,15 @@ app.config(['$routeProvider',
         redirectTo: '/'
       });
   }]);
+
+app.directive('serverError', function (){ 
+ return {
+    require: '?ngModel',
+    link: function(scope, elem, attr, ngModel) {
+        elem.bind('keyup change', function () {
+          ngModel.$setValidity('server', true);
+          scope.formError.generic = '';
+        });
+    }
+ };
+});
