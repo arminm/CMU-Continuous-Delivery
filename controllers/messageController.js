@@ -1,5 +1,8 @@
 var User = require('../models/user.js');
 var Message = require('../models/message.js');
+var io = require('../bin/www');
+
+console.log(io);
 
 module.exports = {
 	postMessage: function(req, res) {
@@ -23,6 +26,7 @@ module.exports = {
 				res.status(404);
 				res.send();
 			}
+			io.broadcast.emit('public message', "hello world");
 		});
 	},
 
