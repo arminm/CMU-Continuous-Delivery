@@ -1,8 +1,6 @@
 var User = require('../models/user.js');
 var Message = require('../models/message.js');
-var io = require('../bin/www');
-
-console.log(io);
+var io = require('../io.js');
 
 module.exports = {
 	postMessage: function(req, res) {
@@ -18,6 +16,7 @@ module.exports = {
 				Message.create(messageInfo, function() {
 					res.status(201);
 					res.send();
+					io.sockets.emit('public message', "hello world");
 				});
 			} else if (error) {
 				res.status(500);
@@ -26,7 +25,6 @@ module.exports = {
 				res.status(404);
 				res.send();
 			}
-			io.broadcast.emit('public message', "hello world");
 		});
 	},
 
