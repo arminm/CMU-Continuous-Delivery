@@ -1,5 +1,4 @@
-angular.module('myApp')
-  .directive('reservedUsername', function (){ 
+app.directive('reservedUsername', function (){ 
    return {
       require: '?ngModel',
       link: function(scope, elem, attr, ngModel) {

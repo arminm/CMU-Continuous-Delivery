@@ -7,7 +7,7 @@ app.config(['$routeProvider',
         templateUrl: 'partials/lobby.jade'
       }).
       when('/', {
-        templateUrl: 'partials/index.jade',
+        templateUrl: 'partials/index.jade'
       }).
       otherwise({
         redirectTo: '/'
