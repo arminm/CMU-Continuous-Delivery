@@ -5,3 +5,6 @@
 # ignore node_modules
 node_modules/*
 public/libs/*
+
+# ignore log files
+npm-debug.log
