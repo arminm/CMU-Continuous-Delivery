@@ -22,7 +22,7 @@ app.directive('reservedUsername', function (){
       }
    };
   })
-  .controller('homePageController', function($scope) {
+  .controller('homePageController', function($scope, $location, JoinCommunity) {
     $scope.formData = {
       isRegistration: '',
       username: '',
@@ -30,17 +30,35 @@ app.directive('reservedUsername', function (){
       confirmPassword: '',
       fullName: ''
     };
+    $scope.formError = {
+      username: '',
+      password: '',
+      generic: ''
+    };
     $scope.register = function () {
       if ($scope.formData.isRegistration) {
         // Call factory
-        if (($scope.formData.password != nil) && ($scope.formData.password != nil) && ($scope.formData.confirmPassword != nil)) {
+        if (($scope.formData.username != null) && ($scope.formData.password != null) && ($scope.formData.confirmPassword != null)) {
           var registerData = {
             password: $scope.formData.password,
             fullName: $scope.formData.fullName,
             createdAt: Date.now()
           };
+          JoinCommunity.register($scope.formData.username, registerData)
+            .success(function(data, status, headers, config) {
+              // UserService.firstTimeUser = (status == '201' ?: false);
+              $location.path('/lobby');
+            })
+            .error(function(data, status, headers, config) {
+              if (status == '401') {
+                $scope.formError.username = "Please enter a different username";
+                $scope.loginForm.username.$setValidity('server', false);
+              } else {
+                $scope.formError.generic = "Something went wrong. Please try again.";
+                $scope.loginForm.$setValidity('server', false);
+              }
+            });
         }
-
       } else {
         $scope.formData.isRegistration = true;
       }
@@ -48,10 +66,30 @@ app.directive('reservedUsername', function (){
     $scope.login = function () {
       $scope.formData.isRegistration = false;
       // Call factory
-      var loginData = {
-        password: $scope.formData.password,
-        lastLoginAt: Date.now()
-      };
+      if (($scope.formData.username != null) && ($scope.formData.password != null)) {
+        var loginData = {
+          password: $scope.formData.password,
+          lastLoginAt: Date.now()
+        };
+        JoinCommunity.login($scope.formData.username, loginData)
+          .success(function(data, status, headers, config) {
+            // Go to next page
+            $location.path('/lobby');
+          })
+          .error(function(data, status, headers, config) {
+              if (status == '401') {
+                $scope.formError.password = "Your password is wrong";
+                $scope.loginForm.password.$setValidity('server', false);
+              } else if (status == '404') {
+                $scope.formError.generic = "User not found.";
+                $scope.loginForm.$setValidity('server', false);
+              } else {
+                $scope.formError.generic = "Something went wrong. Please try again.";
+                $scope.loginForm.$setValidity('server', false);
+              }
+          });
+      }
+
     };
   });
 
