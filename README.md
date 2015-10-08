@@ -1,6 +1,6 @@
 # Fantastic4 SSNoC
 
-A Standalone Social Network on a Chip!
+A Survivable Social Network on a Chip!
 
 ## GitHub
 
