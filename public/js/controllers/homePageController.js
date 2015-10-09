@@ -23,7 +23,7 @@ angular.module('myApp')
       }
    };
   })
-  .controller('homePageController', function($scope, $location, JoinCommunity, Socket) {
+  .controller('homePageController', function($scope, $location, JoinCommunity, User, Socket) {
     $scope.formData = {
       isRegistration: '',
       username: '',
@@ -47,7 +47,8 @@ angular.module('myApp')
           };
           JoinCommunity.register($scope.formData.username, registerData)
             .success(function(data, status, headers, config) {
-              // UserService.firstTimeUser = (status == '201' ?: false);
+              User.setFirstTimeUser((status == '201'));
+              User.setUsername($scope.formData.username);
               $location.path('/lobby');
             })
             .error(function(data, status, headers, config) {
@@ -74,8 +75,12 @@ angular.module('myApp')
         };
         JoinCommunity.login($scope.formData.username, loginData)
           .success(function(data, status, headers, config) {
+<<<<<<< HEAD
             // Join a private room
             Socket.emit('join', data.username);
+=======
+            User.setUsername($scope.formData.username);
+>>>>>>> [See Directory: Front End] Add UserService to pass data between controllers and add call to get all users
             // Go to next page
             $location.path('/lobby');
           })
