@@ -17,10 +17,12 @@ module.exports = {
 					if (error) {
 						res.status(500);
 						res.send();
-					} else {
+					} else if (messageId) {
 						io.broadcast('messages', messageId, 'created', messageInfo.author, messageInfo.target);
 						res.status(201);
 						res.send();
+					} else {
+						res.status(500).send();
 					}
 				});
 			} else if (error) {

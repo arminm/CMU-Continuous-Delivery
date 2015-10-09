@@ -75,12 +75,9 @@ angular.module('myApp')
         };
         JoinCommunity.login($scope.formData.username, loginData)
           .success(function(data, status, headers, config) {
-<<<<<<< HEAD
             // Join a private room
             Socket.emit('join', data.username);
-=======
             User.setUsername($scope.formData.username);
->>>>>>> [See Directory: Front End] Add UserService to pass data between controllers and add call to get all users
             // Go to next page
             $location.path('/lobby');
           })

@@ -4,24 +4,32 @@ var utils = require('../utilities.js');
 
 module.exports = {
 	create: function(info, callback) {
+		if (info.content === '') {
+			callback();
+			return;
+		}
 		db.run('INSERT INTO messages (content, author, messageType, target, createdAt) VALUES ($1, $2, $3, $4, $5);', { 
-				$1: info.content, 
-				$2: info.author, 
-				$3: info.messageType, 
-				$4: info.target, 
-				$5: info.createdAt 
-			},function() {
+			$1: info.content, 
+			$2: info.author, 
+			$3: info.messageType, 
+			$4: info.target, 
+			$5: info.createdAt 
+		},function(error) {
+			if (error) {
+				callback(null, error);
+			} else {
 				db.get('SELECT MAX(id) as id FROM messages', function(error, row) {
 					if (error) {
 						console.log(error);
 						callback(null, error);
 					} else if (row) {
-  					callback(row.id);
+  						callback(row.id);
 					} else {
 						callback();
-  				}
-  			});
-		});
+					}
+  				});
+  			}
+  		});
 	},
 
 	getAllMessages: function(messageType, callback) {
@@ -31,8 +39,9 @@ module.exports = {
 				if (error) {
 					console.log(error);
 					callback(null, error);
+				} else {
+					messages.push(utils.replacer(row, ['id', 'messageType']));
 				}
-				messages.push(utils.replacer(row, ['id', 'messageType']));
 			}, function() {
 				callback(messages, null);
 			}
