@@ -8,4 +8,6 @@ router.post('/:author', messageController.postMessage);
 // GET all messages (parameter messageType should be provided)
 router.get('/', messageController.getAllMessages);
 
+router.get('/:id', messageController.getMessage);
+
 module.exports = router;

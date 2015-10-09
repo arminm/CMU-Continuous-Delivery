@@ -33,18 +33,19 @@ module.exports = {
 		var username = req.params.username;
 		var password = req.body.password;
 		var lastLoginAt = req.body.lastLoginAt;
-		User.get(username, function(user, actualPassword) {
-			if (user !== undefined) {
+		User.get(username, function(user, actualPassword, error) {
+			if (error) {
+				res.status(500).send();
+			} else if (user !== undefined) {
 				if (password === actualPassword) {
 					User.updateUser(username, lastLoginAt, true);
-					res.status(200);
+					res.status(200).send(user);
 				} else {
-					res.status(401);
+					res.status(401).send();
 				}
 			} else {
-				res.status(404);
+				res.status(404).send();
 			}
-			res.send();
 		});
 	},
 

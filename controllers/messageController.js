@@ -1,5 +1,6 @@
 var User = require('../models/user.js');
 var Message = require('../models/message.js');
+var io = require('../io.js');
 
 module.exports = {
 	postMessage: function(req, res) {
@@ -12,9 +13,15 @@ module.exports = {
 		}
 		User.get(req.params.author, function(user, password, error) {
 			if (user) {
-				Message.create(messageInfo, function() {
-					res.status(201);
-					res.send();
+				Message.create(messageInfo, function(messageId, error) {
+					if (error) {
+						res.status(500);
+						res.send();
+					} else {
+						io.broadcast('messages', messageId, 'created', messageInfo.author, messageInfo.target);
+						res.status(201);
+						res.send();
+					}
 				});
 			} else if (error) {
 				res.status(500);
@@ -34,6 +41,18 @@ module.exports = {
 			} else {
 				res.status(200);
 				res.send(messages);
+			}
+		});
+	},
+
+	getMessage: function(req, res) {
+		Message.getMessage(req.params.id, function(message, error) {
+			if (error) {
+				res.status(500);
+				res.send();
+			} else {
+				res.status(200);
+				res.send(message);
 			}
 		});
 	}

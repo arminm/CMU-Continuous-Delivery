@@ -1,4 +1,5 @@
-app.directive('reservedUsername', function (){ 
+angular.module('myApp')
+  .directive('reservedUsername', function (){ 
    return {
       require: '?ngModel',
       link: function(scope, elem, attr, ngModel) {
@@ -22,7 +23,7 @@ app.directive('reservedUsername', function (){
       }
    };
   })
-  .controller('homePageController', function($scope, $location, JoinCommunity) {
+  .controller('homePageController', function($scope, $location, JoinCommunity, Socket) {
     $scope.formData = {
       isRegistration: '',
       username: '',
@@ -73,6 +74,8 @@ app.directive('reservedUsername', function (){
         };
         JoinCommunity.login($scope.formData.username, loginData)
           .success(function(data, status, headers, config) {
+            // Join a private room
+            Socket.emit('join', data.username);
             // Go to next page
             $location.path('/lobby');
           })

@@ -8,10 +8,15 @@ module.exports = {
 				console.log(error);
 				callback(false, error);
 			} else {
-				var stmt = db.prepare('INSERT INTO users (fullName, username, password, createdAt, isOnline) VALUES (?, ?, ?, ?, ?);');
-  				stmt.run(fullName, username, password, createdAt, true);
-  				stmt.finalize();
-  				callback(true);
+				db.run('INSERT INTO users (fullName, username, password, createdAt, isOnline) VALUES ($1, $2, $3, $4, $5);', {
+					$1: fullName,
+					$2: username,
+					$3: password,
+					$4: createdAt,
+					$5: true
+				}, function() {
+					callback(true);
+				});
 			}
 		});
 	},
@@ -21,7 +26,7 @@ module.exports = {
 			if (error) {
 				console.log(error);
 				callback(null, null, error);
-			} else if (row !== undefined) {
+			} else if (row) {
 				var user = utils.replacer(row, ['id', 'password']);
 				callback(user, row.password);
 			} else {
@@ -34,13 +39,15 @@ module.exports = {
 		var users = [];
 		db.each("SELECT * FROM users;", 
 			function(error, row) {
-				if (row === undefined) {
-					callback();
-				} else if (error) {
+				if (error) {
 					console.log(error);
 					callback(null, error);
 				}
-				users.push(utils.replacer(row, ['id', 'password']));
+				else if (row) {
+					users.push(utils.replacer(row, ['id', 'password']));
+				} else {
+					callback();
+				}
 			}, function() {
 				callback(users, null);
 			}
