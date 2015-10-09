@@ -28,7 +28,7 @@ form#loginForm.form-horizontal(name="loginForm", ng-controller="homePageControll
       span.col-lg-10
         button.btn.btn-info(ng-click='login()') Login
         span(style='padding-right: 10px')
-        button.btn.btn-primary(ng-click='register()') Register
+        button.btn.btn-warning(ng-click='register()') Register
       div(ng-messages="loginForm.$error")
         div.invalid(ng-message='server') {{formError.generic}}
 

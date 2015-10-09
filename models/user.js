@@ -14,8 +14,12 @@ module.exports = {
 					$3: password,
 					$4: createdAt,
 					$5: true
-				}, function() {
-					callback(true);
+				}, function(error) {
+					if (error) {
+						callback(false, error);
+					} else {
+						callback(true);
+					}
 				});
 			}
 		});
@@ -42,8 +46,7 @@ module.exports = {
 				if (error) {
 					console.log(error);
 					callback(null, error);
-				}
-				else if (row) {
+				} else if (row) {
 					users.push(utils.replacer(row, ['id', 'password']));
 				} else {
 					callback();
@@ -55,7 +58,7 @@ module.exports = {
 	},
 
 	updateUser: function(username, lastLoginAt, isOnline) {
-		db.run("UPDATE users SET lastLoginAt = " + lastLoginAt + ", isOnline = '" + isOnline + "' WHERE username = '" + username + "';");
+		db.run("UPDATE users SET lastLoginAt = ?, isOnline = ? WHERE username = ?;", lastLoginAt, isOnline, username);
 	},
 
 	logout: function(username, callback) {

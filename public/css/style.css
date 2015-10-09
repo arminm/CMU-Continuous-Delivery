@@ -31,3 +31,59 @@ h3{
 	text-align: left;
 }
 
+#logoutButton {
+	float: right !important;
+}
+
+#theUser {
+	background:#772953;
+	color:#fff;
+	font-size:16px;
+	height:40px
+}
+#onlineUser{
+	background:#fcf8e3;
+	font-size:16px;
+	height:40px
+}
+#offlineUser{
+	background:#f5f5f5;
+	font-size:16px;
+	height:40px
+}
+#welcomemessage{
+	width:65%; 
+	margin-top:30px; 
+	margin-left:17.5%
+}
+
+#scrollingMessages {
+	overflow: scroll;
+	height: 400px;
+	margin: 5px;
+}
+
+.messages { 
+	padding: 5px 10px; 
+	background-color: #cdcdcd;
+	opacity: 0.6;
+	border-radius: 10px;
+	margin: 5px 0 5px 0;
+	float: left;
+	width: 100%;
+}
+
+.timestamp {
+	float: right;
+}
+
+.msg {
+	font-size: 18px;
+	color: #000;
+	display: inline-table;
+	width: 100%;
+}
+
+.username {
+	font-weight: bold;
+}
