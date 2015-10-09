@@ -14,7 +14,7 @@ angular.module('UserService', []).service('User', function () {
       this.isFirstTimeUser = value;
     };
 
-    this.getFirstTimeUser = function() {
+    this.checkFirstTimeUser = function() {
       return this.isFirstTimeUser;
     };
 });

@@ -8,6 +8,9 @@ angular.module('MainService', []).factory('JoinCommunity', function($http) {
             },
             allUsers : function() {
                 return $http.get('/users');
+            },
+            logout : function(username) {
+                return $http.get('/logout/' + username);
             }
         }
     });
