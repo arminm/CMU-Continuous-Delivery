@@ -31,3 +31,29 @@ h3{
 	text-align: left;
 }
 
+#logoutButton {
+	margin-left: 40%;
+	margin-top: 40%;
+}
+
+#theUser {
+	background:#772953;
+	color:#fff;
+	font-size:16px;
+	height:40px
+}
+#onlineUser{
+	background:#fcf8e3;
+	font-size:16px;
+	height:40px
+}
+#offlineUser{
+	background:#f5f5f5;
+	font-size:16px;
+	height:40px
+}
+#welcomemessage{
+	width:65%; 
+	margin-top:30px; 
+	margin-left:17.5%
+}
