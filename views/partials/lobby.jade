@@ -1,37 +1,72 @@
-script(src='/js/controllers/lobbyPageController.js')
-h3 User: {{inputUsername}}  Status:
-div.progress
-  div.progress-bar.progress-bar-info(style='width: 100%')
-form#welcomeMessageForm.form-horizontal
-  button.close(type='button',data-dismiss='alert') ×
-  fieldset
-    h3 Welcome,{{inputUsername}}!
-    p This is a <strong><em>Survivable Social Network on a Chip (SSNoC)</em></strong> which can help you in emergency. The first thing you'd better do is to <strong><em>share your status</em></strong> to let others know the situation.
-    p.text-primary The categories of status:
-    table.table.table-striped.table-hover
-      thead
-        tr
-        th Status
-        th Explanation
-        th Color Code
-        tr
-      tbody
-        tr
-        td OK
-        td I am OK, I do not need help.
-        td.text-success Green
-        tr
-        td Help
-        td I need help, but this is not a life threatening emergency.
-        td.text-warning Yellow
-        tr
-        td Emergency
-        td I need help now, as this is a life threatening emergency!
-        td.text-danger    Red
-        tr
-        td Undefined
-        td The user has not been providing her status yet.
-        td 
-    p.text-primary How to share your status:
-    p Step 1: Elect to share status
-    p Step 2: Select one from the set of statuses the system proposes
+div(ng-controller='lobbyPageController')
+    nav.navbar.navbar-inverse
+      div.container-fluid
+        div.navbar-header
+          button.navbar-toggle.collapsed(type="button",data-toggle="collapse",data-target="#bs-example-navbar-collapse-2")
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href="#") User: {{username}}
+        div.collapse.navbar-collapse(id="bs-example-navbar-collapse-2")
+          ul.nav.navbar-nav
+            li
+              a(href="#") Share status
+            li
+              a(href="#") Account
+            li
+              a(href="#") Help
+            form.navbar-form.navbar-left(role="search")
+              div.form-group
+                input.form-control(type="text", placeholder="Search Username...")
+              button.btn.btn-warning(type="submit") Find
+          ul.nav.navbar-nav.navbar-right
+            li.active
+              a(href="#") Inbox 
+                span.badge 143
+            li
+              a(href="/") Log out
+    div
+      div(style='width:30%')
+        accordion(close-others='oneAtATime')
+          accordion-group(heading='Directory')
+            div(style='background:#772953;color:#fff;font-size:16px;height:40px') {{username}}
+            div.divider
+            div(ng-repeat='onlineitem in onlineitems',style='background:#fcf8e3;font-size:16px;height:40px') {{onlineitem}}
+            div.divider
+            div(ng-repeat='offlineitem in offlineitems',style='background:#f5f5f5;font-size:16px;height:40px') {{offlineitem}}
+      div.alert.alert-dismissible.alert-warning.animate-hide(ng-show='firstwelcome',style='width:65%; margin-top:-20px; margin-left:17.5%')
+        button.close(type='button',data-dismiss='alert',ng-click='closewelcome()') ×
+        h3 Welcome, {{username}}!
+        p This is a <strong><em>Survivable Social Network on a Chip (SSNoC)</em></strong> which can help you in emergency. The first thing you'd better do is to <strong><em>share your status</em></strong> to let others know the situation.
+        p.text-primary The categories of status:
+        table.table.table-striped.table-hover
+          thead
+            tr
+            th Status
+            th Explanation
+            th Color Code
+            tr
+          tbody
+            tr
+            td OK
+            td I am OK, I do not need help.
+            td.text-success Green
+            tr
+            td Help
+            td I need help, but this is not a life threatening emergency.
+            td.text-warning Yellow
+            tr
+            td Emergency
+            td I need help now, as this is a life threatening emergency!
+            td.text-danger    Red
+            tr
+            td Undefined
+            td The user has not been providing her status yet.
+            td 
+        p.text-primary How to share your status:
+        p Step 1: Elect to share status
+        p Step 2: Select one from the set of statuses the system proposes
+    div.input-group(style='position:fixed; bottom:0;width:99%')
+      input.form-control(type='text',style='width:91%')
+      button.btn.btn-warning(type='button',style='width:8%') Send
