@@ -4,7 +4,12 @@ var joinCommunityController = require('../controllers/joinCommunityController.js
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'SSNoC' });
+  res.render('layout', { title: 'SSNoC' });
+});
+
+router.get('/partials/:name', function (req, res) {
+  var name = req.params.name;
+  res.render('partials/' + name);
 });
 
 // handle signup

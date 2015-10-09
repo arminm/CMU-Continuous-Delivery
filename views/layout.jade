@@ -8,6 +8,10 @@ html(ng-app="myApp")
   body
     script(src='/libs/angular/angular.js')
     script(src='/libs/angular-bootstrap/ui-bootstrap-tpls.js')
+    script(src='/libs/angular-route/angular-route.min.js')
     script(src='/libs/angular-messages/angular-messages.js')
+    script(src='/js/services/mainService.js')
     script(src='/js/main.js')
-    block content
+    script(src='/js/controllers/homePageController.js')
+    div
+        ng-view
