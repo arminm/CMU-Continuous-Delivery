@@ -5,6 +5,7 @@ io.on('connection', function(client) {
   console.log("A client has connected");
 
   client.on('join', function(username) {
+  	console.log('join: ' + username);
   	client.join(username);
   });
 
@@ -13,8 +14,8 @@ io.on('connection', function(client) {
   });
 });
 
-var formNotification = function(type, id, action) {
-	return {type: type, id: id, action: action};
+var formNotification = function(id, action) {
+	return {id: id, action: action};
 };
 
 module.exports = {
@@ -24,10 +25,10 @@ module.exports = {
 
 	broadcast: function(type, id, action, sender, receiver) {
 		if (receiver) {
-			io.sockets.in(sender).emit(type, formNotification(type, id, action));
-			io.sockets.in(receiver).emit(type, formNotification(type, id, action));
+			io.sockets.in(sender).emit(type, formNotification(id, action));
+			io.sockets.in(receiver).emit(type, formNotification(id, action));
 		} else {
-			io.sockets.emit(type, formNotification(type, id, action));
+			io.sockets.emit(type, formNotification(id, action));
 		}
 	}
 };

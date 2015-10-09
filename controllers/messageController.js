@@ -18,9 +18,9 @@ module.exports = {
 						res.status(500);
 						res.send();
 					} else {
+						io.broadcast('messages', messageId, 'created', messageInfo.author, messageInfo.target);
 						res.status(201);
 						res.send();
-						io.broadcast('messages', messageId, 'created', messageInfo.author, messageInfo.target);
 					}
 				});
 			} else if (error) {
