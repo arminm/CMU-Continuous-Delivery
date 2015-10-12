@@ -49,17 +49,14 @@ angular.module('myApp')
 		});
 	};
 	$scope.logout = function () {
+		// When the user opts to logout, take them to home page and clear user data regardless the call's status
 		JoinCommunity.logout(User.getUsername())
-		.success(function(data, status, headers, config) {
-			$location.path('/');
+		.success(function(data, status, headers, config) {	
 		})
 		.error(function(data, status, headers, config) {
-			if (status == '400') {
-				$scope.formError.generic = "The user is not logged out";
-			} else {
-				$scope.formError.generic = "Something went wrong. Please try again.";
-			}
 		});
+		$location.path('/');
+		User.reset();
 	};
 	$scope.getAllMessages = function () {
 		Message.getAll('WALL')
