@@ -24,8 +24,8 @@ div(ng-controller='lobbyPageController')
           div.username {{ msg.author}}
           div {{ msg.content}}
       div.input-group(style='position:inherit; width:99%')
-          input.form-control(type='text',style='width:89%', ng-model="messageInput")
-          button.btn.btn-warning(type='button',style='width:10%', ng-click="send()") Send
+          input.form-control(type='text',style='width:80%', ng-model="messageInput")
+          button.btn.btn-warning(type='button', style='width:20%', ng-click="send()") Send
     div.animate-hide(ng-show='seesettings')
       button.btn.btn-warning#logoutButton(ng-click="logout()") Log out
     div.animate-hide(ng-show='firstwelcome')
