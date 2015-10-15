@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var userController = require('../controllers/statusController.js');
+var statusController = require('../controllers/statusController.js');
 
 // POST a new status for the specified user
 router.post('/:username', statusController.changeStatus);
