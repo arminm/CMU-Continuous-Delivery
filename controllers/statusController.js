@@ -15,8 +15,8 @@ module.exports = {
 					if (error) {
 						res.status(500);
 						res.send();
-					} else if (crumbId) {
-						io.broadcast('status', crumbId, 'created', statusInfo.username, statusInfo.statusCode);
+					} else if (crumbID) {
+						io.broadcast('status', crumbID, 'created', statusInfo.username, null);
 						res.status(201);
 						res.send();
 					} else {
@@ -59,6 +59,18 @@ module.exports = {
 	},
 
 	getStatusCrumb: function(req, res) {
-
+		var id = req.params.id;
+		Status.getStatusCrumb(req.params.id, function(statusCrumb, error) {
+			if (error) {
+				res.status(500);
+				res.send();
+			} else if (statusCrumb) {
+				res.status(200);
+				res.send(statusCrumb);
+			} else {
+				res.status(404);
+				res.send();
+			}
+		});
 	}
 } 

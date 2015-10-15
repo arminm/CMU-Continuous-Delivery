@@ -52,9 +52,12 @@ module.exports = {
 			if (error) {
 				res.status(500);
 				res.send();
-			} else {
+			} else if (message) {
 				res.status(200);
 				res.send(message);
+			} else {
+				res.status(404);
+				res.send();
 			}
 		});
 	}
