@@ -1,18 +1,17 @@
-var app = angular.module('myApp',['ngRoute', 'ngMessages', 'ui.bootstrap', 'MainService', 'UserService', 'socketService', 'MessageService']);
+var app = angular.module('myApp',['ui.router', 'ngMessages', 'ui.bootstrap', 'MainService', 'UserService', 'socketService', 'MessageService']);
 
-app.config(['$routeProvider',
-  function($routeProvider) {
-    $routeProvider.
-      when('/lobby', {
-        templateUrl: 'partials/lobby.jade'
-      }).
-      when('/', {
-        templateUrl: 'partials/index.jade'
-      }).
-      otherwise({
-        redirectTo: '/'
-      });
-  }]);
+app.config(function($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('/');
+    $stateProvider
+        .state('home', {
+            url: '/',
+            templateUrl: 'partials/index.jade'
+        })
+        .state('lobby', {
+            url: '/lobby',
+            templateUrl: 'partials/lobby.jade'
+        })
+});
 
 app.directive('serverError', function (){ 
  return {

@@ -9,7 +9,7 @@ html(ng-app="myApp")
   body
     script(src='/libs/angular/angular.js')
     script(src='/libs/angular-bootstrap/ui-bootstrap-tpls.js')
-    script(src='/libs/angular-route/angular-route.min.js')
+    script(src='/libs/angular-ui-router/release/angular-ui-router.min.js')
     script(src='/libs/angular-messages/angular-messages.js')
     script(src='/js/services/mainService.js')
     script(src='/js/services/userService.js')
@@ -19,5 +19,4 @@ html(ng-app="myApp")
     script(src='/socket.io/socket.io.js')
     script(src='/js/socket.js')
     script(src='/js/controllers/lobbyPageController.js')
-    div
-        ng-view
+    div(ui-view)
