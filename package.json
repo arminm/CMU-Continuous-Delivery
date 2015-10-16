@@ -22,6 +22,9 @@
   "description": "--------- Coming Soon!",
   "main": "app.js",
   "devDependencies": {
+    "expect": "^1.12.2",
+    "grunt": "^0.4.5",
+    "grunt-mocha-test": "^0.12.7",
     "should": "^7.1.0"
   },
   "repository": {

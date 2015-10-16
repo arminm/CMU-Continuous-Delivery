@@ -1,24 +1,24 @@
 var assert = require("assert");
 var sqlite3 = require("sqlite3").verbose();
 
-describe('Database', function() {
+suite('Database', function() {
   var db;
   var username = 'testUsername';
   var password = '123456';
   var now = new Date();
-  before(function() {
+  setup(function() {
     // Connect to database
     db = new sqlite3.Database('ssnoc-dev.db');
   });
   
-  after(function() {
+  teardown(function() {
     // Clean up
     db.run("DELETE FROM users WHERE username='" + username + "'");
     db.close();
   });
 
-  describe('#checkDB', function() {
-    it('should correctly insert and retrieve a new user into database', function(done) {
+  suite('Test Users', function() {
+    test('Store and retrieve a new user', function(done) {
       db.serialize(function () {
         // insert a test user into the database
         var stmt = db.prepare('INSERT INTO users (username, password, createdAt) VALUES (?, ?, ?)');
