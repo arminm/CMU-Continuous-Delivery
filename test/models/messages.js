@@ -65,14 +65,14 @@ suite('Messages: Model', function() {
   });
 
   test('Get all messages for WALL', function(done) {
-    Message.getAllMessages("WALL", function(messages, error) {
+    Message.getAllMessages("WALL", undefined, undefined, function(messages, error) {
       expect(messages).to.have.length(2);
       done();
     });
   });
 
   test('Do not get messages that are not for WALL', function(done) {
-    Message.getAllMessages("WALL", function(messages, error) {
+    Message.getAllMessages("WALL", undefined, undefined, function(messages, error) {
       expect(messages).to.not.contain({
         content: "Hello", 
         author: "john", 

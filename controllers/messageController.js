@@ -18,7 +18,7 @@ module.exports = {
 						res.status(500);
 						res.send();
 					} else if (messageId) {
-						io.broadcast('messages', messageId, 'created', messageInfo.author, messageInfo.target);
+						io.broadcast(messageInfo.messageType, messageId, 'created', messageInfo.author, messageInfo.target);
 						res.status(201);
 						res.send();
 					} else {
@@ -36,7 +36,7 @@ module.exports = {
 	},
 
 	getAllMessages: function(req, res) {
-		Message.getAllMessages(req.query.messageType, function(messages, error) {
+		Message.getAllMessages(req.query.messageType, req.query.sender, req.query.receiver, function(messages, error) {
 			if (error) {
 				res.status(500);
 				res.send();

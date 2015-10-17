@@ -47,7 +47,7 @@ suite('Messages: REST', function() {
 		client.post("http://localhost:4444/messages/armin", args, function(data,response) {
     	expect(response.statusCode).to.eql(201);
     	done();
-		});
+		});	
 	});
 
 	test('Post a new message with a non-existing user', function(done) {
