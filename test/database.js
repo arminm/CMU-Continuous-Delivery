@@ -1,11 +1,12 @@
-var assert = require("assert");
-var sqlite3 = require("sqlite3").verbose();
+var expect = require('expect.js');
+var sqlite3 = require('sqlite3').verbose();
 
 suite('Database', function() {
   var db;
   var username = 'testUsername';
   var password = '123456';
   var now = new Date();
+
   setup(function() {
     // Connect to database
     db = new sqlite3.Database('ssnoc-dev.db');
@@ -26,9 +27,9 @@ suite('Database', function() {
         stmt.finalize();
         //check that the user can be retrieved from the database
         db.get("SELECT username, password, createdAt FROM users WHERE username='" + username + "'", function(err, row) {
-          assert.equal(username, row.username);
-          assert.equal(password, row.password);
-          assert.equal(now.getTime(), row.createdAt);
+          expect(row.username).to.eql(username);
+          expect(row.password).to.eql(password);
+          expect(now.getTime()).to.eql(row.createdAt);
           // Very important to call done(); since calls are asynchronous
           done(); 
         });

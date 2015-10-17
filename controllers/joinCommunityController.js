@@ -38,8 +38,16 @@ module.exports = {
 				res.status(500).send();
 			} else if (user !== undefined) {
 				if (password === actualPassword) {
-					User.updateUser(username, lastLoginAt, true);
-					res.status(200).send(user);
+					User.updateUser(username, lastLoginAt, true, function(isUpdated, error) {
+						if (error) {
+							res.status(500).send();
+						}
+						else if (isUpdated) {
+							res.status(200).send(user);
+						} else {
+							res.status(500);
+						}
+					});
 				} else {
 					res.status(401).send();
 				}
@@ -56,8 +64,16 @@ module.exports = {
 				res.status(500);
 			} else {
 				if (isLoggedIn) {
-					User.updateUser(username, null, false);
-					res.status(200);
+					User.updateUser(username, null, false, function(isUpdated, error) {
+						if (error) {
+							res.status(500).send();
+						}
+						else if (isUpdated) {
+							res.status(200).send(user);
+						} else {
+							res.status(500);
+						}
+					});
 				} else {
 					res.status(400);
 				}

@@ -58,7 +58,13 @@ module.exports = {
 	},
 
 	updateUser: function(username, lastLoginAt, isOnline) {
-		db.run("UPDATE users SET lastLoginAt = ?, isOnline = ? WHERE username = ?;", lastLoginAt, isOnline, username);
+		db.run("UPDATE users SET lastLoginAt = ?, isOnline = ? WHERE username = ?;", lastLoginAt, isOnline, username, function(error) {
+			if (error) {
+				callback(false, error);
+			} else {
+				callback(true);
+			}
+		});
 	},
 
 	logout: function(username, callback) {
