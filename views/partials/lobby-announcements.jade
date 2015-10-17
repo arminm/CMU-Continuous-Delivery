@@ -1,0 +1,15 @@
+div(ng-controller='lobbyPageController')
+  nav.navbar.navbar-inverse.navbar-fixed-top
+    div.navbar-header
+      div.navbar-brand{{username}}
+      button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse', ng-click="directory()")
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      div#logoutButton
+        a.btn.btn-warning(ng-click="logout()") Log out
+    div.navbar-collapse.collapse
+      ul.nav.navbar-nav
+        li#onlineUser(ng-repeat="onlineitem in onlineitems | orderBy: 'username'") {{onlineitem.username}}
+        li#offlineUser(ng-repeat="offlineitem in offlineitems | orderBy: 'username'") {{offlineitem.username}}
+  div I am an announcement.

@@ -26,9 +26,6 @@ angular.module('myApp')
 	$scope.directory = function () {
 		$scope.onlineitems = [];
 		$scope.offlineitems = [];
-		$scope.seedirectory = true;
-		$scope.seelobby = false;
-		$scope.seesettings = false;
 		JoinCommunity.allUsers()
 		.success(function(users) {
 			// Filter the current user

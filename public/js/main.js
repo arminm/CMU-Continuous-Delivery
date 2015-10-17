@@ -11,6 +11,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/lobby',
             templateUrl: 'partials/lobby.jade'
         })
+        .state('wall', {
+            url: '/lobby/wall',
+            templateUrl: 'partials/lobby-wall.jade'
+        })
+        .state('announcements', {
+            url: '/lobby/announcements',
+            templateUrl: 'partials/lobby-announcements.jade'
+        })
 });
 
 app.directive('serverError', function (){ 
