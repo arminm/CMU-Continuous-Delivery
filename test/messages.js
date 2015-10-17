@@ -1,4 +1,3 @@
-var User = require('../models/user.js');
 var Message = require('../models/message.js');
 var expect = require('expect.js');
 var db = require('../config/db.js');
@@ -16,17 +15,19 @@ suite('Messages', function() {
       createdAt: 1231242121412
     };
 
-    Message.create(messageInfo, function(id, error) {});
+    Message.create(messageInfo, function(id, error) {
+      messageId = id;
+      done();
+    });
       
     messageInfo.content = "Hello1";
 
-    Message.create(messageInfo, function(id, error) {});
+    Message.create(messageInfo, function(id, error) {
+    });
 
     messageInfo.messageType = "CHAT";
     messageInfo.target = "john1";
     Message.create(messageInfo, function(id, error) {});
-
-    done();
   });
 
   teardown(function() {
@@ -44,7 +45,6 @@ suite('Messages', function() {
     };
 
     Message.create(messageInfo, function(id, error) {
-      messageId = id;
       expect(id).to.be.a('number');
       done();
     });
@@ -66,7 +66,7 @@ suite('Messages', function() {
 
   test('Get all messages for WALL', function(done) {
     Message.getAllMessages("WALL", function(messages, error) {
-      expect(messages).to.equal([{
+      expect(messages).to.eql([{
         content: "Hello", 
         author: "john", 
         target: null, 
@@ -93,5 +93,4 @@ suite('Messages', function() {
       done();
     });
   });
-
 });
