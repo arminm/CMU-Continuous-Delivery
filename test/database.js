@@ -9,13 +9,12 @@ suite('Database', function() {
 
   setup(function() {
     // Connect to database
-    db = new sqlite3.Database('ssnoc-dev.db');
+    db = require('../config/db.js');
   });
   
   teardown(function() {
     // Clean up
     db.run("DELETE FROM users WHERE username='" + username + "'");
-    db.close();
   });
 
   suite('Test Users', function() {

@@ -1,8 +1,8 @@
 var User = require('../models/user.js');
 var expect = require('expect.js');
-process.env['DB'] = 'dev';
 
 suite('Users', function() {
+
   test('Create a user that does not exist', function(done) {
 
     // Create a user tha does not exist
@@ -23,7 +23,7 @@ suite('Users', function() {
     });
   });
 
-  test('Get a user that exists', function(done) {
+  test('Get an existing user', function(done) {
     User.get('john', function(user, password, error) {
       expect(user).to.be.ok();
       done();
@@ -33,6 +33,13 @@ suite('Users', function() {
   test('Get a user that does not exist', function(done) {
     User.get('whatever', function(user, password, error) {
       expect(user).to.not.be.ok();
+      done();
+    });
+  });
+
+  test('Update a user\'s info', function(done) {
+    User.updateUser('john', 123123123123, true, function(isUpdated, error) {
+      expect(isUpdated).to.be.ok();
       done();
     });
   });
