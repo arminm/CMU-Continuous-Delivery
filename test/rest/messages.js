@@ -1,5 +1,5 @@
 var expect = require('expect.js');
-Client = require('node-rest-client').Client;
+var Client = require('node-rest-client').Client;
 var User = require('../../models/user.js');
 var db = require('../../config/db.js');
 var Message = require('../../models/message.js');
