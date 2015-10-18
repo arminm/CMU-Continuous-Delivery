@@ -4,10 +4,11 @@ var db = require('../../config/db.js');
 
 suite('Messages: Model', function() {
   var messageId;
+  var messageInfo;
 
   setup(function(done) {
     // Connect to database
-    var messageInfo = {
+    messageInfo = {
       content: "Hello", 
       author: "john", 
       messageType: "WALL", 
@@ -36,13 +37,8 @@ suite('Messages: Model', function() {
   });
 
   test('Create a new message', function(done) {
-    var messageInfo = {
-      content: "Hello1", 
-      author: "john", 
-      messageType: "WALL", 
-      target: null, 
-      createdAt: 1231242121412
-    };
+    messageInfo.messageType = "WALL";
+    messageInfo.target = null;
 
     Message.create(messageInfo, function(id, error) {
       expect(id).to.be.a('number');
