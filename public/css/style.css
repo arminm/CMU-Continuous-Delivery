@@ -51,10 +51,17 @@ body {
 .navbar-default .navbar-toggle.collapsed{
     background: #fff;    
 }
-
+#backtolobbyButton{
+	float: left !important;
+/*	padding-top: 6px;*/
+	padding-left: 5px;
+	font-size: 2.5em;
+}
 #logoutButton {
 	float: right !important;
-	padding: 6px;
+/*	padding: 6px;*/
+	font-size: 2.5em;
+	cursor: pointer;
 }
 
 #onlineUser{
@@ -66,8 +73,13 @@ body {
 }
 
 a {
-	color: #00B7FF;
+	color: #EFB73E;
 }
+
+/*a:hover{
+    color: #EFB73E;
+    text-decoration: none;
+}*/
 
 h1, #loginForm, input#username, input#password, input#confirmPassword, #inputFullname {
 	clear: both;
@@ -105,7 +117,11 @@ h3{
 	height: 400px;
 	margin: 5px;
 }
-
+#scrollingAnnouncements{
+	overflow: scroll;
+	height: 400px;
+	margin: 5px;
+}
 .messages { 
 	padding: 5px 10px; 
 	background-color: #cdcdcd;
@@ -126,7 +142,11 @@ h3{
 	display: inline-table;
 	width: 100%;
 }
-
+#postAnnouncementForm{
+	width: 100%;
+	margin-top: 70px;
+/*	margin-left: 5%;*/
+}
 .username {
 	font-weight: bold;
 }

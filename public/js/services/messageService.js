@@ -8,6 +8,9 @@ angular.module('MessageService', []).factory('Message', function($http) {
             },
             get : function(id) {
                 return $http.get('/messages/' + id);
+            },
+            postAnnouncement : function(username, data) {
+                return $http.post('/messages/' + username, data);
             }
         }
     });
