@@ -94,7 +94,7 @@ angular.module('myApp')
 		});
 	};
 	$scope.getAllMessages();
-	Socket.on('messages', function(data) {
+	Socket.on('WALL', function(data) {
 		console.log('messages: ' + JSON.stringify(data));
 		if (data.action === 'created') {
 			Message.get(data.id)

@@ -32,9 +32,16 @@ module.exports = {
   		});
 	},
 
-	getAllMessages: function(messageType, callback) {
+	getAllMessages: function(messageType, username1, username2, callback) {
 		var messages = [];
-		db.each("SELECT * FROM messages WHERE messageType='" + messageType + "';", 
+		var query = '';
+		if (username1 !== undefined && username2 !== undefined) {
+			query = "SELECT * FROM messages WHERE messageType='" + messageType 
+				+ "' AND author='" + username1 + "' AND target='" + username2 + "';";
+		} else {
+			query = "SELECT * FROM messages WHERE messageType='" + messageType + "';";
+		}
+		db.each(query, 
 			function(error, row) {
 				if (error) {
 					console.log(error);

@@ -4,9 +4,9 @@
     "filename": "ssnoc-dev.db"
   },
 
-  "production": {
+  "prod": {
     "driver": "sqlite3",
-    "filename": "ssnoc.db"
+    "filename": "ssnoc-prod.db"
   },
 
   "test": {
