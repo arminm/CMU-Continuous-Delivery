@@ -7,7 +7,7 @@ module.exports = {
 		var statusInfo = {
 			username: req.params.username,
 			statusCode: req.body.statusCode,
-			createdAt: req.body.updatedAt
+			updatedAt: req.body.updatedAt
 		}
 		User.get(statusInfo.username, function(user, password, error) {
 			if (user) {

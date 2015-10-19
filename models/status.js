@@ -4,14 +4,10 @@ var utils = require('../utilities.js');
 
 module.exports = {
 	createStatusCrumb: function(info, callback) {
-		if (info.content === '') {
-			callback();
-			return;
-		}
-		db.run('INSERT INTO statusCrumbs (username, statusCode, createdAt) VALUES ($1, $2, $3);', { 
+		db.run('INSERT INTO statusCrumbs (username, statusCode, statusUpdatedAt) VALUES ($1, $2, $3);', { 
 			$1: info.username, 
 			$2: info.statusCode, 
-			$3: info.createdAt
+			$3: info.updatedAt
 		},function(error) {
 			if (error) {
 				callback(null, error);

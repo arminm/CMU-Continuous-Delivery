@@ -7,7 +7,7 @@ exports.up = function(db, callback) {
     username: {type: 'string', notNull: true},
     // should be one of "GREEN", "YELLOW", "RED"
     statusCode: {type: 'string', notNull: true},
-    createdAt: {type: 'timestamp', notNull: true},
+    statusUpdatedAt: {type: 'timestamp', notNull: true},
   }, callback);
 };
 
