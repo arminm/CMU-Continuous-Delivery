@@ -38,7 +38,7 @@ module.exports = {
 				res.status(500).send();
 			} else if (user !== undefined) {
 				if (password === actualPassword) {
-					User.updateUser(username, lastLoginAt, true);
+					User.updateLogin(username, lastLoginAt, true);
 					res.status(200).send(user);
 				} else {
 					res.status(401).send();
@@ -56,7 +56,7 @@ module.exports = {
 				res.status(500);
 			} else {
 				if (isLoggedIn) {
-					User.updateUser(username, null, false);
+					User.updateLogin(username, null, false);
 					res.status(200);
 				} else {
 					res.status(400);

@@ -16,6 +16,7 @@ module.exports = {
 						res.status(500);
 						res.send();
 					} else if (crumbID) {
+						User.updateStatus(statusInfo.username, statusInfo.statusCode);
 						io.broadcast('status', crumbID, 'created', statusInfo.username, null);
 						res.status(201);
 						res.send();
