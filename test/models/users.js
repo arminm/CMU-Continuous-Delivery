@@ -1,4 +1,5 @@
 var User = require('../../models/user.js');
+var Status = require('../../models/status.js');
 var expect = require('expect.js');
 var db = require('../../config/db.js');
 
@@ -46,7 +47,7 @@ suite('Users: Model', function() {
   });
 
   test('Update an existing user\'s info', function(done) {
-    User.updateUser('armin', 123123123123, true, function(isUpdated, error) {
+    User.updateLogin('armin', 123123123123, true, function(isUpdated, error) {
       expect(isUpdated).to.be.ok();
       User.get('armin', function(user, password, error) {
         expect(user.lastLoginAt).to.eql(123123123123);
@@ -56,7 +57,7 @@ suite('Users: Model', function() {
   });
 
   test('Update a non-existing user\'s info', function(done) {
-    User.updateUser('dimitris', 123123123123, true, function(isUpdated, error) {
+    User.updateLogin('dimitris', 123123123123, true, function(isUpdated, error) {
       expect(isUpdated).to.be.ok();
       User.get('dimitris', function(user, password, error) {
         expect(user).to.eql(undefined);
