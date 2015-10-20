@@ -26,7 +26,11 @@ suite('Messages: REST', function() {
       messageInfo.target = "dimitris";
 
       Message.create(messageInfo, function(id, error) {
-       done();
+        messageInfo.messageType = "ANNOUNCEMENTS";
+        messageInfo.target = null;
+        Message.create(messageInfo, function(id, error) {
+          done();
+        });
       });
     });
   });
@@ -107,6 +111,34 @@ suite('Messages: REST', function() {
     };
 
     client.get("http://localhost:4444/messages/?messageType=CHAT", args, function(data,response) {
+      expect(response.statusCode).to.eql(200);
+      expect(JSON.parse(data)).to.have.length(1);
+      done();
+    });
+  });
+
+  test('Post a new announcement', function(done) {
+    client = new Client();
+    var args = {
+      data: { content : "announcement", messageType: "ANNOUNCEMENTS", postedAt: 123124124124 },
+      headers:{"Content-Type": "application/json"} 
+    };
+    client.post("http://localhost:4444/messages/armin", args, function(data,response) {
+      expect(response.statusCode).to.eql(201);
+      client.get("http://localhost:4444/messages/?messageType=ANNOUNCEMENTS", args, function(data, response) {
+        expect(response.statusCode).to.eql(200);
+        expect(JSON.parse(data)).to.have.length(2);
+        done();
+      });
+    }); 
+  });
+
+  test('Get all announcements', function(done) {
+    client = new Client();
+    var args = {
+      headers:{"Content-Type": "application/json"} 
+    };
+    client.get("http://localhost:4444/messages/?messageType=ANNOUNCEMENTS", args, function(data,response) {
       expect(response.statusCode).to.eql(200);
       expect(JSON.parse(data)).to.have.length(1);
       done();

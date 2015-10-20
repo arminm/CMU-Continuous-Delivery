@@ -10,7 +10,7 @@ module.exports = function(grunt) {
 	  			quiet: false,
 	  			clearRequireCache: false
 	  		},
-	  		src: ['test/**/*.js']
+	  		src: ['test/rest/messages.js']
 	  	}
 	  }
 	});
