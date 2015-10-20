@@ -49,9 +49,9 @@ module.exports = {
 
 	getAllUsers: function(callback) {
 		var users = [];
-		var query = "SELECT * FROM users JOIN statusCrumbs WHERE statusCrumbs.username=users.username" +
+		var query = "SELECT * FROM users JOIN statusCrumbs WHERE users.username=statusCrumbs.username" +
 		 " AND crumbId = (SELECT MAX(crumbId) FROM statusCrumbs WHERE users.username=statusCrumbs.username);";
-		db.each("SELECT * FROM users;", 
+		db.each(query, 
 			function(error, row) {
 				if (error) {
 					console.log(error);
