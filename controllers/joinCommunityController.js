@@ -10,8 +10,13 @@ module.exports = {
 		User.get(username, function(user, actualPassword) {
 			if (user !== undefined) {
 				if (password === actualPassword) {
-					User.updateUser(username, now, true);
-					res.status(200);
+					User.updateLogin(username, now, true, function(isUpdated, error) {
+						if (isUpdated) {
+							res.status(200);
+						} else {
+							res.status(500);
+						}
+					});
 				} else {
 					res.status(401);
 				}

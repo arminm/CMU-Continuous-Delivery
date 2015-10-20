@@ -58,9 +58,7 @@ suite('Status: REST', function() {
 
   test('Get an existing statusCrumb', function(done) {
     client = new Client();
-    var args = {
-      headers: {"Content-Type": "application/json"} 
-    };
+    var args = {};
     client.get("http://localhost:4444/status/" + statusCrumbID, args, function(data, response) {
       expect(response.statusCode).to.eql(200);
       done();
@@ -69,9 +67,7 @@ suite('Status: REST', function() {
 
   test('Get a non-existing statusCrumb', function(done) {
     client = new Client();
-    var args = {
-      headers: {"Content-Type": "application/json"} 
-    };
+    var args = {};
     client.get("http://localhost:4444/status/" + "-1", args, function(data,response) {
       expect(response.statusCode).to.eql(404);
       done();
@@ -80,10 +76,8 @@ suite('Status: REST', function() {
 
   test('Get all status crumbs for an existing user', function(done) {
     client = new Client();
-    var args = {
-      headers: {"Content-Type": "application/json"} 
-    };
-    client.get("http://localhost:4444/status/?username=armin", args, function(data,response) {
+    var args = {};
+    client.get("http://localhost:4444/status?username=armin", args, function(data,response) {
       expect(response.statusCode).to.eql(200);
       expect(JSON.parse(data)).to.have.length(2);
       done();
@@ -92,10 +86,8 @@ suite('Status: REST', function() {
 
   test('Get all status crumbs for a non-existing user', function(done) {
     client = new Client();
-    var args = {
-      headers: {"Content-Type": "application/json"} 
-    };
-    client.get("http://localhost:4444/status/?username=pragya", args, function(data,response) {
+    var args = {};
+    client.get("http://localhost:4444/status?username=pragya", args, function(data,response) {
       expect(response.statusCode).to.eql(404);
       done();
     }); 

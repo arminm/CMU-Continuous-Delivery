@@ -69,9 +69,7 @@ suite('Messages: REST', function() {
 
   test('Get a specific message that exists', function(done) {
     client = new Client();
-    var args = {
-      headers:{"Content-Type": "application/json"} 
-    };
+    var args = {};
 
     client.get("http://localhost:4444/messages/" + messageId, args, function(data,response) {
       expect(response.statusCode).to.eql(200);
@@ -81,10 +79,7 @@ suite('Messages: REST', function() {
 
   test('Get a specific message that does not exist', function(done) {
     client = new Client();
-    var args = {
-      headers:{"Content-Type": "application/json"} 
-    };
-
+    var args = {};
     client.get("http://localhost:4444/messages/0", args, function(data,response) {
       expect(response.statusCode).to.eql(404);
       done();
@@ -93,11 +88,8 @@ suite('Messages: REST', function() {
 
   test('Get all messages for WALL', function(done) {
     client = new Client();
-    var args = {
-      headers:{"Content-Type": "application/json"} 
-    };
-
-    client.get("http://localhost:4444/messages/?messageType=WALL", args, function(data,response) {
+    var args = {};
+    client.get("http://localhost:4444/messages?messageType=WALL", args, function(data,response) {
       expect(response.statusCode).to.eql(200);
       expect(JSON.parse(data)).to.have.length(1);
       done();
@@ -106,11 +98,8 @@ suite('Messages: REST', function() {
 
   test('Get all messages that are not for WALL', function(done) {
     client = new Client();
-    var args = {
-      headers:{"Content-Type": "application/json"} 
-    };
-
-    client.get("http://localhost:4444/messages/?messageType=CHAT", args, function(data,response) {
+    var args = {};
+    client.get("http://localhost:4444/messages?messageType=CHAT", args, function(data,response) {
       expect(response.statusCode).to.eql(200);
       expect(JSON.parse(data)).to.have.length(1);
       done();
@@ -125,7 +114,8 @@ suite('Messages: REST', function() {
     };
     client.post("http://localhost:4444/messages/armin", args, function(data,response) {
       expect(response.statusCode).to.eql(201);
-      client.get("http://localhost:4444/messages/?messageType=ANNOUNCEMENTS", args, function(data, response) {
+      args = {};
+      client.get("http://localhost:4444/messages?messageType=ANNOUNCEMENTS", args, function(data, response) {
         expect(response.statusCode).to.eql(200);
         expect(JSON.parse(data)).to.have.length(2);
         done();
@@ -135,10 +125,8 @@ suite('Messages: REST', function() {
 
   test('Get all announcements', function(done) {
     client = new Client();
-    var args = {
-      headers:{"Content-Type": "application/json"} 
-    };
-    client.get("http://localhost:4444/messages/?messageType=ANNOUNCEMENTS", args, function(data,response) {
+    var args = {};
+    client.get("http://localhost:4444/messages?messageType=ANNOUNCEMENTS", args, function(data,response) {
       expect(response.statusCode).to.eql(200);
       expect(JSON.parse(data)).to.have.length(1);
       done();
