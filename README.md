@@ -36,10 +36,10 @@ Run `$sudo npm install -g bower`. Since bower needs admin permission, its not in
 
 1. You must execute `$ npm install` and `$ bower install` to make sure you have all the library dependencies to run the app. ( We are using npm for back-end dependencies and bower for front-end dependencies. Note that node_modules and public/libs/ folders are ignored by git.)
 
-2. Execute DB={dev, prod, test} npm start for starting the server in the appropriate mode.
+2. Execute `$ DB={dev, prod, test} npm start` for starting the server in the appropriate mode.
 
 ## Run tests
 
 1. Run the server in test mode.
 
-2. Execute npm test 
+2. Execute `$ npm test` 
