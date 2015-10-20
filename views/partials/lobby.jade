@@ -1,13 +1,14 @@
 div#lobbyPage(ng-controller='lobbyPageController')
   nav.navbar.navbar-inverse.navbar-fixed-top.nav-justified
     div.navbar-header
-      button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse', ng-click="directory()")
+      button#hamburger.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse', ng-click="directory()")
         span.icon-bar
         span.icon-bar
         span.icon-bar
+      span#hamburgerBadge.navbar-text.badge 1
       span.navbar-brand Welcome {{username}}!
-      div#logoutButton
-        a.btn.btn-warning(ng-click="logout()") Log out
+      div
+        a.btn.glyphicon.glyphicon-off#logoutButton(ng-click='logout()')
     div#statusBar.navbar-text
       label(for='statusSelect') Your status:
       select#statusSelect(name='statusSelect', ng-options="status.name for status in statusOptions track by status.name", ng-model='selectedStatus', ng-style="{'background-color': selectedStatus.color}", ng-change='setStatus()')     

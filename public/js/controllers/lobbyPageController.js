@@ -15,6 +15,7 @@ angular.module('myApp')
 	$scope.selectedStatus = $scope.statusOptions.filter(function(option) {
 		return option.name === User.getStatus();
 	})[0];
+	$scope.badgeCount = Message.badgeCount;
 
 	$scope.setStatus = function () {
 		User.setStatus($scope.selectedStatus.name);

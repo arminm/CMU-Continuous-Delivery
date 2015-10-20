@@ -58,17 +58,22 @@ body {
 .navbar-default .navbar-toggle.collapsed{
     background: #fff;    
 }
+
+.navbar-inverse .navbar-toggle .icon-bar {
+	background-color: #EFB73E;
+}
+
 #backtolobbyButton{
 	float: left !important;
-/*	padding-top: 6px;*/
 	padding-left: 5px;
-	font-size: 2.5em;
+	font-size: 2em;
 }
+
 #logoutButton {
 	float: right !important;
-/*	padding: 6px;*/
-	font-size: 2.5em;
+	font-size: 2em;
 	cursor: pointer;
+	line-height: 1;
 }
 
 #onlineUser{
@@ -82,11 +87,6 @@ body {
 a {
 	color: #EFB73E;
 }
-
-/*a:hover{
-    color: #EFB73E;
-    text-decoration: none;
-}*/
 
 h1, #loginForm, input#username, input#password, input#confirmPassword, #inputFullname {
 	clear: both;
@@ -189,4 +189,14 @@ h3{
 
 .user-status {
 	font-size: 10px;
+}
+
+#hamburger {
+	z-index: 1;
+}
+
+#hamburgerBadge {
+	z-index: 1000;
+	margin: 5px 0 0 -14px;
+	position: relative;
 }
