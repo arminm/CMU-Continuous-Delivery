@@ -16,7 +16,7 @@ suite('Status: Model', function() {
 
     statusInfo = {
       username: "dimitris",
-      statusCode: "YELLOW",
+      statusCode: "Help",
       updatedAt: 12314125125345436
     }
 
@@ -34,13 +34,13 @@ suite('Status: Model', function() {
   test('Change an existing user\'s status', function(done) {
     statusInfo = {
       username: "dimitris",
-      statusCode: "RED",
+      statusCode: "Emergency",
       updatedAt: 12314125125135252
     }
     Status.createStatusCrumb(statusInfo, function(crumbID, error) {
       expect(crumbID).to.be.a('number');
       Status.getStatusCrumb(crumbID, function(statusCrumb, error) {
-        expect(statusCrumb.statusCode).to.eql('RED');
+        expect(statusCrumb.statusCode).to.eql('Emergency');
         done();
       });
     });
@@ -48,7 +48,7 @@ suite('Status: Model', function() {
 
   test('Get an existing statusCrumb', function(done) {
     Status.getStatusCrumb(statusCrumbID, function(statusCrumb, error) {
-      expect(statusCrumb.statusCode).to.eql('YELLOW');
+      expect(statusCrumb.statusCode).to.eql('Help');
       done();
     });
   });

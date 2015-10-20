@@ -21,7 +21,7 @@ module.exports = {
 					} else {
 						var statusInfo = {
 							username: username,
-							statusCode: "GREEN",
+							statusCode: "OK",
 							updatedAt: createdAt
 						}
 						Status.createStatusCrumb(statusInfo, callback);

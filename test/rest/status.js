@@ -14,7 +14,7 @@ suite('Status: REST', function() {
     User.create('Armin', 'armin', '1234', 123123123123, function(isCreated) {
       statusInfo = {
         username: "armin",
-        statusCode: "YELLOW",
+        statusCode: "Help",
         updatedAt: 12314125125345436
       }
 
@@ -35,7 +35,7 @@ suite('Status: REST', function() {
   test('Update the status of an existing user', function(done) {
   	client = new Client();
     var args = {
-      data : {statusCode: "YELLOW", updatedAt: 1232121421521},
+      data : {statusCode: "Help", updatedAt: 1232121421521},
       headers: {"Content-Type": "application/json"} 
     };
     client.post("http://localhost:4444/status/armin", args, function(data,response) {
@@ -47,7 +47,7 @@ suite('Status: REST', function() {
   test('Update the status of a non existing user', function(done) {
     client = new Client();
     var args = {
-      data : {statusCode: "YELLOW", updatedAt: 1232121421521},
+      data : {statusCode: "Help", updatedAt: 1232121421521},
       headers: {"Content-Type": "application/json"} 
     };
     client.post("http://localhost:4444/status/dimitris", args, function(data,response) {
