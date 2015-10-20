@@ -56,9 +56,8 @@ module.exports = {
 	},
 
 	getMessage: function(id, callback) {
-		db.get("SELECT * FROM messages WHERE id='" + id + "';", function(error, row) {
+		db.get("SELECT * FROM messages WHERE id=" + id + ";", function(error, row) {
 			if (error) {
-				console.log(error);
 				callback(null, error);
 			} else if (row) {
 				var message = utils.replacer(row, ['id', 'messageType']);
