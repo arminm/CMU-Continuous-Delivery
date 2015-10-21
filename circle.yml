@@ -17,5 +17,5 @@ database:
 test:
   override:
     - DB=test npm start:
-      	background: true
+      background: true
     - npm test
