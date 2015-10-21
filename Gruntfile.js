@@ -18,7 +18,7 @@ module.exports = function(grunt) {
               reporter: 'mocha-junit-reporter',
               quiet: false,
               reporterOptions: {
-                mochaFile: '~' + process.env.CIRCLE_TEST_REPORTS + '/mocha/results.xml'
+                mochaFile: process.env.CIRCLE_TEST_REPORTS + '/mocha/results.xml'
               }
             },
             src: ['test/**/*.js']
