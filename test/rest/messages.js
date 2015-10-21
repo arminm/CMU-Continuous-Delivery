@@ -125,4 +125,13 @@ suite('Messages: REST', function() {
       done();
     });
   });
+
+  test('Get all messages between two users', function(done) {
+    var args = {};
+    client.get("http://localhost:4444/messages?messageType=CHAT&sender=john&receiver=dimitris", args, function(data,response) {
+      expect(response.statusCode).to.eql(200);
+      expect(JSON.parse(data)).to.have.length(1);
+      done();
+    });
+  });
 });

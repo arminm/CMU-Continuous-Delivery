@@ -79,4 +79,11 @@ suite('Messages: Model', function() {
       done();
     });
   });
+
+  test('Get all messages between two users', function(done) {
+    Message.getAllMessages("CHAT", "john", "john1", function(messages, error) {
+      expect(messages).to.have.length(1);
+      done();
+    });
+  });
 });
