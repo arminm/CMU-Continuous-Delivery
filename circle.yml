@@ -1,0 +1,21 @@
+machine:
+  node:
+    version: 4.0.0
+
+dependencies:
+  override:
+    - npm install
+    - bower install
+    - npm install -g grunt-cli
+    - npm install -g db-migrate
+
+database:
+  override:
+    - db-migrate db test
+    - db-migrate up --env test
+
+test:
+  override:
+    - DB=test npm start:
+      	background: true
+    - npm test
