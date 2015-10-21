@@ -1,4 +1,4 @@
-# Fantastic4 SSNoC
+# Fantastic4 SSNoC [![Circle CI](https://circleci.com/gh/cmusv-fse/FSE-F15-SA5-SSNoC/tree/master.svg?style=svg&circle-token=08f4da2fb946d2334b3e4a7d9417f6cdb26beed7)](https://circleci.com/gh/cmusv-fse/FSE-F15-SA5-SSNoC/tree/master)
 
 A Survivable Social Network on a Chip!
 
