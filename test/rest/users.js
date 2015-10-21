@@ -4,7 +4,8 @@ var db = require('../../config/db.js');
 var Client = require('node-rest-client').Client;
 
 suite('Users: REST', function() {
-
+  var client = new Client();
+  
 	setup(function(done) {
 		User.create('Dimitris', 'dimitris', '1234', 123123123123, function(isCreated) {
 			done();
@@ -18,7 +19,6 @@ suite('Users: REST', function() {
   	});
 
   test('Create a new user that does not exist', function(done) {
-  	client = new Client();
     var args = {
       data: { fullName: "Armin", password: "1234", createdAt: 12312421444124 },
       headers:{"Content-Type": "application/json"} 
@@ -30,7 +30,6 @@ suite('Users: REST', function() {
   });
 
   test('Create a new user that exists: correct password', function(done) {
-  	client = new Client();
     var args = {
       data: { fullName: "Dimitris", password: "1234", createdAt: 12312421444124 },
       headers:{"Content-Type": "application/json"} 
@@ -42,7 +41,6 @@ suite('Users: REST', function() {
   });
 
   test('Create a new user that exists: wrong password', function(done) {
-  	client = new Client();
     var args = {
       data: { fullName: "Dimitris", password: "password", createdAt: 12312421444124 },
       headers:{"Content-Type": "application/json"} 
@@ -54,7 +52,6 @@ suite('Users: REST', function() {
   });
 
 	test('Get an existing user', function(done) {
-		client = new Client();
 		var args = {};
 
 		client.get("http://localhost:4444/users/dimitris", args, function(data,response) {
@@ -64,7 +61,6 @@ suite('Users: REST', function() {
 	});
 
 	test('Get a non-existing user', function(done) {
-		client = new Client();
 		var args = {};
 		client.get("http://localhost:4444/users/pragya", args, function(data,response) {
     		expect(response.statusCode).to.eql(404);
@@ -73,7 +69,6 @@ suite('Users: REST', function() {
 	});
 
 	test('Get all users', function(done) {
-		client = new Client();
 		var args = {};
 		client.get("http://localhost:4444/users", args, function(data,response) {
     		expect(response.statusCode).to.eql(200);
