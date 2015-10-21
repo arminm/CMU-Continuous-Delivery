@@ -1,4 +1,4 @@
-var app = angular.module('myApp',['ui.router', 'ngMessages', 'ui.bootstrap', 'MainService', 'UserService', 'socketService', 'MessageService']);
+var app = angular.module('myApp',['ui.router', 'ngMessages', 'ui.bootstrap', 'MainService', 'UserService', 'socketService', 'MessageService', 'StatusService']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
@@ -10,6 +10,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('lobby', {
             url: '/lobby',
             templateUrl: 'partials/lobby.jade'
+        })
+        .state('wall', {
+            url: '/lobby/wall',
+            templateUrl: 'partials/lobby-wall.jade'
+        })
+        .state('announcements', {
+            url: '/lobby/announcements',
+            templateUrl: 'partials/lobby-announcements.jade'
+        })
+        .state('chat', {
+            url: '/lobby/chatbuddies?username',
+            templateUrl: 'partials/lobby-chatbuddies.jade'
         })
 });
 
@@ -24,3 +36,11 @@ app.directive('serverError', function (){
     }
  };
 });
+
+function scrollToBottom(animated, id) {
+  if (animated) {
+    $(id).animate({ scrollTop: $(id)[0].scrollHeight}, 1000);
+  } else {
+    $(id).scrollTop($(id)[0].scrollHeight);
+  }
+}

@@ -1,0 +1,16 @@
+div(ng-controller='announcementsController')
+  nav.navbar.navbar-inverse.navbar-fixed-top.nav-justified
+    div.navbar-header
+      div
+        a.btn.glyphicon.glyphicon-circle-arrow-left#backtolobbyButton(ui-sref='lobby')
+      div.navbar-brand Announcements
+      div
+        a.btn.glyphicon.glyphicon-off#logoutButton(ng-click='logout()')
+  div.input-group#postAnnouncementForm
+    input.form-control(type='text',style='width:80%', ng-model='announcementInput')
+    button.btn.btn-warning(type='button', style='width:20%', ng-click='post()') Post
+  div.alert.alert-dismissible.alert-warning#announcements(ng-repeat="announcement in announcements | orderBy : 'createdAt':true") 
+    div.timestamp {{ getPresentableTime(announcement.createdAt) }}
+    div.username {{ announcement.author}}
+      span.user-status(style='padding: 0 0 0 5px;') Status: {{ status(announcement.author).code }} Last updated at: {{getPresentableTime(status(announcement.author).lastUpdatedAt)}}
+    div {{ announcement.content}}

@@ -23,7 +23,7 @@ angular.module('myApp')
       }
    };
   })
-  .controller('homePageController', function($scope, $location, JoinCommunity, User, Socket) {
+  .controller('homePageController', function($scope, $state, $location, JoinCommunity, User, Socket) {
     $scope.formData = {
       isRegistration: '',
       username: '',
@@ -47,8 +47,19 @@ angular.module('myApp')
           };
           JoinCommunity.register($scope.formData.username, registerData)
             .success(function(data, status, headers, config) {
-              User.setFirstTimeUser((status == '201'));
-              User.setUsername($scope.formData.username);
+              if (status == '201') {
+                User.setFirstTimeUser((status == '201'));
+                User.setUsername($scope.formData.username);
+                User.setLastStatusUpdated(Date.now());
+                User.setStatus('OK');
+                Socket.emit('join', $scope.formData.username);
+              } else {
+                User.setUsername(data.username);
+                User.setLastStatusUpdated(data.statusUpdatedAt);
+                User.setStatus(data.statusCode);
+                // Join a private room
+                Socket.emit('join', data.username);
+              }
               $location.path('/lobby');
             })
             .error(function(data, status, headers, config) {
@@ -77,7 +88,9 @@ angular.module('myApp')
           .success(function(data, status, headers, config) {
             // Join a private room
             Socket.emit('join', data.username);
-            User.setUsername($scope.formData.username);
+            User.setUsername(data.username);
+            User.setLastStatusUpdated(data.statusUpdatedAt);
+            User.setStatus(data.statusCode);
             // Go to next page
             $location.path('/lobby');
           })

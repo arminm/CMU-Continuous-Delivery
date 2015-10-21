@@ -12,16 +12,15 @@ module.exports = {
 				if (password === actualPassword) {
 					User.updateLogin(username, now, true, function(isUpdated, error) {
 						if (isUpdated) {
-							res.status(200);
+							res.status(200).send(user);
 						} else {
-							res.status(500);
+							res.status(500).send();
 						}
 					});
 				} else {
-					res.status(401);
+					res.status(401).send();
 				}
-				res.send();
-			} else {
+			}else {
 				User.create(fullName, username, password, createdAt, function(isCreated) {
 					if (isCreated) {
 						res.status(201);
@@ -74,7 +73,7 @@ module.exports = {
 							res.status(500).send();
 						}
 						else if (isUpdated) {
-							res.status(200).send(user);
+							res.status(200).send();
 						} else {
 							res.status(500);
 						}

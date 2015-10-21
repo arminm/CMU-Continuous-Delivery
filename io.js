@@ -14,8 +14,8 @@ io.on('connection', function(client) {
   });
 });
 
-var formNotification = function(id, action) {
-	return {id: id, action: action};
+var formNotification = function(id, action, sender, receiver) {
+	return {id: id, action: action, sender: sender, receiver: receiver};
 };
 
 module.exports = {
@@ -25,10 +25,10 @@ module.exports = {
 
 	broadcast: function(type, id, action, sender, receiver) {
 		if (receiver) {
-			io.sockets.in(sender).emit(type, formNotification(id, action));
-			io.sockets.in(receiver).emit(type, formNotification(id, action));
+			io.sockets.in(sender).emit(type, formNotification(id, action, sender, receiver));
+			io.sockets.in(receiver).emit(type, formNotification(id, action, sender, receiver));
 		} else {
-			io.sockets.emit(type, formNotification(id, action));
+			io.sockets.emit(type, formNotification(id, action, sender, null));
 		}
 	}
 };
