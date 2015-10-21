@@ -1,6 +1,10 @@
 machine:
   node:
-    version: 0.12
+    version: 4.0
+
+checkout:
+   post:
+    - git pull origin master
 
 dependencies:
   override:
@@ -19,3 +23,9 @@ test:
     - DB=test npm start:
         background: true
     - npm test
+
+# deployment:
+#   master:
+#     branch: master
+#     commands:
+#       - git push origin master
