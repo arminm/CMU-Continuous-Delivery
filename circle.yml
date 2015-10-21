@@ -19,5 +19,5 @@ test:
   post:
     - DB=test npm start:
         background: true
-    - sleep: 5
+    - sleep 5
     - npm test
