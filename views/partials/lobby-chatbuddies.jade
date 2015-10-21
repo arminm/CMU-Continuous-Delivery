@@ -1,9 +1,9 @@
-div(ng-controller='wallController')
+div(ng-controller='chatbuddiesController')
 	nav.navbar.navbar-inverse.navbar-fixed-top
 		div.navbar-header
 			div
 				a.btn.glyphicon.glyphicon-circle-arrow-left#backtolobbyButton(ui-sref='lobby')
-			div.navbar-brand Wall
+			div.navbar-brand To: {{user2}}
 			div
 				a.btn.glyphicon.glyphicon-off#logoutButton(ng-click='logout()')
 	div#scrollingMessages
@@ -11,6 +11,6 @@ div(ng-controller='wallController')
 			div.timestamp {{ getPresentableTime(msg.createdAt) }}
 			div.username {{ msg.author}}
 			div {{ msg.content}}
-		div.input-group#wallmessageForm
+		div.input-group#privatemessageForm
 			input.form-control(type='text',style='width:90%', ng-model='messageInput')
 			button.btn.btn-warning(type='button', style='width:10%', ng-click='send()') Send

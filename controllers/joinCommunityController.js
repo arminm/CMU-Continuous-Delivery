@@ -74,7 +74,7 @@ module.exports = {
 							res.status(500).send();
 						}
 						else if (isUpdated) {
-							res.status(200).send(user);
+							res.status(200).send();
 						} else {
 							res.status(500);
 						}

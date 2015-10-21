@@ -26,11 +26,11 @@ form#loginForm.form-horizontal(name="loginForm", ng-controller="homePageControll
         input#inputFullname.form-control(placeholder='Full Name (optional)', type='text', ng-model='fullnameInput', autocomplete='off')
     div.form-group
       span.col-lg-10
-        button.btn.btn-info(ng-click='login()') Login
+        button#loginButton.btn.btn-info(ng-click='login()') Login
         span(style='padding-right: 10px')
-        button.btn.btn-warning(ng-click='register()') Register
+        button#registerButton.btn.btn-warning(ng-click='register()') Register
       div(ng-messages="loginForm.$error")
-        div.invalid(ng-message='server') {{formError.generic}}
+        div.invalid(ng-message='server'){{formError.generic}}
 
 
     

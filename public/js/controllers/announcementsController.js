@@ -14,10 +14,10 @@ angular.module('myApp')
 		var messageData= {
 			target: null,
 			content: $scope.announcementInput,
-			messageType: "ANNOUNCEMENTS",
+			messageType: 'ANNOUNCEMENTS',
 			postedAt: Date.now()
 		};
-		Message.postAnnouncement(User.getUsername(),messageData)
+		Message.post(User.getUsername(),messageData)
 		.success(function(data, status, headers, config) {
 			if (status == '201') {
 				$scope.announcementInput = '';
@@ -29,18 +29,18 @@ angular.module('myApp')
 		});
 	};
 	$scope.getAllAnnouncements();
-	// Socket.on('announcements', function(data) {
-	// 	console.log('announcements: ' + JSON.stringify(data));
-	// 	if (data.action === 'created') {
-	// 		Message.get(data.id)
-	// 		.success(function(data, status, headers, config) {
-	// 			$scope.announcements.push(data);
-	// 		})
-	// 		.error(function(data, status, headers, config) {
-	// 			// TODO 
-	// 		});
-	// 	}
-	// });
+	Socket.on('ANNOUNCEMENTS', function(data) {
+		console.log('announcements: ' + JSON.stringify(data));
+		if (data.action === 'created') {
+			Message.get(data.id)
+			.success(function(data, status, headers, config) {
+				$scope.announcements.push(data);
+			})
+			.error(function(data, status, headers, config) {
+				// TODO 
+			});
+		}
+	});
 	$scope.getPresentableTime = function(timestamp) {
 		var date = new Date(Number(timestamp));
 		var dateString = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();

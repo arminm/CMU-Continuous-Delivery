@@ -54,7 +54,9 @@ body {
 	font-size: 16px;
 	padding: 10px;
 }
-
+.navbar-brand{
+	font-size: 25px;
+}
 .navbar-default .navbar-toggle.collapsed{
     background: #fff;    
 }
@@ -65,12 +67,13 @@ body {
 
 #backtolobbyButton{
 	float: left !important;
-	padding-left: 5px;
 	font-size: 2em;
+	padding: 3px 0 0 0;
 }
 
 #logoutButton {
 	float: right !important;
+	padding: 8px 10px 0 0;
 	font-size: 2em;
 	cursor: pointer;
 	line-height: 1;
@@ -122,11 +125,13 @@ h3{
 	overflow: scroll;
 	height: 400px;
 	margin: 5px;
+	margin-top: 40px;
 }
 #scrollingAnnouncements{
 	overflow: scroll;
 	height: 400px;
 	margin: 5px;
+	margin-top: 40px;
 }
 .messages { 
 	padding: 5px 10px; 
@@ -138,6 +143,11 @@ h3{
 	width: 100%;
 }
 
+#announcements {
+	font-size: 16px;
+	display: inline-table;
+	width: 100%;
+}
 .timestamp {
 	float: right;
 }
@@ -148,13 +158,19 @@ h3{
 	display: inline-table;
 	width: 100%;
 }
+#wallmessageForm,#privatemessageForm{
+	width:100%;
+	margin-top: 385px;
+}
 #postAnnouncementForm{
 	width: 100%;
-	margin-top: 70px;
+	margin-top: 20px;
+	margin-bottom: 20px;
 /*	margin-left: 5%;*/
 }
 .username {
 	font-weight: bold;
+	cursor: pointer;
 }
 
 #lobbyPage {

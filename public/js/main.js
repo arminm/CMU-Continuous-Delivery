@@ -19,6 +19,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/lobby/announcements',
             templateUrl: 'partials/lobby-announcements.jade'
         })
+        .state('chat', {
+            url: '/lobby/chatbuddies',
+            templateUrl: 'partials/lobby-chatbuddies.jade'
+        })
 });
 
 app.directive('serverError', function (){ 

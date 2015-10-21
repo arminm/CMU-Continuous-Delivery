@@ -14,11 +14,11 @@ div#lobbyPage(ng-controller='lobbyPageController')
       select#statusSelect(name='statusSelect', ng-options="status.name for status in statusOptions track by status.name", ng-model='selectedStatus', ng-style="{'background-color': selectedStatus.color}", ng-change='setStatus()')     
     div.navbar-collapse.collapse
       ul.nav.navbar-nav
-        li#onlineUser(ng-repeat="onlineitem in onlineitems | orderBy: 'username'")
+        li#onlineUser(ui-sref='chat', ng-repeat="onlineitem in onlineitems | orderBy: 'username'")
           span.glyphicon.glyphicon-user 
           span.user.username {{onlineitem.username}}
           span.user-status Status: {{onlineitem.status}}
-        li#offlineUser(ng-repeat="offlineitem in offlineitems | orderBy: 'username'") 
+        li#offlineUser(ui-sref='chat', ng-repeat="offlineitem in offlineitems | orderBy: 'username'") 
           span.glyphicon.glyphicon-user
           span.user.username {{offlineitem.username}}
           span.user-status Status: {{onlineitem.status}}
