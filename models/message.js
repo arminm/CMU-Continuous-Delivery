@@ -47,7 +47,7 @@ module.exports = {
 					console.log(error);
 					callback(null, error);
 				} else {
-					messages.push(utils.replacer(row, ['id', 'messageType']));
+					messages.push(utils.replacer(row, ['id']));
 				}
 			}, function() {
 				callback(messages, null);
@@ -60,7 +60,7 @@ module.exports = {
 			if (error) {
 				callback(null, error);
 			} else if (row) {
-				var message = utils.replacer(row, ['id', 'messageType']);
+				var message = utils.replacer(row, ['id']);
 				callback(message, row.password);
 			} else {
 				callback();

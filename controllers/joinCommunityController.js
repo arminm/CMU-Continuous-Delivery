@@ -21,7 +21,7 @@ module.exports = {
 					res.status(401);
 				}
 				res.send();
-			}else {
+			} else {
 				User.create(fullName, username, password, createdAt, function(isCreated) {
 					if (isCreated) {
 						res.status(201);
