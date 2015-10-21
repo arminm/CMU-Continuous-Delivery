@@ -1,11 +1,15 @@
+# setup node environment
 machine:
   node:
     version: 4.0
 
+# merge master before testing to make sure all tests pass
+# with the updated version of master
 checkout:
    post:
     - git pull origin master
 
+# install dependencies
 dependencies:
   override:
     - npm install
@@ -13,19 +17,15 @@ dependencies:
     - npm install -g grunt-cli
     - npm install sqlite3
 
+# prepare the test database
 database:
   override:
     - node_modules/db-migrate/bin/db-migrate db test
     - node_modules/db-migrate/bin/db-migrate up --env test
 
+# run tests
 test:
   override:
     - DB=test npm start:
         background: true
     - npm test
-
-# deployment:
-#   master:
-#     branch: master
-#     commands:
-#       - git push origin master
