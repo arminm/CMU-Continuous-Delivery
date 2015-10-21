@@ -1,5 +1,5 @@
 angular.module('myApp')
-.controller('lobbyPageController', function($scope, $location, JoinCommunity, User, Message, Socket, Status) {
+.controller('lobbyPageController', function($scope, $location, $state, JoinCommunity, User, Message, Socket, Status) {
 	$scope.username = User.getUsername();
 	$scope.userStatus = User.getStatus();
 	$scope.userStatusLastUpdateTime = User.getLastStatusUpdated();
@@ -61,6 +61,11 @@ angular.module('myApp')
 		console.log('messages: ' + JSON.stringify(data));
 		Message.addToMessageQueue(data.sender);
 		$scope.badgeCount = Message.getBadgeCount();
+		if ((data.sender !== $scope.username) && $state.$current.url.sourcePath !== '/lobby/chatbuddies') {
+			if (confirm("You have a new message from "+data.sender + ". Go to chat?") == true) {
+	 			$state.go('chat',{ username: data.sender });
+	    	}
+		}
 	});
 	$scope.logout = function () {
 		// When the user opts to logout, take them to home page and clear user data regardless the call's status

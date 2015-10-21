@@ -23,7 +23,7 @@ angular.module('myApp')
       }
    };
   })
-  .controller('homePageController', function($scope, $location, JoinCommunity, User, Socket) {
+  .controller('homePageController', function($scope, $state, $location, JoinCommunity, User, Socket) {
     $scope.formData = {
       isRegistration: '',
       username: '',

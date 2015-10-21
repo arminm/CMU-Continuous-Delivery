@@ -36,3 +36,11 @@ app.directive('serverError', function (){
     }
  };
 });
+
+function scrollToBottom(animated, id) {
+  if (animated) {
+    $(id).animate({ scrollTop: $(id)[0].scrollHeight}, 1000);
+  } else {
+    $(id).scrollTop($(id)[0].scrollHeight);
+  }
+}

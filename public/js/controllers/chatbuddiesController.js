@@ -17,6 +17,7 @@ angular.module('myApp')
 		MessageFactory.getAllPrivate('CHAT', User.getUsername(), $scope.buddy)
 		.success(function(data, status, headers, config) {
 			$scope.messages = data;
+			scrollToBottom(false, '#scrollingMessages');
 		})
 		.error(function(data, status, headers, config) {
 			$scope.formError.generic = "Something went wrong. Please try again.";
@@ -58,6 +59,7 @@ angular.module('myApp')
 			.success(function(data, status, headers, config) {
 				if (status == '200') {
 					$scope.messages.push(data);
+					scrollToBottom(true, '#scrollingMessages');
 				}
 			})
 			.error(function(data, status, headers, config) {
@@ -70,4 +72,5 @@ angular.module('myApp')
 		var dateString = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
 		return dateString;
 	};
+	Message.clearQueueForUser($scope.buddy);
 });

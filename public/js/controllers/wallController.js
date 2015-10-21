@@ -16,6 +16,7 @@ angular.module('myApp')
 		MessageFactory.getAll('WALL')
 		.success(function(data, status, headers, config) {
 			$scope.messages = data;
+			scrollToBottom(false, '#scrollingMessages');
 		})
 		.error(function(data, status, headers, config) {
 			$scope.formError.generic = "Something went wrong. Please try again.";
@@ -57,6 +58,7 @@ angular.module('myApp')
 			.success(function(data, status, headers, config) {
 				if (status == '200') {
 					$scope.messages.push(data);
+					scrollToBottom(true, '#scrollingMessages');
 				}
 			})
 			.error(function(data, status, headers, config) {

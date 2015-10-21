@@ -12,6 +12,6 @@ div(ng-controller='chatbuddiesController')
 			div.username {{ msg.author}}
 				span.user-status(style='padding: 0 0 0 5px;') Status: {{ status(msg.author).code }} Last updated at: {{getPresentableTime(status(msg.author).lastUpdatedAt)}}
 			div {{ msg.content}}
-		div.input-group#privatemessageForm
-			input.form-control(type='text',style='width:90%', ng-model='messageInput')
-			button.btn.btn-warning(type='button', style='width:10%', ng-click='send()') Send
+	div.input-group#privatemessageForm
+		input.form-control(type='text',style='width:80%', ng-model='messageInput')
+		button.btn.btn-warning(type='button', style='width:20%', ng-click='send()') Send

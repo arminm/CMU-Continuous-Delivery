@@ -25,10 +25,10 @@ module.exports = {
 
 	broadcast: function(type, id, action, sender, receiver) {
 		if (receiver) {
-			io.sockets.in(sender).emit(type, formNotification(id, action, null, null));
+			io.sockets.in(sender).emit(type, formNotification(id, action, sender, receiver));
 			io.sockets.in(receiver).emit(type, formNotification(id, action, sender, receiver));
 		} else {
-			io.sockets.emit(type, formNotification(id, action, null, null));
+			io.sockets.emit(type, formNotification(id, action, sender, null));
 		}
 	}
 };

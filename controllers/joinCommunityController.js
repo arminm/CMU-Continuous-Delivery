@@ -14,14 +14,13 @@ module.exports = {
 						if (isUpdated) {
 							res.status(200).send(user);
 						} else {
-							res.status(500);
+							res.status(500).send();
 						}
 					});
 				} else {
-					res.status(401);
+					res.status(401).send();
 				}
-				res.send();
-			} else {
+			}else {
 				User.create(fullName, username, password, createdAt, function(isCreated) {
 					if (isCreated) {
 						res.status(201);
