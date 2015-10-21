@@ -14,11 +14,12 @@ module.exports = function(grunt) {
 	  	},
 	  	circle: {
             options: {
+              ui: 'tdd',
               reporter: 'mocha-junit-reporter',
+              quiet: false,
               reporterOptions: {
-                mochaFile: process.env.CIRCLE_TEST_REPORTS + 'JUNIT.xml'
-              },
-              ui: 'tdd'
+                mochaFile: process.env.CIRCLE_TEST_REPORTS + 'results.xml'
+              }
             },
             src: ['test/**/*.js']
         }
