@@ -26,6 +26,7 @@ database:
 # run tests
 test:
   override:
+    - mkdir -p $CIRCLE_TEST_REPORTS
     - DB=test npm start:
         background: true
     - npm test
