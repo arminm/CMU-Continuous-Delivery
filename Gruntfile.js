@@ -11,7 +11,18 @@ module.exports = function(grunt) {
 	  			clearRequireCache: false
 	  		},
 	  		src: ['test/**/*.js']
-	  	}
+	  	},
+	  	circle: {
+            options: {
+              ui: 'tdd',
+              reporter: 'mocha-junit-reporter',
+              quiet: false,
+              reporterOptions: {
+                mochaFile: process.env.CIRCLE_TEST_REPORTS + '/mocha/results.xml'
+              }
+            },
+            src: ['test/**/*.js']
+        }
 	  }
 	});
 
@@ -19,6 +30,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-mocha-test');
 
 	// Register tasks (Both `$ grunt` and `$ grunt test` would run mochaTest)
-	grunt.registerTask('default', ['mochaTest']);
-	grunt.registerTask('test', ['mochaTest']);
+	grunt.registerTask('default', ['mochaTest:test']);
+	grunt.registerTask('test', ['mochaTest:test']);
+
+	// Circle
+    grunt.registerTask('circle', ['mochaTest:circle']);
 }

@@ -7,7 +7,7 @@ var db = require('../../config/db.js');
 suite('Status: REST', function() {
   var statusCrumbID;
   var statusInfo;
-  var client;
+  var client = new Client();
 
   setup(function(done) {
     // Connect to database
@@ -33,7 +33,6 @@ suite('Status: REST', function() {
 
 
   test('Update the status of an existing user', function(done) {
-  	client = new Client();
     var args = {
       data : {statusCode: "Help", updatedAt: 1232121421521},
       headers: {"Content-Type": "application/json"} 
@@ -45,7 +44,6 @@ suite('Status: REST', function() {
   });
 
   test('Update the status of a non existing user', function(done) {
-    client = new Client();
     var args = {
       data : {statusCode: "Help", updatedAt: 1232121421521},
       headers: {"Content-Type": "application/json"} 
@@ -57,7 +55,6 @@ suite('Status: REST', function() {
   });
 
   test('Get an existing statusCrumb', function(done) {
-    client = new Client();
     var args = {};
     client.get("http://localhost:4444/status/" + statusCrumbID, args, function(data, response) {
       expect(response.statusCode).to.eql(200);
@@ -66,7 +63,6 @@ suite('Status: REST', function() {
   });
 
   test('Get a non-existing statusCrumb', function(done) {
-    client = new Client();
     var args = {};
     client.get("http://localhost:4444/status/" + "-1", args, function(data,response) {
       expect(response.statusCode).to.eql(404);
@@ -75,7 +71,6 @@ suite('Status: REST', function() {
   });
 
   test('Get all status crumbs for an existing user', function(done) {
-    client = new Client();
     var args = {};
     client.get("http://localhost:4444/status?username=armin", args, function(data,response) {
       expect(response.statusCode).to.eql(200);
@@ -85,7 +80,6 @@ suite('Status: REST', function() {
   });
 
   test('Get all status crumbs for a non-existing user', function(done) {
-    client = new Client();
     var args = {};
     client.get("http://localhost:4444/status?username=pragya", args, function(data,response) {
       expect(response.statusCode).to.eql(404);
