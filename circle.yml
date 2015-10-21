@@ -11,7 +11,7 @@ dependencies:
     - npm install
     - bower install
     - npm install -g grunt-cli
-    # - npm install sqlite3
+    - npm install sqlite3
 
 database:
   override:
