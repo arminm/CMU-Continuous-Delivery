@@ -10,13 +10,10 @@ dependencies:
     - npm install -g db-migrate
     - npm install -g sqlite3
 
-database:
-  override:
-    - db-migrate db test
-    - db-migrate up --env test
-
 test:
   post:
+    - db-migrate db test
+    - db-migrate up --env test
     - DB=test npm start:
         background: true
     - npm test
