@@ -5,6 +5,7 @@
 # ignore node_modules
 node_modules/*
 public/libs/*
+*/coverage/*
 
 # ignore log files
 npm-debug.log
