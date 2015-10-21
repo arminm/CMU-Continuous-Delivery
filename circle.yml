@@ -7,16 +7,15 @@ dependencies:
     - npm install
     - bower install
     - npm install -g grunt-cli
-    - npm install -g db-migrate
     - npm install sqlite3
 
 database:
   override:
-    - db-migrate db test
-    - db-migrate up --env test
+    - node_modules/db-migrate/bin/db-migrate db test
+    - node_modules/db-migrate/bin/db-migrate up --env test
 
 test:
-  post:
+  override:
     - DB=test npm start:
         background: true
     - sleep 5
