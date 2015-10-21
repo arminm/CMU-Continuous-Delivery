@@ -1,5 +1,5 @@
 angular.module('myApp')
-.controller('wallController', function($scope, $location, JoinCommunity, User, Message, Socket) {
+.controller('wallController', function($scope, $location, JoinCommunity, User, Message, MessageFactory, Socket) {
 	$scope.username = User.getUsername();
 	$scope.messages = [];
 	$scope.logout = function () {
@@ -13,7 +13,7 @@ angular.module('myApp')
 		User.reset();
 	};
 	$scope.getAllMessages = function () {
-		Message.getAll('WALL')
+		MessageFactory.getAll('WALL')
 		.success(function(data, status, headers, config) {
 			$scope.messages = data;
 		})
@@ -21,13 +21,18 @@ angular.module('myApp')
 			$scope.formError.generic = "Something went wrong. Please try again.";
 		});
 	};
+
+	$scope.status = function(username) {
+		return User.getUser(username);
+	};
+
 	$scope.send = function() {
 		var messageData= {
 			content: $scope.messageInput,
 			messageType: 'WALL',
 			postedAt: Date.now()
 		};
-		Message.post(User.getUsername(),messageData)
+		MessageFactory.post(User.getUsername(),messageData)
 		.success(function(data, status, headers, config) {
 			if (status == '201') {
 				$scope.messageInput = '';
@@ -48,7 +53,7 @@ angular.module('myApp')
 	Socket.on('WALL', function(data) {
 		console.log('messages: ' + JSON.stringify(data));
 		if (data.action === 'created') {
-			Message.get(data.id)
+			MessageFactory.get(data.id)
 			.success(function(data, status, headers, config) {
 				if (status == '200') {
 					$scope.messages.push(data);
@@ -59,6 +64,7 @@ angular.module('myApp')
 			});
 		}
 	});
+	
 	$scope.getPresentableTime = function(timestamp) {
 		var date = new Date(Number(timestamp));
 		var dateString = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();

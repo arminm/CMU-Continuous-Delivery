@@ -79,6 +79,10 @@ body {
 	line-height: 1;
 }
 
+#currentuser {
+	background: rgba(255, 255, 255, 1);
+}
+
 #onlineUser{
 	background: rgba(0, 255, 0, 0.36);
 }
@@ -215,4 +219,12 @@ h3{
 	z-index: 1000;
 	margin: 5px 0 0 -14px;
 	position: relative;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.time-separator {
+	padding: 0 0 0 5px;
 }

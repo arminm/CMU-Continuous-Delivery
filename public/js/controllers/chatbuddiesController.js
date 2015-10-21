@@ -1,5 +1,5 @@
 angular.module('myApp')
-.controller('chatbuddiesController', function($scope, $stateParams, $location, JoinCommunity, User, Message, Socket) {
+.controller('chatbuddiesController', function($scope, $stateParams, $location, JoinCommunity, User, Message, MessageFactory, Socket) {
 	$scope.username = User.getUsername();
 	$scope.buddy = $stateParams.username;
 	$scope.messages = [];
@@ -14,7 +14,7 @@ angular.module('myApp')
 		User.reset();
 	};
 	$scope.getAllMessages = function () {
-		Message.getAllPrivate('CHAT', User.getUsername(), $scope.buddy)
+		MessageFactory.getAllPrivate('CHAT', User.getUsername(), $scope.buddy)
 		.success(function(data, status, headers, config) {
 			$scope.messages = data;
 		})
@@ -22,6 +22,11 @@ angular.module('myApp')
 			$scope.formError.generic = "Something went wrong. Please try again.";
 		});
 	};
+
+	$scope.status = function(username) {
+		return User.getUser(username);
+	};
+	
 	$scope.send = function() {
 		var messageData= {
 			target: $scope.buddy,
@@ -29,7 +34,7 @@ angular.module('myApp')
 			messageType: 'CHAT',
 			postedAt: Date.now()
 		};
-		Message.post(User.getUsername(), messageData)
+		MessageFactory.post(User.getUsername(), messageData)
 		.success(function(data, status, headers, config) {
 			if (status == '201') {
 				$scope.messageInput = '';
@@ -49,7 +54,7 @@ angular.module('myApp')
 	Socket.on('CHAT', function(data) {
 		console.log('messages: ' + JSON.stringify(data));
 		if (data.action === 'created') {
-			Message.get(data.id)
+			MessageFactory.get(data.id)
 			.success(function(data, status, headers, config) {
 				if (status == '200') {
 					$scope.messages.push(data);

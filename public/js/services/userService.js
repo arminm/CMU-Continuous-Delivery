@@ -8,6 +8,14 @@ angular.module('UserService', []).service('User', function () {
     return this.status;
   };
 
+  this.getLastStatusUpdated= function() {
+    return this.lastStatusUpdated;
+  };
+
+  this.setLastStatusUpdated= function(time) {
+    this.lastStatusUpdated = time;
+  };
+
   this.setUsername = function(username) {
     this.username = username;
   };
@@ -28,7 +36,24 @@ angular.module('UserService', []).service('User', function () {
     this.username = '';
     this.isFirstTimeUser = false;
     this.status = 'Undefined';
+    this.lastStatusUpdated = Date.now();
+    this.users = [];
   };
+
+  this.setUsers = function(users) {
+    this.users = users;
+  };
+
+  this.getUser = function(username) {
+    var status = {code: 'OK', lastUpdatedAt: Date.now()};
+    angular.forEach(this.users, function(user){
+      if (username === user.username) {
+        status.code = user.statusCode;
+        status.lastUpdatedAt = user.statusUpdatedAt;
+      }
+    });
+    return status;
+  }
 
   this.reset();
 

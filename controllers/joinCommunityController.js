@@ -12,7 +12,7 @@ module.exports = {
 				if (password === actualPassword) {
 					User.updateLogin(username, now, true, function(isUpdated, error) {
 						if (isUpdated) {
-							res.status(200);
+							res.status(200).send(user);
 						} else {
 							res.status(500);
 						}

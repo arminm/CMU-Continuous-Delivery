@@ -21,9 +21,9 @@ angular.module('MessageService', [])
         }
     };
 
-    // this.getBadgeCount = function() {
-    //     return this.badgeCount;
-    // };
+    this.getBadgeCount = function() {
+        return this.badgeCount;
+    };
 
     this.reset = function() {
         this.badgeCount = 0;
@@ -32,7 +32,7 @@ angular.module('MessageService', [])
 
     this.reset();
 })
-.factory('Message', function($http) {
+.factory('MessageFactory', function($http) {
         return {
             post : function(username, data) {
                 return $http.post('/messages/' + username, data);

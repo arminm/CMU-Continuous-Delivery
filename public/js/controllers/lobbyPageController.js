@@ -1,6 +1,8 @@
 angular.module('myApp')
-.controller('lobbyPageController', function($scope, $location, JoinCommunity, User, Message, Socket) {
+.controller('lobbyPageController', function($scope, $location, JoinCommunity, User, Message, Socket, Status) {
 	$scope.username = User.getUsername();
+	$scope.userStatus = User.getStatus();
+	$scope.userStatusLastUpdateTime = User.getLastStatusUpdated();
 	$scope.onlineitems = [];
 	$scope.offlineitems = [];
 	$scope.firstwelcome = User.checkFirstTimeUser();
@@ -15,16 +17,28 @@ angular.module('myApp')
 	$scope.selectedStatus = $scope.statusOptions.filter(function(option) {
 		return option.name === User.getStatus();
 	})[0];
-	$scope.badgeCount = Message.badgeCount;
 
 	$scope.setStatus = function () {
-		User.setStatus($scope.selectedStatus.name);
+		var statusData = {
+			updatedAt: Date.now(), 
+			statusCode: $scope.selectedStatus.name
+		};
+		$scope.userStatus = $scope.selectedStatus.name;
+		$scope.userStatusLastUpdateTime = Date.now();
+		Status.update($scope.username, statusData)
+		.success(function(data) {
+			User.setStatus($scope.selectedStatus.name);
+		})
+		.error(function(data) {
+
+		});
 	};
 	$scope.directory = function () {
 		$scope.onlineitems = [];
 		$scope.offlineitems = [];
 		JoinCommunity.allUsers()
 		.success(function(users) {
+			User.setUsers(users);
 			// Filter the current user
 			var usersWithoutCurrentUser = users.filter(function(user){
 				return (user.username != $scope.username);
@@ -36,12 +50,18 @@ angular.module('myApp')
 			$scope.offlineitems = usersWithoutCurrentUser.filter(function(user){
 				return user.isOnline == false;
 			});
+			console.log($scope.onlineitems);
+			console.log($scope.offlineitems);
 		})
 		.error(function(data) {
 
 		});
 	};
-
+	Socket.on('CHAT', function(data) {
+		console.log('messages: ' + JSON.stringify(data));
+		Message.addToMessageQueue(data.sender);
+		$scope.badgeCount = Message.getBadgeCount();
+	});
 	$scope.logout = function () {
 		// When the user opts to logout, take them to home page and clear user data regardless the call's status
 		JoinCommunity.logout(User.getUsername())
@@ -52,4 +72,13 @@ angular.module('myApp')
 		$location.path('/');
 		User.reset();
 	};
+	$scope.badgeCount = Message.getBadgeCount();
+
+	$scope.getPresentableTime = function(timestamp) {
+		var date = new Date(Number(timestamp));
+		var dateString = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+		return dateString;
+	};
+
+	$scope.directory();
 });
