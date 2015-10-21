@@ -1,6 +1,7 @@
 angular.module('myApp')
-.controller('chatbuddiesController', function($scope, $location, JoinCommunity, User, Message, Socket) {
+.controller('chatbuddiesController', function($scope, $stateParams, $location, JoinCommunity, User, Message, Socket) {
 	$scope.username = User.getUsername();
+	$scope.buddy = $stateParams.username;
 	$scope.messages = [];
 	$scope.logout = function () {
 		// When the user opts to logout, take them to home page and clear user data regardless the call's status
@@ -13,12 +14,7 @@ angular.module('myApp')
 		User.reset();
 	};
 	$scope.getAllMessages = function () {
-		var privateChatData = {
-			messageType: 'CHAT', 
-			sender: User.getUsername(), 
-			receiver: 'mandy'
-		};
-		Message.getAllPrivate(privateChatData)
+		Message.getAllPrivate('CHAT', User.getUsername(), $scope.buddy)
 		.success(function(data, status, headers, config) {
 			$scope.messages = data;
 		})
@@ -28,7 +24,7 @@ angular.module('myApp')
 	};
 	$scope.send = function() {
 		var messageData= {
-			target: 'mandy',
+			target: $scope.buddy,
 			content: $scope.messageInput,
 			messageType: 'CHAT',
 			postedAt: Date.now()
@@ -50,7 +46,7 @@ angular.module('myApp')
 		});
 	};
 	$scope.getAllMessages();
-	Socket.on('messages', function(data) {
+	Socket.on('CHAT', function(data) {
 		console.log('messages: ' + JSON.stringify(data));
 		if (data.action === 'created') {
 			Message.get(data.id)

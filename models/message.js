@@ -37,7 +37,8 @@ module.exports = {
 		var query = '';
 		if (username1 !== undefined && username2 !== undefined) {
 			query = "SELECT * FROM messages WHERE messageType='" + messageType 
-				+ "' AND author='" + username1 + "' AND target='" + username2 + "';";
+				+ "' AND ((author='" + username1 + "' AND target='" + username2 + 
+				  "') OR (author='" + username2 + "' AND target='" + username1 + "'));";
 		} else {
 			query = "SELECT * FROM messages WHERE messageType='" + messageType + "';";
 		}

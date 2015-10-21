@@ -3,7 +3,7 @@ div(ng-controller='chatbuddiesController')
 		div.navbar-header
 			div
 				a.btn.glyphicon.glyphicon-circle-arrow-left#backtolobbyButton(ui-sref='lobby')
-			div.navbar-brand To: {{user2}}
+			div.navbar-brand To: {{buddy}}
 			div
 				a.btn.glyphicon.glyphicon-off#logoutButton(ng-click='logout()')
 	div#scrollingMessages

@@ -8,7 +8,7 @@ module.exports = {
 			content: req.body.content, 
 			author: req.params.author, 
 			messageType: req.body.messageType, 
-			target: req.body.targetUsername, 
+			target: req.body.target, 
 			createdAt: req.body.postedAt
 		}
 		User.get(req.params.author, function(user, password, error) {

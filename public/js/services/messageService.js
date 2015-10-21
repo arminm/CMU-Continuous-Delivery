@@ -40,8 +40,8 @@ angular.module('MessageService', [])
             getAll : function(messageType) {
                 return $http.get('/messages?messageType=' + messageType);
             },
-            getAllPrivate : function(data) {
-                return $http.get('/messages', data);
+            getAllPrivate : function(messageType, sender, receiver) {
+                return $http.get('/messages?messageType=' + messageType + '&sender=' + sender + '&receiver=' + receiver);
             },
             get : function(id) {
                 return $http.get('/messages/' + id);

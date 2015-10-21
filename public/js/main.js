@@ -20,7 +20,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'partials/lobby-announcements.jade'
         })
         .state('chat', {
-            url: '/lobby/chatbuddies',
+            url: '/lobby/chatbuddies?username',
             templateUrl: 'partials/lobby-chatbuddies.jade'
         })
 });

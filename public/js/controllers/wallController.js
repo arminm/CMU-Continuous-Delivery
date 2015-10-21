@@ -45,7 +45,7 @@ angular.module('myApp')
 	};
 	$scope.getAllMessages();
 	// $scope.directory();
-	Socket.on('messages', function(data) {
+	Socket.on('WALL', function(data) {
 		console.log('messages: ' + JSON.stringify(data));
 		if (data.action === 'created') {
 			Message.get(data.id)

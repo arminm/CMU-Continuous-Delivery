@@ -49,6 +49,8 @@ angular.module('myApp')
             .success(function(data, status, headers, config) {
               User.setFirstTimeUser((status == '201'));
               User.setUsername($scope.formData.username);
+              // Join a private room
+              Socket.emit('join', $scope.formData.username);
               $location.path('/lobby');
             })
             .error(function(data, status, headers, config) {
