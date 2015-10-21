@@ -15,7 +15,7 @@ database:
     - db-migrate up --env test
 
 test:
-  override:
+  post:
     - DB=test npm start:
       background: true
     - npm test
