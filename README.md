@@ -25,9 +25,6 @@ We use `db-migrate` to *create* and update the schema of the database.
 
 More info on `db-migrate`: [Documentation](http://db-migrate.readthedocs.org/en/latest/), [GitHub](https://github.com/db-migrate/node-db-migrate)
 
-
-![](https://s-media-cache-ak0.pinimg.com/236x/d9/8a/99/d98a99d92253adf6c694e014ea3ee9af.jpg)
-
 ## To install bower
 
 Run `$sudo npm install -g bower`. Since bower needs admin permission, its not included in package.json.
@@ -43,3 +40,6 @@ Run `$sudo npm install -g bower`. Since bower needs admin permission, its not in
 1. Run the server in test mode.
 
 2. Execute `$ npm test` 
+
+
+![](https://s-media-cache-ak0.pinimg.com/236x/d9/8a/99/d98a99d92253adf6c694e014ea3ee9af.jpg)
