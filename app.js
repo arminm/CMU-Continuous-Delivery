@@ -10,8 +10,22 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var messages = require('./routes/messages');
 var status = require('./routes/status');
+var routers = [ users, routes, messages, status];
 
+var maintenance = require('maintenance');
 var app = express();
+
+// Configure Maintenance
+var options = {
+    current: false,                      // current state, default **false**
+    httpEndpoint: true,                 // expose http endpoint for hot-switch, default **false**,
+    url: '/maintenance',                     // if `httpEndpoint` is on, customize endpoint url, default **'/maintenance'**
+    view: 'maintenance.jade',                // view to render on maintenance, default **'maintenance.html'**
+    status: 503,                        // status code for response, default **503**
+    message: 'Maintenance in progress. Please try again later...',
+    routers: routers
+};
+maintenance(app, options);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -61,4 +75,5 @@ app.use(function(err, req, res, next) {
   });
 });
 
-module.exports = app;
+module.exports = app; 
+
