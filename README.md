@@ -41,5 +41,17 @@ Run `$sudo npm install -g bower`. Since bower needs admin permission, its not in
 
 2. Execute `$ npm test` 
 
+## Maintenance mode
+
+Maintenance mode is added for performance testing to lock down the server and allow only 1 user to send API calls with an `access_key`. Here's how it works:
+
+1. *TURN ON*: "Lock" the server by sending: `POST /maintenance?access_key=<user's username>` (e.g. POST /maintenance?access_key=armin`)
+
+2. *USE*: Make ANY call *BUT* provide `access_key=<user's username>` as a query parameter! (e.g. `GET /users?access_key=armin`)
+
+3. *TURN OFF*: "Unlock" the server by sending: `DELETE /maintenance?access_key=<user's username>` and server will go back to normal service.
+
+NOTE: When the server is locked, only the calls with the right `access_key` will go through. All other calls will get a `503` status (for unavailable) and a rendered `maintenance.jade` page.
+
 
 ![](https://s-media-cache-ak0.pinimg.com/236x/d9/8a/99/d98a99d92253adf6c694e014ea3ee9af.jpg)
