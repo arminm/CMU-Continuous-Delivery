@@ -74,6 +74,7 @@ angular.module('myApp')
 		})
 		.error(function(data, status, headers, config) {
 		});
+		Socket.disconnect();
 		$location.path('/');
 		User.reset();
 	};
