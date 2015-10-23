@@ -84,6 +84,5 @@ angular.module('myApp')
 		var dateString = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
 		return dateString;
 	};
-
 	$scope.directory();
 });

@@ -2,7 +2,7 @@ div(ng-controller='announcementsController')
   nav.navbar.navbar-inverse.navbar-fixed-top.nav-justified
     div.navbar-header
       div
-        a.btn.glyphicon.glyphicon-circle-arrow-left#backtolobbyButton(ui-sref='lobby')
+        a.btn.glyphicon.glyphicon-circle-arrow-left#backtolobbyButton(ui-sref='lobby',ng-click='resetFirstTimeUser()')
       div.navbar-brand Announcements
       div
         a.btn.glyphicon.glyphicon-off#logoutButton(ng-click='logout()')

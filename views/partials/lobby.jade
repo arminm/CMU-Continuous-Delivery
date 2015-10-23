@@ -39,7 +39,7 @@ div#lobbyPage(ng-controller='lobbyPageController')
             span.bold {{ getPresentableTime(offlineitem.statusUpdatedAt) }}
   div.well
     div.alert.alert-dismissible.alert-warning.animate-hide#welcomemessage(ng-show='firstwelcome')
-      button.close(type='button',data-dismiss='alert',ng-click='closewelcome()') ×
+      button.close(type='button',data-dismiss='alert',ng-click='resetFirstTimeUser()') ×
       h3 Welcome, {{username}}!
       p This is a <strong><em>Survivable Social Network on a Chip (SSNoC)</em></strong> which can help you in emergency. The first thing you'd better do is to <strong><em>share your status</em></strong> to let others know the situation.
       p.text-primary The categories of status:

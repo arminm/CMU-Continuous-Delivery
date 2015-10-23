@@ -39,7 +39,7 @@ angular.module('myApp')
     $scope.register = function () {
       if ($scope.formData.isRegistration) {
         // Call factory
-        if (($scope.formData.username != null) && ($scope.formData.password != null) && ($scope.formData.confirmPassword != null)) {
+        if ($scope.loginForm.$valid && ($scope.formData.passwordConfirm.length > 0)) {
           var registerData = {
             password: $scope.formData.password,
             fullName: $scope.formData.fullName,
@@ -79,7 +79,7 @@ angular.module('myApp')
     $scope.login = function () {
       $scope.formData.isRegistration = false;
       // Call factory
-      if (($scope.formData.username != null) && ($scope.formData.password != null)) {
+      if ($scope.loginForm.$valid) {
         var loginData = {
           password: $scope.formData.password,
           lastLoginAt: Date.now()

@@ -39,6 +39,9 @@ angular.module('UserService', []).service('User', function () {
     this.lastStatusUpdated = Date.now();
     this.users = [];
   };
+  this.resetFirstTimeUser = function() {
+    this.isFirstTimeUser = false;
+  };
 
   this.setUsers = function(users) {
     this.users = users;
@@ -56,5 +59,5 @@ angular.module('UserService', []).service('User', function () {
   }
 
   this.reset();
-
+  this.resetFirstTimeUser();
 });
