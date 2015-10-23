@@ -84,5 +84,8 @@ angular.module('myApp')
 		var dateString = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
 		return dateString;
 	};
+	$scope.resetFirstTimeUser = function() {
+		User.resetFirstTimeUser();
+	};
 	$scope.directory();
 });
