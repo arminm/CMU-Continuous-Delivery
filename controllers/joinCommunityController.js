@@ -14,20 +14,19 @@ module.exports = {
 						if (isUpdated) {
 							res.status(200).send(user);
 						} else {
-							res.status(500).send();
+							res.sendStatus(500);
 						}
 					});
 				} else {
-					res.status(401).send();
+					res.sendStatus(401);
 				}
 			}else {
 				User.create(fullName, username, password, createdAt, function(isCreated) {
 					if (isCreated) {
-						res.status(201);
+						res.sendStatus(201);
 					} else {
-						res.status(500);
+						res.sendStatus(500);
 					}
-					res.send();
 				});
 			}
 		});
@@ -44,19 +43,19 @@ module.exports = {
 				if (password === actualPassword) {
 					User.updateLogin(username, lastLoginAt, true, function(isUpdated, error) {
 						if (error) {
-							res.status(500).send();
+							res.sendStatus(500);
 						}
 						else if (isUpdated) {
 							res.status(200).send(user);
 						} else {
-							res.status(500);
+							res.sendStatus(500);
 						}
 					});
 				} else {
-					res.status(401).send();
+					res.sendStatus(401);
 				}
 			} else {
-				res.status(404).send();
+				res.sendStatus(404);
 			}
 		});
 	},
@@ -65,24 +64,23 @@ module.exports = {
 		var username = req.params.username;
 		User.logout(username, function(isLoggedIn, error) {
 			if (error) {
-				res.status(500);
+				res.sendStatus(500);
 			} else {
 				if (isLoggedIn) {
 					User.updateLogin(username, null, false, function(isUpdated, error) {
 						if (error) {
-							res.status(500).send();
+							res.sendStatus(500);
 						}
 						else if (isUpdated) {
-							res.status(200).send();
+							res.sendStatus(200);
 						} else {
-							res.status(500);
+							res.sendStatus(500);
 						}
 					});
 				} else {
-					res.status(400);
+					res.sendStatus(400);
 				}
 			}
-			res.send();
 		});
 	}
 } 

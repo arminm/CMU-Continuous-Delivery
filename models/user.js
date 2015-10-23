@@ -86,9 +86,10 @@ module.exports = {
 			if (err) {
 				console.log(err);
 				callback(null, err);
-			}
-			if (row !== undefined) {
+			} else if (row !== undefined) {
 				callback(row.isOnline, null);
+			} else {
+				callback();
 			}
 		});
 	}
