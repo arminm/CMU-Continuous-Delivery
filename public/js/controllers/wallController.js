@@ -4,6 +4,7 @@ angular.module('myApp')
 	$scope.messages = [];
 	$scope.limitResults = 1000000;
 	$scope.searchText = '';
+	$scope.descending = false;
 	$scope.searchMode = false;
 
 	$scope.logout = function () {
@@ -80,19 +81,19 @@ angular.module('myApp')
 		$scope.getAllMessages();
 		$scope.limitResults = 1000000;
 		$scope.searchText = '';
+		$scope.descending = false;
 	};
 
 	$scope.search = function() {
-		if ($scope.searchString !== '') {
-			$scope.searchText = $scope.searchString;
-			$scope.messages.reverse();
+		if ($scope.searchText !== '') {
 			if ($scope.limitResults === 1000000) {
+				$scope.descending = true;
 				$scope.limitResults = 10;
 			}
 		} else {
 			$scope.getAllMessages();
 			$scope.limitResults = 1000000;
-			$scope.searchText = '';
+			$scope.descending = false;
 		}
 	};
 

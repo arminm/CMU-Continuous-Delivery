@@ -6,13 +6,13 @@ div(ng-controller='wallController')
 			div.navbar-brand Wall
 			div.searchField
 				a.btn.glyphicon.glyphicon-search(ng-click='searchOn()')
-				input(type='text', placeholder='Search', ng-model='searchString', ng-change='search()', ng-show='searchMode')
+				input(type='text', placeholder='Search', ng-model='searchText', ng-change='search()', ng-show='searchMode')
 				a.btn.glyphicon.glyphicon-remove-sign(ng-click='searchOff()', ng-show='searchMode')
 				a(ng-click='showMoreResults()', ng-show='searchMode') Show more
 			div
 				a.btn.glyphicon.glyphicon-off#logoutButton(ng-click='logout()')
 	div#scrollingMessages
-		div.messages.msg(ng-repeat="msg in messages | filter : {content:searchText} | limitTo: limitResults") 
+		div.messages.msg(ng-repeat="msg in messages | filter : {content:searchText} | orderBy : 'createdAt' : descending | limitTo: limitResults") 
 			div.timestamp {{ getPresentableTime(msg.createdAt)}}
 			div.username {{ msg.author}}
 				span.user-status(style='padding: 0 0 0 5px;') Status: {{ status(msg.author).code }} Last updated at: {{getPresentableTime(status(msg.author).lastUpdatedAt)}}
