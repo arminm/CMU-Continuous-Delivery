@@ -5,7 +5,7 @@ div(ng-controller='wallController')
 				a.btn.glyphicon.glyphicon-circle-arrow-left#backtolobbyButton(ui-sref='lobby',ng-click='resetFirstTimeUser()')
 			div.navbar-brand Wall
 			div.searchField
-				input(type='text', placeholder='Search', ng-model='searchText')
+				input(type='text', placeholder='Search', ng-model='searchString')
 				button.btn.btn-warning(type='button', style='width:20%', ng-click='search()') Go
 				a(ng-click='showMoreResults()') Show more
 			div
