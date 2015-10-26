@@ -4,6 +4,8 @@ angular.module('myApp')
 	$scope.messages = [];
 	$scope.limitResults = 1000000;
 	$scope.searchText = '';
+	$scope.searchMode = false;
+
 	$scope.logout = function () {
 		// When the user opts to logout, take them to home page and clear user data regardless the call's status
 		JoinCommunity.logout(User.getUsername())
@@ -68,6 +70,17 @@ angular.module('myApp')
 			});
 		}
 	});
+
+	$scope.searchOn = function() {
+		$scope.searchMode = true;
+	};
+
+	$scope.searchOff = function() {
+		$scope.searchMode = false;
+		$scope.getAllMessages();
+		$scope.limitResults = 1000000;
+		$scope.searchText = '';
+	};
 
 	$scope.search = function() {
 		if ($scope.searchString !== '') {

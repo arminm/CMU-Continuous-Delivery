@@ -5,9 +5,10 @@ div(ng-controller='wallController')
 				a.btn.glyphicon.glyphicon-circle-arrow-left#backtolobbyButton(ui-sref='lobby',ng-click='resetFirstTimeUser()')
 			div.navbar-brand Wall
 			div.searchField
-				input(type='text', placeholder='Search', ng-model='searchString')
-				button.btn.btn-warning(type='button', style='width:20%', ng-click='search()') Go
-				a(ng-click='showMoreResults()') Show more
+				a.btn.glyphicon.glyphicon-search(ng-click='searchOn()')
+				input(type='text', placeholder='Search', ng-model='searchString', ng-change='search()', ng-show='searchMode')
+				a.btn.glyphicon.glyphicon-remove-sign(ng-click='searchOff()', ng-show='searchMode')
+				a(ng-click='showMoreResults()', ng-show='searchMode') Show more
 			div
 				a.btn.glyphicon.glyphicon-off#logoutButton(ng-click='logout()')
 	div#scrollingMessages
