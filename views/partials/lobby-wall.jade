@@ -5,10 +5,12 @@ div(ng-controller='wallController')
 				a.btn.glyphicon.glyphicon-circle-arrow-left#backtolobbyButton(ui-sref='lobby',ng-click='resetFirstTimeUser()')
 			div.navbar-brand Wall
 			div
+				input(type='search', placeholder='search', ng-model='searchText')
+			div
 				a.btn.glyphicon.glyphicon-off#logoutButton(ng-click='logout()')
 	div#scrollingMessages
-		div.messages.msg(ng-repeat="msg in messages") 
-			div.timestamp {{ getPresentableTime(msg.createdAt) }}
+		div.messages.msg(ng-repeat="msg in messages | filter : searchText") 
+			div.timestamp {{ getPresentableTime(msg.createdAt)}}
 			div.username {{ msg.author}}
 				span.user-status(style='padding: 0 0 0 5px;') Status: {{ status(msg.author).code }} Last updated at: {{getPresentableTime(status(msg.author).lastUpdatedAt)}}
 			div {{ msg.content}}
