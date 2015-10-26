@@ -2,6 +2,8 @@ angular.module('myApp')
 .controller('wallController', function($scope, $location, JoinCommunity, User, Message, MessageFactory, Socket) {
 	$scope.username = User.getUsername();
 	$scope.messages = [];
+	$scope.limitResults = 1000000;
+	$scope.searchText = '';
 	$scope.logout = function () {
 		// When the user opts to logout, take them to home page and clear user data regardless the call's status
 		JoinCommunity.logout(User.getUsername())
@@ -66,6 +68,21 @@ angular.module('myApp')
 			});
 		}
 	});
+
+	$scope.search = function() {
+		if ($scope.searchText !== '') {
+			$scope.messages.reverse();
+		} else {
+			$scope.getAllMessages();
+		}
+		if ($scope.limitResults === 1000000) {
+			$scope.limitResults = 10;
+		}
+	};
+
+	$scope.showMoreResults = function() {
+		$scope.limitResults += 10;
+	};
 	
 	$scope.getPresentableTime = function(timestamp) {
 		var date = new Date(Number(timestamp));
