@@ -11,7 +11,7 @@ suite('Status: Model', function() {
     // Connect to database
 
     User.create('Dimitris', 'dimitris', '1234', 123123123123, function(isCreated) {
-      done();
+
     });
 
     statusInfo = {
@@ -22,6 +22,7 @@ suite('Status: Model', function() {
 
     Status.createStatusCrumb(statusInfo, function(crumbID, error) {
       statusCrumbID = crumbID;
+      done();
     });
   });
 
@@ -36,7 +37,7 @@ suite('Status: Model', function() {
       username: "dimitris",
       statusCode: "Emergency",
       updatedAt: 12314125125135252
-    }
+    };
     Status.createStatusCrumb(statusInfo, function(crumbID, error) {
       expect(crumbID).to.be.a('number');
       Status.getStatusCrumb(crumbID, function(statusCrumb, error) {

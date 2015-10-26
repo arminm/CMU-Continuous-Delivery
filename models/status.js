@@ -4,9 +4,9 @@ var utils = require('../utilities.js');
 
 module.exports = {
 	createStatusCrumb: function(info, callback) {
-		db.run('INSERT INTO statusCrumbs (username, statusCode, statusUpdatedAt) VALUES ($1, $2, $3);', { 
-			$1: info.username, 
-			$2: info.statusCode, 
+		db.run('INSERT INTO statusCrumbs (username, statusCode, statusUpdatedAt) VALUES ($1, $2, $3);', {
+			$1: info.username,
+			$2: info.statusCode,
 			$3: info.updatedAt
 		},function(error) {
 			if (error) {
@@ -28,7 +28,7 @@ module.exports = {
 
 	getAllStatusCrumbs: function(username, callback) {
 		var statusCrumbs = [];
-		db.each("SELECT * FROM statusCrumbs WHERE username='" + username + "';", 
+		db.each("SELECT * FROM statusCrumbs WHERE username='" + username + "';",
 			function(error, row) {
 				if (error) {
 					console.log(error);
