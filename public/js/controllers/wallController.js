@@ -70,7 +70,8 @@ angular.module('myApp')
 	});
 
 	$scope.search = function() {
-		if ($scope.searchText !== '') {
+		if ($scope.searchString !== '') {
+			$scope.searchText = $scope.searchString;
 			$scope.messages.reverse();
 		} else {
 			$scope.getAllMessages();
