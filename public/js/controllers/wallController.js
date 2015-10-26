@@ -73,11 +73,13 @@ angular.module('myApp')
 		if ($scope.searchString !== '') {
 			$scope.searchText = $scope.searchString;
 			$scope.messages.reverse();
+			if ($scope.limitResults === 1000000) {
+				$scope.limitResults = 10;
+			}
 		} else {
 			$scope.getAllMessages();
-		}
-		if ($scope.limitResults === 1000000) {
-			$scope.limitResults = 10;
+			$scope.limitResults = 1000000;
+			$scope.searchText = '';
 		}
 	};
 
