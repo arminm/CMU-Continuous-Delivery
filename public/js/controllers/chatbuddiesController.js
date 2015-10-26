@@ -3,16 +3,6 @@ angular.module('myApp')
 	$scope.username = User.getUsername();
 	$scope.buddy = $stateParams.username;
 	$scope.messages = [];
-	$scope.logout = function () {
-		// When the user opts to logout, take them to home page and clear user data regardless the call's status
-		JoinCommunity.logout(User.getUsername())
-		.success(function(data, status, headers, config) {	
-		})
-		.error(function(data, status, headers, config) {
-		});
-		$location.path('/');
-		User.reset();
-	};
 	$scope.getAllMessages = function () {
 		MessageFactory.getAllPrivate('CHAT', User.getUsername(), $scope.buddy)
 		.success(function(data, status, headers, config) {
@@ -67,10 +57,5 @@ angular.module('myApp')
 			});
 		}
 	});
-	$scope.getPresentableTime = function(timestamp) {
-		var date = new Date(Number(timestamp));
-		var dateString = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
-		return dateString;
-	};
 	Message.clearQueueForUser($scope.buddy);
 });

@@ -37,6 +37,25 @@ app.directive('serverError', function (){
  };
 });
 
+app.controller('mainController', function($scope, $location, User, JoinCommunity) {
+    $scope.logout = function () {
+        // When the user opts to logout, take them to home page and clear user data regardless the call's status
+        JoinCommunity.logout(User.getUsername())
+        .success(function(data, status, headers, config) {  
+        })
+        .error(function(data, status, headers, config) {
+        });
+        $location.path('/');
+        User.reset();
+    };
+    
+    $scope.getPresentableTime = function(timestamp) {
+        var date = new Date(Number(timestamp));
+        var dateString = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+        return dateString;
+    };
+});
+
 function scrollToBottom(animated, id) {
   if (animated) {
     $(id).animate({ scrollTop: $(id)[0].scrollHeight}, 1000);
