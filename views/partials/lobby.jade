@@ -1,42 +1,5 @@
 div#lobbyPage(ng-controller='lobbyPageController')
-  nav.navbar.navbar-inverse.navbar-fixed-top.nav-justified
-    div.navbar-header
-      button#hamburger.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse', ng-click="directory()")
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
-      span.navbar-brand Welcome {{username}}!
-      div
-        a.btn.glyphicon.glyphicon-off#logoutButton(ng-click='logout()')
-    div#statusBar.navbar-text
-      label(for='statusSelect') Your status:
-      select#statusSelect(name='statusSelect', ng-options="status.name for status in statusOptions track by status.name", ng-model='selectedStatus', ng-style="{'background-color': selectedStatus.color}", ng-change='setStatus()')     
-    div.navbar-collapse.collapse
-      ul.nav.navbar-nav
-        li#currentuser
-          span.glyphicon.glyphicon-user 
-          span.user.username {{ username }}
-          span.user-status
-            span Status:
-            span.bold {{ userStatus }} 
-            span.time-separator Last updated at: 
-            span.bold {{ getPresentableTime(userStatusLastUpdateTime) }}
-        li#onlineUser(ng-repeat="onlineitem in onlineitems | orderBy: 'username'", ui-sref='chat({ username: onlineitem.username })')
-          span.glyphicon.glyphicon-user 
-          span.user.username {{onlineitem.username}}
-          span.user-status
-            span Status:
-            span.bold {{ onlineitem.statusCode }} 
-            span.time-separator Last updated at: 
-            span.bold {{ getPresentableTime(onlineitem.statusUpdatedAt) }}
-        li#offlineUser(ng-repeat="offlineitem in offlineitems | orderBy: 'username'") 
-          span.glyphicon.glyphicon-user
-          span.user.username {{offlineitem.username}}
-          span.user-status
-            span Status:
-            span.bold {{ offlineitem.statusCode }} 
-            span.time-separator Last updated at: 
-            span.bold {{ getPresentableTime(offlineitem.statusUpdatedAt) }}
+  include includes/lobby-main-nav.jade
   div.well
     div.alert.alert-dismissible.alert-warning.animate-hide#welcomemessage(ng-show='firstwelcome')
       button.close(type='button',data-dismiss='alert',ng-click='resetFirstTimeUser()') ×

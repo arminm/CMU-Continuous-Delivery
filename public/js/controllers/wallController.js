@@ -2,6 +2,7 @@ angular.module('myApp')
 .controller('wallController', function($scope, $location, JoinCommunity, User, Message, MessageFactory, Socket) {
 	$scope.username = User.getUsername();
 	$scope.messages = [];
+	$scope.title = "Wall";
 	$scope.getAllMessages = function () {
 		MessageFactory.getAll('WALL')
 		.success(function(data, status, headers, config) {
@@ -40,7 +41,6 @@ angular.module('myApp')
 		});
 	};
 	$scope.getAllMessages();
-	// $scope.directory();
 	Socket.on('WALL', function(data) {
 		console.log('messages: ' + JSON.stringify(data));
 		if (data.action === 'created') {

@@ -3,6 +3,7 @@ angular.module('myApp')
 	$scope.username = User.getUsername();
 	$scope.buddy = $stateParams.username;
 	$scope.messages = [];
+	$scope.title = "To: " + $scope.buddy;
 	$scope.getAllMessages = function () {
 		MessageFactory.getAllPrivate('CHAT', User.getUsername(), $scope.buddy)
 		.success(function(data, status, headers, config) {
@@ -42,20 +43,5 @@ angular.module('myApp')
 		});
 	};
 	$scope.getAllMessages();
-	Socket.on('CHAT', function(data) {
-		console.log('messages: ' + JSON.stringify(data));
-		if (data.action === 'created') {
-			MessageFactory.get(data.id)
-			.success(function(data, status, headers, config) {
-				if (status == '200') {
-					$scope.messages.push(data);
-					scrollToBottom(true, '#scrollingMessages');
-				}
-			})
-			.error(function(data, status, headers, config) {
-				// TODO 
-			});
-		}
-	});
 	Message.clearQueueForUser($scope.buddy);
 });

@@ -1,6 +1,7 @@
 angular.module('myApp')
 .controller('announcementsController', function($scope, $location, JoinCommunity, User, Message, MessageFactory, Socket) {
 	$scope.announcements = [];
+	$scope.title = "Announcements";
 	$scope.getAllAnnouncements = function () {
 		MessageFactory.getAll('ANNOUNCEMENTS')
 		.success(function(data, status, headers, config) {

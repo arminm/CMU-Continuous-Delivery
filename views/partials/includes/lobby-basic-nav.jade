@@ -1,0 +1,7 @@
+nav.navbar.navbar-inverse.navbar-fixed-top
+	div.navbar-header
+		div
+			a.btn.glyphicon.glyphicon-circle-arrow-left#backtolobbyButton(ui-sref='lobby')
+		div.navbar-brand {{title}}
+		div
+			a.btn.glyphicon.glyphicon-off#logoutButton(ng-click='logout()')

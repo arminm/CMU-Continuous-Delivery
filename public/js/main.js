@@ -37,7 +37,7 @@ app.directive('serverError', function (){
  };
 });
 
-app.controller('mainController', function($scope, $location, User, JoinCommunity) {
+app.controller('mainController', function($scope, $location, $state, User, JoinCommunity, Socket, MessageFactory) {
     $scope.logout = function () {
         // When the user opts to logout, take them to home page and clear user data regardless the call's status
         JoinCommunity.logout(User.getUsername())
@@ -54,6 +54,31 @@ app.controller('mainController', function($scope, $location, User, JoinCommunity
         var dateString = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
         return dateString;
     };
+
+    Socket.on('CHAT', function(data) {
+        console.log($state);
+        console.log($state.$current);
+        if (User.getUsername().length > 0) { // If the user is logged in or the user state is present
+            if ($state.$current.url.sourcePath == '/lobby/chatbuddies') {
+                if (data.action === 'created') {
+                    MessageFactory.get(data.id)
+                    .success(function(data, status, headers, config) {
+                        if (status == '200') {
+                            $state.$current.messages.push(data);
+                            scrollToBottom(true, '#scrollingMessages');
+                        }
+                    })
+                    .error(function(data, status, headers, config) {
+                        // TODO 
+                    });
+                }
+            } else if (data.sender !== $scope.username) {
+                if (confirm("You have a new message from "+data.sender + ". Go to chat?") == true) {
+                    $state.go('chat',{ username: data.sender });
+                }
+            }
+        }
+    });
 });
 
 function scrollToBottom(animated, id) {

@@ -57,16 +57,6 @@ angular.module('myApp')
 
 		});
 	};
-	Socket.on('CHAT', function(data) {
-		console.log('messages: ' + JSON.stringify(data));
-		Message.addToMessageQueue(data.sender);
-		$scope.badgeCount = Message.getBadgeCount();
-		if ((data.sender !== $scope.username) && $state.$current.url.sourcePath !== '/lobby/chatbuddies') {
-			if (confirm("You have a new message from "+data.sender + ". Go to chat?") == true) {
-	 			$state.go('chat',{ username: data.sender });
-	    	}
-		}
-	});
 	$scope.resetFirstTimeUser = function() {
 		User.resetFirstTimeUser();
 	};
