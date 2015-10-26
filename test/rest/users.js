@@ -8,6 +8,7 @@ suite('Users: REST', function() {
   
 	setup(function(done) {
 		User.create('Dimitris', 'dimitris', '1234', 123123123123, function(isCreated) {
+      expect(isCreated).to.be.ok();
 			done();
 		});
 	});
