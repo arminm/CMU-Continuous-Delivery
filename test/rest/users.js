@@ -3,11 +3,17 @@ var expect = require('expect.js');
 var db = require('../../config/db.js');
 var Client = require('node-rest-client').Client;
 
-suite('Users: REST', function() {
+suite('REST: User', function() {
   var client = new Client();
-  
+
 	setup(function(done) {
-		User.create('Dimitris', 'dimitris', '1234', 123123123123, function(isCreated) {
+    var userInfo = {
+      fullName: 'Dimitris',
+      username: 'dimitris',
+      password: '1234',
+      createdAt: 123123123123
+    }
+		User.create(userInfo, function(isCreated) {
       expect(isCreated).to.be.ok();
 			done();
 		});
@@ -22,34 +28,34 @@ suite('Users: REST', function() {
   test('Create a new user that does not exist', function(done) {
     var args = {
       data: { fullName: "Armin", password: "1234", createdAt: 12312421444124 },
-      headers:{"Content-Type": "application/json"} 
+      headers:{"Content-Type": "application/json"}
     };
     client.post("http://localhost:4444/signup/armin", args, function(data,response) {
       expect(response.statusCode).to.eql(201);
       done();
-    });	
+    });
   });
 
   test('Create a new user that exists: correct password', function(done) {
     var args = {
       data: { fullName: "Dimitris", password: "1234", createdAt: 12312421444124 },
-      headers:{"Content-Type": "application/json"} 
+      headers:{"Content-Type": "application/json"}
     };
     client.post("http://localhost:4444/signup/dimitris", args, function(data,response) {
       expect(response.statusCode).to.eql(200);
       done();
-    });	
+    });
   });
 
   test('Create a new user that exists: wrong password', function(done) {
     var args = {
       data: { fullName: "Dimitris", password: "password", createdAt: 12312421444124 },
-      headers:{"Content-Type": "application/json"} 
+      headers:{"Content-Type": "application/json"}
     };
     client.post("http://localhost:4444/signup/dimitris", args, function(data,response) {
       expect(response.statusCode).to.eql(401);
       done();
-    });	
+    });
   });
 
 	test('Get an existing user', function(done) {

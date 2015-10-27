@@ -20,7 +20,7 @@ angular.module('myApp')
 
 	$scope.setStatus = function () {
 		var statusData = {
-			updatedAt: Date.now(), 
+			statusUpdatedAt: Date.now(),
 			statusCode: $scope.selectedStatus.name
 		};
 		$scope.userStatus = $scope.selectedStatus.name;
@@ -70,7 +70,7 @@ angular.module('myApp')
 	$scope.logout = function () {
 		// When the user opts to logout, take them to home page and clear user data regardless the call's status
 		JoinCommunity.logout(User.getUsername())
-		.success(function(data, status, headers, config) {	
+		.success(function(data, status, headers, config) {
 		})
 		.error(function(data, status, headers, config) {
 		});

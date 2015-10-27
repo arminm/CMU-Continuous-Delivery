@@ -3,20 +3,20 @@ var utils = require('../utilities.js');
 var Status = require('./status.js');
 
 module.exports = {
-	create: function(fullName, username, password, createdAt, callback) {
+	create: function(info, callback) {
 		db.run('INSERT INTO users (fullName, username, password, createdAt) VALUES ($1, $2, $3, $4);', {
-			$1: fullName,
-			$2: username,
-			$3: password,
-			$4: createdAt
+			$1: info.fullName,
+			$2: info.username,
+			$3: info.password,
+			$4: info.createdAt
 		}, function(error) {
 			if (error) {
 				callback(false, error);
 			} else {
 				var statusInfo = {
-					username: username,
+					username: info.username,
 					statusCode: "OK",
-					updatedAt: createdAt
+					statusUpdatedAt: info.createdAt
 				}
 				Status.createStatusCrumb(statusInfo, callback);
 			}

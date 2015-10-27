@@ -2,15 +2,18 @@ var User = require('../models/user.js');
 
 module.exports = {
 	signup: function(req, res){
-		var fullName = req.body.fullName;
-		var username = req.params.username;
-		var password = req.body.password;
-		var createdAt = req.body.createdAt;
+		var userInfo = {
+			fullName: req.body.fullName,
+			username: req.params.username,
+			password: req.body.password,
+			createdAt: req.body.createdAt
+		};
+
 		var now = (new Date()).getTime();
-		User.get(username, function(user, actualPassword) {
+		User.get(userInfo.username, function(user, actualPassword) {
 			if (user !== undefined) {
-				if (password === actualPassword) {
-					User.updateLogin(username, now, true, function(isUpdated, error) {
+				if (userInfo.password === actualPassword) {
+					User.updateLogin(userInfo.username, now, true, function(isUpdated, error) {
 						if (isUpdated) {
 							res.status(200).send(user);
 						} else {
@@ -21,7 +24,7 @@ module.exports = {
 					res.sendStatus(401);
 				}
 			}else {
-				User.create(fullName, username, password, createdAt, function(isCreated) {
+				User.create(userInfo, function(isCreated) {
 					if (isCreated) {
 						res.sendStatus(201);
 					} else {
@@ -83,4 +86,4 @@ module.exports = {
 			}
 		});
 	}
-} 
+}

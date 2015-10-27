@@ -35,7 +35,7 @@ function getUser(username, callback) {
 
 // Creates the actual user in the database using a user double
 function createUser(double, callback) {
-  User.create(double.fullName, double.username, double.password, double.createdAt, function(isCreated, error) {
+  User.create(double, function(isCreated, error) {
     if (isCreated && !error) {
       getUser(double.username, function(user, password){
         expect(double.password === password).to.be.ok();
@@ -124,8 +124,6 @@ suite('User: ', function() {
       updateLogin(userArmin, function(isUpdated, error, user) {
         expect(isUpdated).to.be.ok();
         expect(error).to.not.be.ok();
-        console.log("userArmin: " + JSON.stringify(userArmin));
-        console.log("user: " + JSON.stringify(user));
         expect(areTheSame(userArmin, user)).to.be.ok();
         done();
       });
