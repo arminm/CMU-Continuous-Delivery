@@ -68,12 +68,9 @@ module.exports = {
 	},
 
 	logout: function(username, callback) {
-		db.get("SELECT isOnline FROM users WHERE username = '" + username + "';", function(err, row) {
-			if (err) {
-				console.log(err);
-				callback(null, err);
-			} else if (row !== undefined) {
-				callback(row.isOnline, null);
+		db.run("UPDATE users SET isOnline = ? WHERE username = ?;", 'false', username, function(error) {
+			if (error) {
+				callback(error);
 			} else {
 				callback();
 			}

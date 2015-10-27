@@ -108,6 +108,29 @@ suite('User: ', function() {
     });
   });
 
+  test('Get all users', function(done){
+    createUser(userArmin, function() {
+      createUser(userDimitris, function() {
+        User.getAllUsers(function(users, error) {
+          expect(error).to.not.be.ok();
+          // make sure there are two results, and they are both what we expected
+          expect(users.length).to.eql(2);
+          // make sure they are not the same user
+          expect(areTheSame(users[0], users[1])).to.not.be.ok();
+          // Count matching unique users
+          var matchCount = 0;
+          for (var user of users) {
+            if (areTheSame(userArmin, user) || areTheSame(userDimitris, user)) {
+              matchCount++;
+            }
+          }
+          expect(matchCount).to.eql(2);
+          done();
+        });
+      });
+    });
+  });
+
   test('Get a user that does not exist', function(done) {
     getUser(null, function(user) {
       expect(user).to.not.be.ok();
@@ -120,7 +143,7 @@ suite('User: ', function() {
     createUser(userArmin, function() {
       // update the double user
       userArmin.lastLoginAt = now();
-      userArmin.isOnline = "true";
+
       updateLogin(userArmin, function(isUpdated, error, user) {
         expect(isUpdated).to.be.ok();
         expect(error).to.not.be.ok();
@@ -136,6 +159,20 @@ suite('User: ', function() {
       expect(error).to.not.be.ok();
       expect(user).to.not.be.ok();
       done();
+    });
+  });
+
+  test('Logout', function(done){
+    createUser(userArmin, function() {
+      userArmin.isOnline = "true";
+      User.logout(userArmin.username, function(error){
+        expect(error).to.not.be.ok();
+        getUser(userArmin.username, function(user){
+          userArmin.isOnline = "false";
+          expect(areTheSame(userArmin, user)).to.be.ok();
+          done();
+        });
+      });
     });
   });
 

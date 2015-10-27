@@ -64,26 +64,13 @@ module.exports = {
 	},
 
 	logout: function(req, res) {
-		var username = req.params.username;
-		User.logout(username, function(isLoggedIn, error) {
+		User.logout(req.params.username, function(error) {
 			if (error) {
 				res.sendStatus(500);
 			} else {
-				if (isLoggedIn) {
-					User.updateLogin(username, null, false, function(isUpdated, error) {
-						if (error) {
-							res.sendStatus(500);
-						}
-						else if (isUpdated) {
-							res.sendStatus(200);
-						} else {
-							res.sendStatus(500);
-						}
-					});
-				} else {
-					res.sendStatus(400);
-				}
+				res.sendStatus(200);
 			}
 		});
 	}
-}
+
+};
