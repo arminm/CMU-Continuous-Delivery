@@ -3,43 +3,34 @@ var utils = require('../utilities.js');
 var Status = require('./status.js');
 
 module.exports = {
-	create: function(fullName, username, password, createdAt, callback) {
-		db.get("SELECT username FROM users WHERE username='" + username + "';", function(error, row) {
+	create: function(info, callback) {
+		db.run('INSERT INTO users (fullName, username, password, createdAt) VALUES ($1, $2, $3, $4);', {
+			$1: info.fullName,
+			$2: info.username,
+			$3: info.password,
+			$4: info.createdAt
+		}, function(error) {
 			if (error) {
-				console.log(error);
 				callback(false, error);
 			} else {
-				db.run('INSERT INTO users (fullName, username, password, createdAt, isOnline) VALUES ($1, $2, $3, $4, $5);', {
-					$1: fullName,
-					$2: username,
-					$3: password,
-					$4: createdAt,
-					$5: true
-				}, function(error) {
-					if (error) {
-						callback(false, error);
-					} else {
-						var statusInfo = {
-							username: username,
-							statusCode: "OK",
-							updatedAt: createdAt
-						}
-						Status.createStatusCrumb(statusInfo, callback);
-					}
-				});
+				var statusInfo = {
+					username: info.username,
+					statusCode: "OK",
+					statusUpdatedAt: info.createdAt
+				}
+				Status.createStatusCrumb(statusInfo, callback);
 			}
 		});
 	},
 
 	get: function(username, callback) {
-		var query = "SELECT * FROM users JOIN statusCrumbs WHERE users.username='" + username 
-			+ "' AND users.username=statusCrumbs.username AND crumbId = (SELECT MAX(crumbId) FROM statusCrumbs WHERE users.username=statusCrumbs.username);";
+		var query = "SELECT * FROM users WHERE users.username='" + username + "'";
 		db.get(query, function(error, row) {
 			if (error) {
 				console.log(error);
 				callback(null, null, error);
 			} else if (row) {
-				var user = utils.replacer(row, ['id', 'password', 'crumbId']);
+				var user = utils.replacer(row, ['id', 'password']);
 				callback(user, row.password);
 			} else {
 				callback();
@@ -49,15 +40,14 @@ module.exports = {
 
 	getAllUsers: function(callback) {
 		var users = [];
-		var query = "SELECT * FROM users JOIN statusCrumbs WHERE users.username=statusCrumbs.username" +
-		 " AND crumbId = (SELECT MAX(crumbId) FROM statusCrumbs WHERE users.username=statusCrumbs.username);";
-		db.each(query, 
+		var query = "SELECT * FROM users";
+		db.each(query,
 			function(error, row) {
 				if (error) {
 					console.log(error);
 					callback(null, error);
 				} else if (row) {
-					users.push(utils.replacer(row, ['id', 'password', 'crumbId']));
+					users.push(utils.replacer(row, ['id', 'password']));
 				} else {
 					callback();
 				}
@@ -77,17 +67,10 @@ module.exports = {
 		});
 	},
 
-	updateStatus: function(username, lastStatusCode) {
-		db.run("UPDATE users SET lastStatusCode = ? WHERE username = ?;", lastStatusCode, username);
-	},
-
 	logout: function(username, callback) {
-		db.get("SELECT isOnline FROM users WHERE username = '" + username + "';", function(err, row) {
-			if (err) {
-				console.log(err);
-				callback(null, err);
-			} else if (row !== undefined) {
-				callback(row.isOnline, null);
+		db.run("UPDATE users SET isOnline = ? WHERE username = ?;", 'false', username, function(error) {
+			if (error) {
+				callback(error);
 			} else {
 				callback();
 			}

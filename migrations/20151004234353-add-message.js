@@ -8,8 +8,7 @@ exports.up = function(db, callback) {
     content: {type: 'string', notNull: true},
     author: {type: 'string', notNull: true},
     target: 'string',
-    // should be one of "WALL", "CHAT"
-    messageType: 'string',
+    messageType: {type: 'string', notNull: true},
     createdAt: {type: 'timestamp', notNull: true}
   }, callback);
 };

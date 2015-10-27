@@ -5,10 +5,10 @@ var io = require('../io.js');
 module.exports = {
 	postMessage: function(req, res) {
 		var messageInfo = {
-			content: req.body.content, 
-			author: req.params.author, 
-			messageType: req.body.messageType, 
-			target: req.body.target, 
+			content: req.body.content,
+			author: req.params.author,
+			messageType: req.body.messageType,
+			target: req.body.target,
 			createdAt: req.body.postedAt
 		}
 		User.get(req.params.author, function(user, password, error) {
@@ -47,8 +47,8 @@ module.exports = {
 		});
 	},
 
-	getMessage: function(req, res) {
-		Message.getMessage(req.params.id, function(message, error) {
+	get: function(req, res) {
+		Message.get(req.params.id, function(message, error) {
 			if (error) {
 				res.status(500);
 				res.send();
@@ -61,4 +61,4 @@ module.exports = {
 			}
 		});
 	}
-} 
+}

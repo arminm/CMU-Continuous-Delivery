@@ -6,10 +6,10 @@ var Message = require('../../models/message.js');
 
 function createMessage(messageType, content, target, callback) {
   var messageInfo = {
-      content: content, 
-      author: "john", 
-      messageType: messageType, 
-      target: target, 
+      content: content,
+      author: "john",
+      messageType: messageType,
+      target: target,
       createdAt: 1231242121412
   };
   Message.create(messageInfo, function(id, error) {
@@ -18,16 +18,22 @@ function createMessage(messageType, content, target, callback) {
 };
 
 function isEqual(messageType, content, target, message) {
-  return message.messageType === messageType && message.content === content && message.target === target; 
+  return message.messageType === messageType && message.content === content && message.target === target;
 }
 
-suite('Messages: REST', function() {
+suite('REST: Message', function() {
   var messageId;
   var client = new Client();
 
   setup(function(done) {
     // Connect to database
-    User.create('Armin', 'armin', '1234', 123123123123, function(isCreated) {});
+    var userInfo = {
+      fullName: 'Armin',
+      username: 'armin',
+      password: '1234',
+      createdAt: 123123123123
+    }
+    User.create(userInfo, function(isCreated) {});
 
     createMessage('WALL', 'Hello', null, function(id) {
       messageId = id;
@@ -49,19 +55,19 @@ suite('Messages: REST', function() {
   test('Post a new message with an existing user', function(done) {
     var args = {
       data: { content : "hello", messageType: "WALL", postedAt: 123124124124 },
-      headers:{"Content-Type": "application/json"} 
+      headers:{"Content-Type": "application/json"}
     };
 
     client.post("http://localhost:4444/messages/armin", args, function(data,response) {
       expect(response.statusCode).to.eql(201);
       done();
-    });	
+    });
   });
 
   test('Post a new message with a non-existing user', function(done) {
     var args = {
       data: { content : "hello", messageType: "WALL", postedAt: 123124124124 },
-      headers:{"Content-Type": "application/json"} 
+      headers:{"Content-Type": "application/json"}
     };
 
     client.post("http://localhost:4444/messages/dimitris", args, function(data,response) {
@@ -113,7 +119,7 @@ suite('Messages: REST', function() {
   test('Post a new announcement', function(done) {
     var args = {
       data: { content : "announcement", messageType: "ANNOUNCEMENTS", postedAt: 123124124124 },
-      headers:{"Content-Type": "application/json"} 
+      headers:{"Content-Type": "application/json"}
     };
     client.post("http://localhost:4444/messages/armin", args, function(data,response) {
       expect(response.statusCode).to.eql(201);
@@ -125,7 +131,7 @@ suite('Messages: REST', function() {
         expect(isEqual('ANNOUNCEMENTS', 'announcement', null , messages[1])).to.be.ok();
         done();
       });
-    }); 
+    });
   });
 
   test('Get all announcements', function(done) {

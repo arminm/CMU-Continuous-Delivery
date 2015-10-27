@@ -9,6 +9,6 @@ router.post('/:author', messageController.postMessage);
 router.get('/', messageController.getAllMessages);
 
 // GET a message specified by id
-router.get('/:id', messageController.getMessage);
+router.get('/:id', messageController.get);
 
 module.exports = router;
