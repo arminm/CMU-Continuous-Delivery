@@ -8,12 +8,12 @@ module.exports = {
 			callback();
 			return;
 		}
-		db.run('INSERT INTO messages (content, author, messageType, target, createdAt) VALUES ($1, $2, $3, $4, $5);', { 
-			$1: info.content, 
-			$2: info.author, 
-			$3: info.messageType, 
-			$4: info.target, 
-			$5: info.createdAt 
+		db.run('INSERT INTO messages (content, author, messageType, target, createdAt) VALUES ($1, $2, $3, $4, $5);', {
+			$1: info.content,
+			$2: info.author,
+			$3: info.messageType,
+			$4: info.target,
+			$5: info.createdAt || (new Date()).getTime()
 		},function(error) {
 			if (error) {
 				callback(null, error);
@@ -32,17 +32,17 @@ module.exports = {
   		});
 	},
 
-	getAllMessages: function(messageType, username1, username2, callback) {
+	getAllMessages: function(messageType, userA, userB, callback) {
 		var messages = [];
 		var query = '';
-		if (username1 !== undefined && username2 !== undefined) {
-			query = "SELECT * FROM messages WHERE messageType='" + messageType 
-				+ "' AND ((author='" + username1 + "' AND target='" + username2 + 
-				  "') OR (author='" + username2 + "' AND target='" + username1 + "'));";
+		if (userA && userB) {
+			query = "SELECT * FROM messages WHERE messageType='" + messageType
+				+ "' AND ((author='" + userA + "' AND target='" + userB +
+				  "') OR (author='" + userB + "' AND target='" + userA + "'));";
 		} else {
 			query = "SELECT * FROM messages WHERE messageType='" + messageType + "';";
 		}
-		db.each(query, 
+		db.each(query,
 			function(error, row) {
 				if (error) {
 					console.log(error);
@@ -56,7 +56,7 @@ module.exports = {
 		);
 	},
 
-	getMessage: function(id, callback) {
+	get: function(id, callback) {
 		db.get("SELECT * FROM messages WHERE id=" + id + ";", function(error, row) {
 			if (error) {
 				callback(null, error);
@@ -68,4 +68,4 @@ module.exports = {
 			}
 		});
 	}
-}
+};

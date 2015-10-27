@@ -15,11 +15,10 @@ module.exports = {
 			} else {
 				var statusInfo = {
 					username: username,
-					statusCode: "GREEN",
+					statusCode: "OK",
 					updatedAt: createdAt
 				}
-				Status.createStatusCrumb(statusInfo, function(){});
-				callback(true);
+				Status.createStatusCrumb(statusInfo, callback);
 			}
 		});
 	},
@@ -66,10 +65,6 @@ module.exports = {
 				callback(true);
 			}
 		});
-	},
-
-	updateStatus: function(username, lastStatusCode) {
-		db.run("UPDATE users SET lastStatusCode = ? WHERE username = ?;", lastStatusCode, username);
 	},
 
 	logout: function(username, callback) {

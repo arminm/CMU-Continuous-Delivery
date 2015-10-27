@@ -1,5 +1,4 @@
 var User = require('../../models/user.js');
-var Status = require('../../models/status.js');
 var expect = require('expect.js');
 var db = require('../../config/db.js');
 var Utils = require('../../utilities.js');
@@ -10,12 +9,11 @@ var now = function() {return (new Date()).getTime();};
 function createDouble(options) {
   var double = {
     fullName: options.fullName || 'Random Name',
-    username: options.fullName || 'Random Username ' + now(),
+    username: options.username || 'Random Username ' + now(),
     password: options.password || '1234',
     createdAt: options.createdAt || now(),
     updatedAt: options.updatedAt || null,
     lastLoginAt: options.lastLoginAt || null,
-    lastStatusCode: options.lastStatusCode || 'GREEN',
     isActive: options.isActive || "true",
     isOnline: options.isOnline || "true"
   };
@@ -36,7 +34,6 @@ function getUser(username, callback) {
 };
 
 // Creates the actual user in the database using a user double
-// expects succesful execution
 function createUser(double, callback) {
   User.create(double.fullName, double.username, double.password, double.createdAt, function(isCreated, error) {
     if (isCreated && !error) {
@@ -63,11 +60,12 @@ function updateLogin(double, callback) {
   });
 };
 
+// Compare two user objects
 function areTheSame(double, user) {
   return Utils.areEqual(Utils.replacer(double, ['password']), user);
 }
 
-suite('Users: Model', function() {
+suite('User: ', function() {
   // Create user doubles to verify actual users with
   var userArmin, userDimitris;
 
@@ -101,11 +99,7 @@ suite('Users: Model', function() {
   });
 
   test('Create a user that exists', function(done) {
-    createUser(userArmin, function(isCreated, error, user) {
-      expect(isCreated).to.be.ok();
-      expect(error).to.not.be.ok();
-      expect(areTheSame(userArmin, user)).to.be.ok();
-
+    createUser(userArmin, function() {
       createUser(userArmin, function(isCreated, error) {
         expect(isCreated).to.not.be.ok();
         expect(error).to.be.ok();
@@ -123,16 +117,15 @@ suite('Users: Model', function() {
 
   test('Update an existing user\'s info', function(done) {
     userArmin.isOnline = "false";
-    createUser(userArmin, function(isCreated, error, user) {
-      expect(isCreated).to.be.ok();
-      expect(error).to.not.be.ok();
-      expect(areTheSame(userArmin, user)).to.be.ok();
-
-      userArmin.updatedAt = 123123123123;
+    createUser(userArmin, function() {
+      // update the double user
+      userArmin.lastLoginAt = now();
       userArmin.isOnline = "true";
       updateLogin(userArmin, function(isUpdated, error, user) {
         expect(isUpdated).to.be.ok();
         expect(error).to.not.be.ok();
+        console.log("userArmin: " + JSON.stringify(userArmin));
+        console.log("user: " + JSON.stringify(user));
         expect(areTheSame(userArmin, user)).to.be.ok();
         done();
       });

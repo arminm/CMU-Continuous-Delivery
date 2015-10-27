@@ -16,7 +16,6 @@ module.exports = {
 						res.status(500);
 						res.send();
 					} else if (crumbID) {
-						User.updateStatus(statusInfo.username, statusInfo.statusCode);
 						io.broadcast('status', crumbID, 'created', statusInfo.username, null);
 						res.status(201);
 						res.send();
@@ -25,11 +24,9 @@ module.exports = {
 					}
 				});
 			} else if (error) {
-				res.status(500);
-				res.send();
+				res.sendStatus(500);
 			} else {
-				res.status(404);
-				res.send();
+				res.sendStatus(404);
 			}
 		});
 	},
@@ -74,4 +71,4 @@ module.exports = {
 			}
 		});
 	}
-} 
+}

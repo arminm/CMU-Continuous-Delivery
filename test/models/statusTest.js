@@ -2,22 +2,23 @@ var User = require('../../models/user.js');
 var Status = require('../../models/status.js');
 var expect = require('expect.js');
 var db = require('../../config/db.js');
+var now = function() {return (new Date()).getTime();};
 
-suite('Status: Model', function() {
+suite('Status: ', function() {
   var statusInfo;
   var statusCrumbID;
 
   setup(function(done) {
     // Connect to database
 
-    User.create('Dimitris', 'dimitris', '1234', 123123123123, function(isCreated) {
+    User.create('Dimitris', 'dimitris', '1234', now(), function(isCreated) {
 
     });
 
     statusInfo = {
       username: "dimitris",
       statusCode: "Help",
-      updatedAt: 12314125125345436
+      updatedAt: now()
     }
 
     Status.createStatusCrumb(statusInfo, function(crumbID, error) {
