@@ -7,7 +7,7 @@ machine:
 # with the updated version of master
 checkout:
    post:
-    - git pull origin master --no-edit
+    - git pull --no-edit origin master 
 
 # install dependencies
 dependencies:
