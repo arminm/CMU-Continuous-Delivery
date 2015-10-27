@@ -60,5 +60,4 @@ angular.module('myApp')
 	$scope.resetFirstTimeUser = function() {
 		User.resetFirstTimeUser();
 	};
-	$scope.directory();
 });

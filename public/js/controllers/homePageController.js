@@ -48,7 +48,7 @@ angular.module('myApp')
           JoinCommunity.register($scope.formData.username, registerData)
             .success(function(data, status, headers, config) {
               if (status == '201') {
-                User.setFirstTimeUser((status == '201'));
+                User.setFirstTimeUser(status == '201');
                 User.setUsername($scope.formData.username);
                 User.setLastStatusUpdated(Date.now());
                 User.setStatus('OK');
