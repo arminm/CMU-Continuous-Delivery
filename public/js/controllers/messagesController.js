@@ -56,6 +56,5 @@ angular.module('myApp')
 			$scope.messages.push(message);
 		}
 	});
-
 	$scope.getAllMessages();
 });
