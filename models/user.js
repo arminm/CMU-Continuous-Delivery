@@ -33,13 +33,13 @@ module.exports = {
 	},
 
 	get: function(username, callback) {
-		var query = "SELECT * FROM users WHERE users.username='" + username + "';";
+		var query ="SELECT * FROM users JOIN statusCrumbs WHERE users.username='" + username + "' AND users.username=statusCrumbs.username AND crumbId = (SELECT MAX(crumbId) FROM statusCrumbs WHERE users.username=statusCrumbs.username);";
 		db.get(query, function(error, row) {
 			if (error) {
 				console.log(error);
 				callback(null, null, error);
 			} else if (row) {
-				var user = utils.replacer(row, ['id', 'password']);
+				var user = utils.replacer(row, ['id', 'password', 'crumbId']);
 				callback(user, row.password);
 			} else {
 				callback();
@@ -49,14 +49,14 @@ module.exports = {
 
 	getAllUsers: function(callback) {
 		var users = [];
-		var query = "SELECT * FROM users;";
+		var query = "SELECT * FROM users JOIN statusCrumbs WHERE users.username=statusCrumbs.username AND crumbId = (SELECT MAX(crumbId) FROM statusCrumbs WHERE users.username=statusCrumbs.username);";
 		db.each(query,
 			function(error, row) {
 				if (error) {
 					console.log(error);
 					callback(null, error);
 				} else if (row) {
-					users.push(utils.replacer(row, ['id', 'password']));
+					users.push(utils.replacer(row, ['id', 'password', 'crumbId']));
 				} else {
 					callback();
 				}

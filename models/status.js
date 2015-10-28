@@ -52,18 +52,5 @@ module.exports = {
 				callback();
 			}
 		});
-	},
-
-	getStatusCrumbByUsername: function(username, callback) {
-		db.get("SELECT * FROM statusCrumbs WHERE username='" + username + "' AND crumbId = (SELECT MAX(crumbId) FROM statusCrumbs WHERE username='" + username + "');", function(error, row) {
-			if (error) {
-				callback(null, error);
-			} else if (row) {
-				var statusCrumb = utils.replacer(row, ['crumbId']);
-				callback(statusCrumb, null);
-			} else {
-				callback();
-			}
-		});
 	}
 }

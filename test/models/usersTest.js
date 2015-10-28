@@ -16,7 +16,9 @@ function createDouble(options) {
     updatedAt: options.updatedAt || null,
     lastLoginAt: options.lastLoginAt || currentTime,
     isActive: options.isActive || true,
-    isOnline: options.isOnline || true
+    isOnline: options.isOnline || true,
+    statusCode: options.statusCode || 'OK',
+    statusUpdatedAt: options.statusUpdatedAt || currentTime
   };
   return double;
 };

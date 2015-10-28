@@ -40,6 +40,11 @@ module.exports = {
 
 		for (var key in obj2) { obj1[key] = obj2[key];};
 		return obj1;
+	},
+
+	// stringify an object and log to console
+	logObject: function(object) {
+		console.log(JSON.stringify(object));
 	}
 
 }
