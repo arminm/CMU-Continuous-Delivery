@@ -39,8 +39,10 @@ module.exports = {
 			query = "SELECT * FROM messages WHERE messageType='" + messageType
 				+ "' AND ((author='" + userA + "' AND target='" + userB +
 				  "') OR (author='" + userB + "' AND target='" + userA + "'));";
-		} else {
+		} else if (messageType !== 'CHAT') {
 			query = "SELECT * FROM messages WHERE messageType='" + messageType + "';";
+		} else {
+			callback();
 		}
 		db.each(query,
 			function(error, row) {
@@ -62,7 +64,7 @@ module.exports = {
 				callback(null, error);
 			} else if (row) {
 				var message = utils.replacer(row, ['id']);
-				callback(message, row.password);
+				callback(message, null);
 			} else {
 				callback();
 			}

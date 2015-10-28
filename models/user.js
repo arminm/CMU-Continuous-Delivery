@@ -4,11 +4,12 @@ var Status = require('./status.js');
 
 module.exports = {
 	create: function(info, callback) {
-		db.run('INSERT INTO users (fullName, username, password, createdAt) VALUES ($1, $2, $3, $4);', {
+		db.run('INSERT INTO users (fullName, username, password, createdAt, lastLoginAt) VALUES ($1, $2, $3, $4, $5);', {
 			$1: info.fullName,
 			$2: info.username,
 			$3: info.password,
-			$4: info.createdAt
+			$4: info.createdAt,
+			$5: info.createdAt // it's the same because the user was just created
 		}, function(error) {
 			if (error) {
 				callback(false, error);
@@ -17,14 +18,22 @@ module.exports = {
 					username: info.username,
 					statusCode: "OK",
 					statusUpdatedAt: info.createdAt
-				}
-				Status.createStatusCrumb(statusInfo, callback);
+				};
+				Status.createStatusCrumb(statusInfo, function(crumbId, error) {
+					if (crumbId) {
+						callback(true);
+					} else {
+						db.run("DELETE FROM users WHERE username='" + info.username + "';", function(error) {
+							callback(false, error);
+						});
+					}
+				});
 			}
 		});
 	},
 
 	get: function(username, callback) {
-		var query = "SELECT * FROM users WHERE users.username='" + username + "'";
+		var query = "SELECT * FROM users WHERE users.username='" + username + "';";
 		db.get(query, function(error, row) {
 			if (error) {
 				console.log(error);
@@ -40,7 +49,7 @@ module.exports = {
 
 	getAllUsers: function(callback) {
 		var users = [];
-		var query = "SELECT * FROM users";
+		var query = "SELECT * FROM users;";
 		db.each(query,
 			function(error, row) {
 				if (error) {
@@ -68,7 +77,7 @@ module.exports = {
 	},
 
 	logout: function(username, callback) {
-		db.run("UPDATE users SET isOnline = ? WHERE username = ?;", 'false', username, function(error) {
+		db.run("UPDATE users SET isOnline = ? WHERE username = ?;", false, username, function(error) {
 			if (error) {
 				callback(error);
 			} else {
