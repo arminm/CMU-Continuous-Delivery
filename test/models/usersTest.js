@@ -14,8 +14,8 @@ function createDouble(options) {
     createdAt: options.createdAt || now(),
     updatedAt: options.updatedAt || null,
     lastLoginAt: options.lastLoginAt || null,
-    isActive: options.isActive || "true",
-    isOnline: options.isOnline || "true"
+    isActive: options.isActive || true,
+    isOnline: options.isOnline || true
   };
   return double;
 };
@@ -139,7 +139,7 @@ suite('User: ', function() {
   });
 
   test('Update an existing user\'s info', function(done) {
-    userArmin.isOnline = "false";
+    userArmin.isOnline = false;
     createUser(userArmin, function() {
       // update the double user
       userArmin.lastLoginAt = now();
@@ -164,11 +164,11 @@ suite('User: ', function() {
 
   test('Logout', function(done){
     createUser(userArmin, function() {
-      userArmin.isOnline = "true";
+      userArmin.isOnline = true;
       User.logout(userArmin.username, function(error){
         expect(error).to.not.be.ok();
         getUser(userArmin.username, function(user){
-          userArmin.isOnline = "false";
+          userArmin.isOnline = false;
           expect(areTheSame(userArmin, user)).to.be.ok();
           done();
         });

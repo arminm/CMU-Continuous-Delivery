@@ -19,6 +19,6 @@ router.post('/signup/:username', joinCommunityController.signup);
 router.post('/login/:username', joinCommunityController.login);
 
 // handle logout
-router.get('/logout/:username', joinCommunityController.logout);
+router.post('/logout/:username', joinCommunityController.logout);
 
 module.exports = router;

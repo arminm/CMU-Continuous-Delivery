@@ -17,14 +17,14 @@ module.exports = {
 					username: info.username,
 					statusCode: "OK",
 					statusUpdatedAt: info.createdAt
-				}
+				};
 				Status.createStatusCrumb(statusInfo, callback);
 			}
 		});
 	},
 
 	get: function(username, callback) {
-		var query = "SELECT * FROM users WHERE users.username='" + username + "'";
+		var query = "SELECT * FROM users WHERE users.username='" + username + "';";
 		db.get(query, function(error, row) {
 			if (error) {
 				console.log(error);
@@ -40,7 +40,7 @@ module.exports = {
 
 	getAllUsers: function(callback) {
 		var users = [];
-		var query = "SELECT * FROM users";
+		var query = "SELECT * FROM users;";
 		db.each(query,
 			function(error, row) {
 				if (error) {
@@ -68,7 +68,7 @@ module.exports = {
 	},
 
 	logout: function(username, callback) {
-		db.run("UPDATE users SET isOnline = ? WHERE username = ?;", 'false', username, function(error) {
+		db.run("UPDATE users SET isOnline = ? WHERE username = ?;", false, username, function(error) {
 			if (error) {
 				callback(error);
 			} else {
