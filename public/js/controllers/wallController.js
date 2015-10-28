@@ -72,11 +72,7 @@ angular.module('myApp')
 		}
 	});
 
-	$scope.searchOn = function() {
-		$scope.searchMode = true;
-	};
-
-	$scope.searchOff = function() {
+	$scope.clear = function() {
 		$scope.searchMode = false;
 		$scope.getAllMessages();
 		$scope.limitResults = 1000000;
@@ -84,7 +80,8 @@ angular.module('myApp')
 		$scope.descending = false;
 	};
 
-	$scope.search = function() {
+	$scope.search = function(param) {
+		$scope.searchMode = true;
 		if ($scope.searchText !== '') {
 			if ($scope.limitResults === 1000000) {
 				$scope.descending = true;
