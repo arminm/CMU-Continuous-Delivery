@@ -106,7 +106,7 @@ suite('REST: Message', function() {
 
   test('Get all messages that are not for WALL', function(done) {
     var args = {};
-    client.get("http://localhost:4444/messages?messageType=CHAT", args, function(data,response) {
+    client.get("http://localhost:4444/messages?messageType=CHAT&sender=john&receiver=dimitris", args, function(data,response) {
       expect(response.statusCode).to.eql(200);
       expect(JSON.parse(data)).to.have.length(1);
       var messages = JSON.parse(data);
