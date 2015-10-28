@@ -60,14 +60,4 @@ angular.module('myApp')
 	$scope.resetFirstTimeUser = function() {
 		User.resetFirstTimeUser();
 	};
-
-    Socket.on('CHAT', function(data) {
-        if ($state.$current.url.sourcePath != '/lobby/chatbuddies') { // If the user is logged in or the user state is present
-            if (data.sender !== User.getUsername()) {
-                if (confirm("You have a new message from "+ data.sender + ". Go to chat?") == true) {
-                    $state.go('chat',{ username: data.sender });
-                }
-            }
-        }
-    });
 });

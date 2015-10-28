@@ -60,6 +60,7 @@ angular.module('myApp')
                 // Join a private room
                 Socket.emit('join', data.username);
               }
+              $scope.initializeSockets();
               $location.path('/lobby');
             })
             .error(function(data, status, headers, config) {
@@ -93,6 +94,7 @@ angular.module('myApp')
             User.setStatus(data.statusCode);
             // Go to next page
             $location.path('/lobby');
+            $scope.initializeSockets();
           })
           .error(function(data, status, headers, config) {
               if (status == '401') {

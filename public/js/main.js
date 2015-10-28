@@ -58,6 +58,39 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
         return dateString;
     };
 
+    $scope.disburseSocketMessage = function(data, type) {
+        console.log('message: ' + JSON.stringify(data));
+        if ((User.getUsername().length > 0) && (data.action === 'created')) {
+            MessageFactory.get(data.id)
+            .success(function(message, status, headers, config) {
+                $scope.$broadcast('new message', message, type);
+            })
+            .error(function(data, status, headers, config) {
+                // Cannot do anything here 
+            });
+        }
+    };
+    $scope.initializeSockets = function() {
+        Socket.on('ANNOUNCEMENTS', function(data) {
+            $scope.disburseSocketMessage(data, 'ANNOUNCEMENTS');
+        });
+
+        Socket.on('WALL', function(data) {
+            $scope.disburseSocketMessage(data, 'WALL');
+        });
+
+        Socket.on('CHAT', function(data) {
+            if ((User.getUsername().length > 0) && ($state.$current.url.sourcePath != '/lobby/chatbuddies')) { // If the user is logged in or the user state is present
+                if (data.sender !== User.getUsername()) {
+                    if (confirm("You have a new message from "+ data.sender + ". Go to chat?") == true) {
+                        $state.go('chat',{ username: data.sender });
+                    }
+                }
+            } else {
+                $scope.disburseSocketMessage(data, 'CHAT');
+            }
+        });
+    };
 });
 
 function scrollToBottom(animated, id) {
