@@ -7,13 +7,14 @@ var now = function() {return (new Date()).getTime();};
 // Creates a user double object to be used for creating users
 // in the database and checking the results
 function createDouble(options) {
+  var currentTime = now();
   var double = {
     fullName: options.fullName || 'Random Name',
-    username: options.username || 'Random Username ' + now(),
+    username: options.username || 'Random Username ' + currentTime,
     password: options.password || '1234',
-    createdAt: options.createdAt || now(),
+    createdAt: options.createdAt || currentTime,
     updatedAt: options.updatedAt || null,
-    lastLoginAt: options.lastLoginAt || now(),
+    lastLoginAt: options.lastLoginAt || currentTime,
     isActive: options.isActive || true,
     isOnline: options.isOnline || true
   };
