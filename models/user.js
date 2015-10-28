@@ -4,11 +4,12 @@ var Status = require('./status.js');
 
 module.exports = {
 	create: function(info, callback) {
-		db.run('INSERT INTO users (fullName, username, password, createdAt) VALUES ($1, $2, $3, $4);', {
+		db.run('INSERT INTO users (fullName, username, password, createdAt, lastLoginAt) VALUES ($1, $2, $3, $4, $5);', {
 			$1: info.fullName,
 			$2: info.username,
 			$3: info.password,
-			$4: info.createdAt
+			$4: info.createdAt,
+			$5: info.createdAt // it's the same because the user was just created
 		}, function(error) {
 			if (error) {
 				callback(false, error);
@@ -18,7 +19,15 @@ module.exports = {
 					statusCode: "OK",
 					statusUpdatedAt: info.createdAt
 				};
-				Status.createStatusCrumb(statusInfo, callback);
+				Status.createStatusCrumb(statusInfo, function(crumbId, error) {
+					if (crumbId) {
+						callback(true);
+					} else {
+						db.run("DELETE FROM users WHERE username='" + info.username + "';", function(error) {
+							callback(false, error);
+						});
+					}
+				});
 			}
 		});
 	},

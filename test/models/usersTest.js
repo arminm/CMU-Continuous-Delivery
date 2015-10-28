@@ -13,7 +13,7 @@ function createDouble(options) {
     password: options.password || '1234',
     createdAt: options.createdAt || now(),
     updatedAt: options.updatedAt || null,
-    lastLoginAt: options.lastLoginAt || null,
+    lastLoginAt: options.lastLoginAt || now(),
     isActive: options.isActive || true,
     isOnline: options.isOnline || true
   };
