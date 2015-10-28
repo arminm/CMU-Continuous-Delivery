@@ -7,7 +7,7 @@ machine:
 # with the updated version of master
 checkout:
    post:
-    - git pull origin master
+    - git rebase origin/master
 
 # install dependencies
 dependencies:
