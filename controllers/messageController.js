@@ -15,22 +15,18 @@ module.exports = {
 			if (user) {
 				Message.create(messageInfo, function(messageId, error) {
 					if (error) {
-						res.status(500);
-						res.send();
+						res.sendStatus(500);
 					} else if (messageId) {
 						io.broadcast(messageInfo.messageType, messageId, 'created', messageInfo.author, messageInfo.target);
-						res.status(201);
-						res.send();
+						res.sendStatus(201);
 					} else {
-						res.status(500).send();
+						res.sendStatus(500);
 					}
 				});
 			} else if (error) {
-				res.status(500);
-				res.send();
+				res.sendStatus(500);
 			} else {
-				res.status(404);
-				res.send();
+				res.sendStatus(404);
 			}
 		});
 	},
@@ -38,11 +34,9 @@ module.exports = {
 	getAllMessages: function(req, res) {
 		Message.getAllMessages(req.query.messageType, req.query.sender, req.query.receiver, function(messages, error) {
 			if (error) {
-				res.status(500);
-				res.send();
+				res.sendStatus(500);
 			} else {
-				res.status(200);
-				res.send(messages);
+				res.status(200).send(messages);
 			}
 		});
 	},
@@ -50,14 +44,11 @@ module.exports = {
 	get: function(req, res) {
 		Message.get(req.params.id, function(message, error) {
 			if (error) {
-				res.status(500);
-				res.send();
+				res.sendStatus(500);
 			} else if (message) {
-				res.status(200);
-				res.send(message);
+				res.status(200).send(message);
 			} else {
-				res.status(404);
-				res.send();
+				res.sendStatus(404);
 			}
 		});
 	}

@@ -1,5 +1,4 @@
 var User = require('../models/user.js');
-var Status = require('../models/status.js');
 var Utils = require('../utilities.js');
 
 module.exports = {
@@ -8,15 +7,7 @@ module.exports = {
 			if (error) {
 				res.sendStatus(500);
 			} else {
-				var mergedUsers = [];
-				for (var user in users) {
-					Status.getStatusCrumbByUsername(req.params.username, function(statusCrumb){
-						mergedUsers.push(Utils.mergeObjects(user, statusCrumb));
-						if (mergedUsers.length == users.length) {
-							res.status(200).send(mergedUsers);
-						}
-					});
-				}
+				res.status(200).send(users);
 			}
 		});
 	},
@@ -26,9 +17,7 @@ module.exports = {
 			if (error) {
 				res.sendStatus(500);
 			} else if (user) {
-				Status.getStatusCrumbByUsername(req.params.username, function(statusCrumb){
-					res.status(200).send(Utils.mergeObjects(user, statusCrumb));
-				});
+				res.status(200).send(user);
 			} else {
 				res.sendStatus(404);
 			}

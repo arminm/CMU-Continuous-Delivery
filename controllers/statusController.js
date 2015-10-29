@@ -13,14 +13,12 @@ module.exports = {
 			if (user) {
 				Status.createStatusCrumb(statusInfo, function(crumbID, error) {
 					if (error) {
-						res.status(500);
-						res.send();
+						res.sendStatus(500);
 					} else if (crumbID) {
 						io.broadcast('status', crumbID, 'created', statusInfo.username, null);
-						res.status(201);
-						res.send();
+						res.sendStatus(201);
 					} else {
-						res.status(500).send();
+						res.sendStatus(500);
 					}
 				});
 			} else if (error) {
@@ -37,21 +35,17 @@ module.exports = {
 			if (user) {
 				Status.getAllStatusCrumbs(username, function(statusCrumbs, error) {
 					if (error) {
-						res.status(500);
-						res.send();
+						res.sendStatus(500);
 					} else if (statusCrumbs) {
-						res.status(200);
-						res.send(statusCrumbs);
+						res.status(200).send(statusCrumbs);
 					} else {
-						res.status(500).send();
+						res.sendStatus(500);
 					}
 				});
 			} else if (error) {
-				res.status(500);
-				res.send();
+				res.sendStatus(500);
 			} else {
-				res.status(404);
-				res.send();
+				res.sendStatus(404);
 			}
 		});
 	},
@@ -60,14 +54,11 @@ module.exports = {
 		var id = req.params.id;
 		Status.getStatusCrumb(req.params.id, function(statusCrumb, error) {
 			if (error) {
-				res.status(500);
-				res.send();
+				res.sendStatus(500);
 			} else if (statusCrumb) {
-				res.status(200);
-				res.send(statusCrumb);
+				res.status(200).send(statusCrumb);
 			} else {
-				res.status(404);
-				res.send();
+				res.sendStatus(404);
 			}
 		});
 	}
