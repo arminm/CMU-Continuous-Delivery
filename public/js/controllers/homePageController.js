@@ -31,13 +31,16 @@ angular.module('myApp')
       confirmPassword: '',
       fullName: ''
     };
+
     $scope.formError = {
       username: '',
       password: '',
       generic: ''
     };
+
     $scope.register = function () {
       if ($scope.formData.isRegistration) {
+        $scope.loginForm.$setValidity('server', true);
         // Call factory
         if ($scope.loginForm.$valid && ($scope.formData.passwordConfirm.length > 0)) {
           var registerData = {
