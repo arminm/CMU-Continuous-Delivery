@@ -37,11 +37,13 @@ angular.module('MessageService', [])
             post : function(username, data) {
                 return $http.post('/messages/' + username, data);
             },
-            getAll : function(messageType) {
-                return $http.get('/messages?messageType=' + messageType);
-            },
-            getAllPrivate : function(messageType, sender, receiver) {
-                return $http.get('/messages?messageType=' + messageType + '&sender=' + sender + '&receiver=' + receiver);
+            getAll : function(messageType, sender, receiver) {
+                if (receiver != null) {
+                    return $http.get('/messages?messageType=' + messageType + '&sender=' + sender + '&receiver=' + receiver);
+                } else {
+                    return $http.get('/messages?messageType=' + messageType);
+                }
+
             },
             get : function(id) {
                 return $http.get('/messages/' + id);

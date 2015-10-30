@@ -1,10 +1,10 @@
-div(ng-controller='announcementsController')
+div(ng-controller='messagesController')
   include includes/lobby-basic-nav.jade
   div.input-group#postAnnouncementForm
-    input.form-control(type='text',style='width:80%', ng-model='announcementInput')
+    input.form-control(type='text',style='width:80%', ng-model='messageInput')
     button.btn.btn-warning(type='button', style='width:20%', ng-click='post()') Post
-  div.alert.alert-dismissible.alert-warning#announcements(ng-repeat="announcement in announcements | orderBy : 'createdAt':true") 
-    div.timestamp {{ getPresentableTime(announcement.createdAt) }}
-    div.username {{ announcement.author}}
-      span.user-status(style='padding: 0 0 0 5px;') Status: {{ status(announcement.author).code }} Last updated at: {{getPresentableTime(status(announcement.author).lastUpdatedAt)}}
-    div {{ announcement.content}}
+  div.alert.alert-dismissible.alert-warning#announcements(ng-repeat="message in messages | orderBy : 'createdAt':true") 
+    div.timestamp {{ getPresentableTime(message.createdAt) }}
+    div.username {{ message.author}}
+      span.user-status(style='padding: 0 0 0 5px;') Status: {{ status(message.author).code }} Last updated at: {{getPresentableTime(status(message.author).lastUpdatedAt)}}
+    div {{ message.content}}

@@ -13,7 +13,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('wall', {
             url: '/lobby/wall',
-            templateUrl: 'partials/lobby-wall.jade'
+            templateUrl: 'partials/lobby-message.jade'
         })
         .state('announcements', {
             url: '/lobby/announcements',
@@ -21,7 +21,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('chat', {
             url: '/lobby/chatbuddies?username',
-            templateUrl: 'partials/lobby-chatbuddies.jade'
+            templateUrl: 'partials/lobby-message.jade'
         })
 });
 
