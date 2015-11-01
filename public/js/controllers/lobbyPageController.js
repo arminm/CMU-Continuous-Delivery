@@ -57,36 +57,7 @@ angular.module('myApp')
 
 		});
 	};
-	Socket.on('CHAT', function(data) {
-		console.log('messages: ' + JSON.stringify(data));
-		Message.addToMessageQueue(data.sender);
-		$scope.badgeCount = Message.getBadgeCount();
-		if ((data.sender !== $scope.username) && $state.$current.url.sourcePath !== '/lobby/chatbuddies') {
-			if (confirm("You have a new message from "+data.sender + ". Go to chat?") == true) {
-	 			$state.go('chat',{ username: data.sender });
-	    	}
-		}
-	});
-	$scope.logout = function () {
-		// When the user opts to logout, take them to home page and clear user data regardless the call's status
-		JoinCommunity.logout(User.getUsername())
-		.success(function(data, status, headers, config) {
-		})
-		.error(function(data, status, headers, config) {
-		});
-		Socket.disconnect();
-		$location.path('/');
-		User.reset();
-	};
-	$scope.badgeCount = Message.getBadgeCount();
-
-	$scope.getPresentableTime = function(timestamp) {
-		var date = new Date(Number(timestamp));
-		var dateString = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
-		return dateString;
-	};
 	$scope.resetFirstTimeUser = function() {
 		User.resetFirstTimeUser();
 	};
-	$scope.directory();
 });

@@ -10,7 +10,7 @@ angular.module('MainService', []).factory('JoinCommunity', function($http) {
                 return $http.get('/users');
             },
             logout : function(username) {
-                return $http.get('/logout/' + username);
+                return $http.post('/logout/' + username);
             }
         }
     });

@@ -1,17 +1,11 @@
-div(ng-controller='chatbuddiesController')
-	nav.navbar.navbar-inverse.navbar-fixed-top
-		div.navbar-header
-			div
-				a.btn.glyphicon.glyphicon-circle-arrow-left#backtolobbyButton(ui-sref='lobby')
-			div.navbar-brand To: {{buddy}}
-			div
-				a.btn.glyphicon.glyphicon-off#logoutButton(ng-click='logout()')
+div(ng-controller='messagesController')
+	include includes/lobby-basic-nav.jade
 	div#scrollingMessages
 		div.messages.msg(ng-repeat="msg in messages") 
 			div.timestamp {{ getPresentableTime(msg.createdAt) }}
 			div.username {{ msg.author}}
 				span.user-status(style='padding: 0 0 0 5px;') Status: {{ status(msg.author).code }} Last updated at: {{getPresentableTime(status(msg.author).lastUpdatedAt)}}
 			div {{ msg.content}}
-	div.input-group#privatemessageForm
+	div.input-group#wallmessageForm
 		input.form-control(type='text',style='width:80%', ng-model='messageInput')
-		button.btn.btn-warning(type='button', style='width:20%', ng-click='send()') Send
+		button.btn.btn-warning(type='button', style='width:20%', ng-click='post()') Send

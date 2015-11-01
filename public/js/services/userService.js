@@ -47,7 +47,10 @@ angular.module('UserService', []).service('User', function () {
     this.users = users;
   };
 
-  this.getUser = function(username) {
+  this.getStatus = function(username) {
+    if (username == undefined) {
+      return this.status;
+    }
     var status = {code: 'OK', lastUpdatedAt: Date.now()};
     angular.forEach(this.users, function(user){
       if (username === user.username) {

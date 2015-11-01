@@ -31,13 +31,16 @@ angular.module('myApp')
       confirmPassword: '',
       fullName: ''
     };
+
     $scope.formError = {
       username: '',
       password: '',
       generic: ''
     };
+
     $scope.register = function () {
       if ($scope.formData.isRegistration) {
+        $scope.loginForm.$setValidity('server', true);
         // Call factory
         if ($scope.loginForm.$valid && ($scope.formData.passwordConfirm.length > 0)) {
           var registerData = {
@@ -48,7 +51,7 @@ angular.module('myApp')
           JoinCommunity.register($scope.formData.username, registerData)
             .success(function(data, status, headers, config) {
               if (status == '201') {
-                User.setFirstTimeUser((status == '201'));
+                User.setFirstTimeUser(status == '201');
                 User.setUsername($scope.formData.username);
                 User.setLastStatusUpdated(Date.now());
                 User.setStatus('OK');
@@ -60,6 +63,7 @@ angular.module('myApp')
                 // Join a private room
                 Socket.emit('join', data.username);
               }
+              $scope.initializeSockets();
               $location.path('/lobby');
             })
             .error(function(data, status, headers, config) {
@@ -93,6 +97,7 @@ angular.module('myApp')
             User.setStatus(data.statusCode);
             // Go to next page
             $location.path('/lobby');
+            $scope.initializeSockets();
           })
           .error(function(data, status, headers, config) {
               if (status == '401') {
