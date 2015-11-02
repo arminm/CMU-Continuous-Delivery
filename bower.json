@@ -7,11 +7,7 @@
     "angular-bootstrap": "latest",
     "bootswatch-dist": "united",
     "angular-messages": "latest",
-<<<<<<< HEAD
     "angular-ui-router": "latest",
-    "angular-search": "~0.1.1"
-=======
-    "angular-ui-router": "latest"
->>>>>>> edcabfd9d37cc4374b4d23e7e7558108a69bd196
+    "angular-search": "~0.1.1
   }
 }
