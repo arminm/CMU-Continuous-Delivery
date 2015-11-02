@@ -8,6 +8,6 @@
     "bootswatch-dist": "united",
     "angular-messages": "latest",
     "angular-ui-router": "latest",
-    "angular-search": "~0.1.1
+    "angular-search": "~0.1.1"
   }
 }
