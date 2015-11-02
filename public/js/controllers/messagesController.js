@@ -3,6 +3,10 @@ angular.module('myApp')
 	$scope.buddy = null;
 	$scope.username = User.getUsername();
 	$scope.messages = [];
+	$scope.limitResults = 1000000;
+	$scope.searchText = '';
+	$scope.descending = false;
+	$scope.searchMode = false;
 	switch ($state.$current.url.sourcePath) {
 		case '/lobby/announcements':
 			$scope.title = "Announcements";
@@ -49,6 +53,33 @@ angular.module('myApp')
 			// TODO 
 			$scope.formError.generic = "Something went wrong. Please try again.";
 		});
+	};
+
+	$scope.clear = function() {
+		$scope.searchMode = false;
+		$scope.getAllMessages();
+		$scope.limitResults = 1000000;
+		$scope.searchText = '';
+		$scope.descending = false;
+	};
+
+	$scope.search = function(param) {
+		$scope.searchMode = true;
+		if (param !== '') {
+			$scope.searchText = param;
+			if ($scope.limitResults === 1000000) {
+				$scope.descending = true;
+				$scope.limitResults = 10;
+			}
+		} else {
+			$scope.getAllMessages();
+			$scope.limitResults = 1000000;
+			$scope.descending = false;
+		}
+	};
+
+	$scope.showMoreResults = function() {
+		$scope.limitResults += 10;
 	};
 
 	$scope.$on('new message', function(event, message, type) {
