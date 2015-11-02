@@ -1,0 +1,23 @@
+nav.navbar.navbar-inverse.navbar-fixed-top
+	div.navbar-header 
+		span.navbar-brand Measure Performance
+form#maintenanceForm.form-horizontal(name="maintenanceForm", ng-controller="maintenanceController")
+	fieldset
+		div.form-group
+			div.col-lg-10
+				label(for='duration') Enter duration to run test (in seconds)
+				input#duration.form-control(name="duration", placeholder='Enter duration', type='number', autocomplete='off', required, ng-model='duration', reg-exp-require='/^[0-9]*$/')
+		div.form-group
+			span.col-lg-10
+				button#loginButton.btn.btn-info(ng-click='start()', ng-model='duration', ng-disabled='(duration < 1) || (duration == null) || testMode') Start
+				span(style='padding-right: 10px')
+				button#registerButton.btn.btn-warning(ng-click='stop()', ng-disabled='!testMode') Stop
+		div.form-group(ng-show='resultMode')
+			span.col-lg-10
+				div Results:
+				div Test ran for {{testDuration}} seconds
+				div Rate: {{rate}} post calls per second
+		div.form-group
+			span.col-lg-10
+				button.btn.btn-primary(ui-sref='lobby', ng-disabled='testMode') Go back
+

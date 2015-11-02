@@ -116,18 +116,23 @@ a {
 	color: #EFB73E;
 }
 
-h1, #loginForm, input#username, input#password, input#confirmPassword, #inputFullname {
+h1, #loginForm, input#username, input#password, input#confirmPassword, #inputFullname, #maintenanceForm, input#duration {
 	clear: both;
 	text-align: center;
 }
-#loginForm,#welcomeMessageForm {
+#loginForm,#welcomeMessageForm, #maintenanceForm {
 	margin: 0 auto;
 	background-color: #EDEDED;
 	max-width: 70%;
 	padding: 10px;
 }
 
-#input#username, input#password, input#confirmPassword, #inputFullname {
+#maintenanceForm {
+	margin: 40px auto;
+	max-width: 90%;
+}
+
+input#username, input#password, input#confirmPassword, #inputFullname {
 	display: inline;
 	max-width: 100%;
 }
@@ -146,18 +151,13 @@ h3{
 	margin: auto;
 }
 
-#scrollingMessages {
+#scrollingMessages, #scrollingAnnouncements {
 	overflow: scroll;
 	height: 400px;
 	margin: 5px;
 	margin-top: 40px;
 }
-#scrollingAnnouncements{
-	overflow: scroll;
-	height: 400px;
-	margin: 5px;
-	margin-top: 40px;
-}
+
 .messages { 
 	padding: 5px 10px; 
 	background-color: #cdcdcd;
@@ -183,15 +183,18 @@ h3{
 	display: inline-table;
 	width: 100%;
 }
+
 #wallmessageForm,#privatemessageForm{
 	width:100%;
 }
+
 #postAnnouncementForm{
 	width: 100%;
 	margin-top: 20px;
 	margin-bottom: 20px;
 /*	margin-left: 5%;*/
 }
+
 .username {
 	font-weight: bold;
 	cursor: pointer;

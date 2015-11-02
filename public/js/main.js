@@ -1,4 +1,4 @@
-var app = angular.module('myApp',['ui.router', 'ngMessages', 'ui.bootstrap', 'MainService', 'UserService', 'socketService', 'MessageService', 'StatusService']);
+var app = angular.module('myApp',['ui.router', 'ngMessages', 'ui.bootstrap', 'MainService', 'UserService', 'socketService', 'MessageService', 'StatusService', 'MaintenanceService']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
@@ -23,6 +23,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/lobby/chatbuddies?username',
             templateUrl: 'partials/lobby-message.jade'
         })
+        .state('maintenance', {
+            url: '/maintenance',
+            templateUrl: 'partials/performance.jade'
+        })
 });
 
 app.directive('serverError', function (){ 
@@ -35,6 +39,27 @@ app.directive('serverError', function (){
         });
     }
  };
+});
+
+app.directive('regExpRequire', function() {
+    var regexp;
+    return {
+        restrict: "A",
+        link: function(scope, elem, attrs) {
+            regexp = eval(attrs.regExpRequire);
+            var char;
+            elem.on('keypress', function(event) {
+                var key = event.which;
+                // Do not prevent backspace or del
+                if ((key != 8) && (key != 46)) {
+                    char = String.fromCharCode(key)
+                    if(!regexp.test(elem.val() + char)) {
+                        event.preventDefault();
+                    }
+                }
+            });
+        }
+    }
 });
 
 app.controller('mainController', function($scope, $rootScope, $location, $state, User, JoinCommunity, Socket, MessageFactory) {
