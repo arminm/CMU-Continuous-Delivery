@@ -4,8 +4,9 @@ nav.navbar.navbar-inverse.navbar-fixed-top
 			a.btn.glyphicon.glyphicon-circle-arrow-left#backtolobbyButton(ui-sref='lobby')
 		div.navbar-brand {{title}}
 		div.searchField
-				search(param='searchString', placeholder='Search', search='search($param)')
+				a.btn.glyphicon.glyphicon-search(ng-click='showSearch()')
+				search(param='searchString', placeholder='Search', search='search($param)', ng-show='searchIsActive')
 				a(ng-click='showMoreResults()', ng-show='searchMode') Show more
-				a.btn.glyphicon.glyphicon-remove-sign(ng-click='clear()')
+				a.btn.glyphicon.glyphicon-remove-sign(ng-click='clear()', ng-show='searchIsActive')
 		div
 			a.btn.glyphicon.glyphicon-off#logoutButton(ng-click='logout()')

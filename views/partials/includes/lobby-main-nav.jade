@@ -20,7 +20,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top.nav-justified
 					span.bold {{ userStatus }} 
 					span.time-separator Last updated at: 
 					span.bold {{ getPresentableTime(userStatusLastUpdateTime) }}
-			li#onlineUser(ng-repeat="onlineitem in onlineitems | orderBy: 'username'", ui-sref='chat({ username: onlineitem.username })')
+			li#onlineUser(ng-repeat="onlineitem in onlineitems | filter: filterUsers(searchText) | orderBy: 'username'", ui-sref='chat({ username: onlineitem.username })')
 				span.glyphicon.glyphicon-user 
 				span.user.username {{onlineitem.username}}
 				span.user-status
@@ -28,7 +28,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top.nav-justified
 					span.bold {{ onlineitem.statusCode }} 
 					span.time-separator Last updated at: 
 					span.bold {{ getPresentableTime(onlineitem.statusUpdatedAt) }}
-			li#offlineUser(ng-repeat="offlineitem in offlineitems | orderBy: 'username'") 
+			li#offlineUser(ng-repeat="offlineitem in offlineitems | filter: filterUsers(searchText) | orderBy: 'username'") 
 				span.glyphicon.glyphicon-user
 				span.user.username {{offlineitem.username}}
 				span.user-status
@@ -36,3 +36,8 @@ nav.navbar.navbar-inverse.navbar-fixed-top.nav-justified
 					span.bold {{ offlineitem.statusCode }} 
 					span.time-separator Last updated at: 
 					span.bold {{ getPresentableTime(offlineitem.statusUpdatedAt) }}
+			li#searchField
+				div
+					a.btn.glyphicon.glyphicon-search(ng-click='showSearch()')
+					search(param='searchString', placeholder='Search', search='search($param)', ng-show='searchIsActive')
+					a.btn.glyphicon.glyphicon-remove-sign(ng-click='clear()', ng-show='searchIsActive')

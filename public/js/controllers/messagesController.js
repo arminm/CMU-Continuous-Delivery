@@ -6,6 +6,7 @@ angular.module('myApp')
 	$scope.limitResults = 1000000;
 	$scope.filteredParam = [];
 	$scope.descending = false;
+	$scope.searchIsActive = false;
 	$scope.searchMode = false;
 	$scope.stopWords = ['a', 'able', 'about', 'across', 'after', 'all', 'almost', 'also', 'am', 'among', 'an', 'and', 'any', 'are', 'as', 'at', 'be', 'because', 'been', 'but', 'by', 'can', 'cannot', 'could', 'dear', 'did', 'do', 'does', 'either', 'else', 'ever', 'every', 'for', 'from', 'get', 'got', 'had', 'has', 'have', 'he', 'her', 'hers', 'him', 'his', 'how', 'however', 'i', 'if', 'in', 'into', 'is', 'it', 'its', 'just', 'least', 'let', 'like', 'likely', 'may', 'me', 'might', 'most', 'must', 'my', 'neither', 'no', 'nor', 'not', 'of', 'off', 'often', 'on', 'only', 'or', 'other', 'our', 'own', 'rather', 'said', 'say', 'says', 'she', 'should', 'since', 'so', 'some', 'than', 'that', 'the', 'their', 'them', 'then', 'there', 'these', 'they', 'this', 'tis', 'to', 'too', 'twas', 'us', 'wants', 'was', 'we', 'were', 'what', 'when', 'where', 'which', 'while', 'who', 'whom', 'why', 'will', 'with', 'would', 'yet', 'you', 'your'];
 	switch ($state.$current.url.sourcePath) {
@@ -56,6 +57,10 @@ angular.module('myApp')
 		});
 	};
 
+	$scope.showSearch = function() {
+		$scope.searchIsActive = true;
+	}
+
 	$scope.clear = function() {
 		$scope.searchMode = false;
 		$scope.getAllMessages();
@@ -63,6 +68,7 @@ angular.module('myApp')
 		$scope.searchString = '';
 		$scope.filteredParam = [];
 		$scope.descending = false;
+		$scope.searchIsActive = false;
 	};
 
 	$scope.filterMessages = function(criteria) {
@@ -70,7 +76,7 @@ angular.module('myApp')
 			if (criteria.length === 0) {
 				return true;
 			}
-			var contents = msg.content.toLowerCase().split(' ');
+			var contents = msg.content.toLowerCase().split(/[^A-Za-z0-9]/);	
 			for (var j = 0; j < contents.length; j++) {
 				if (criteria.indexOf(contents[j]) > -1) {
 					return true;
@@ -83,18 +89,18 @@ angular.module('myApp')
 	$scope.search = function(param) {
 		$scope.searchMode = true;
 		if (param !== '') {
-			var params = param.toLowerCase().split(' ');
+			var params = param.toLowerCase().split(/[^A-Za-z0-9]/);
 			$scope.filteredParam = [];
 			for (var i = 0; i < params.length; i++) {
 				if ($scope.stopWords.indexOf(params[i]) === -1) {
 					$scope.filteredParam.push(params[i]);
 				}
 			}
-			$scope.$apply();
 			if ($scope.limitResults === 1000000) {
 				$scope.descending = true;
 				$scope.limitResults = 10;
 			}
+			$scope.$apply();
 		} else {
 			$scope.filteredParam = [];
 			$scope.getAllMessages();

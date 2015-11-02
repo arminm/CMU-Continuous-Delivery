@@ -1,7 +1,7 @@
 div(ng-controller='messagesController')
 	include includes/lobby-basic-nav.jade
 	div#scrollingMessages
-		div.messages.msg(ng-repeat="msg in messages | filter : filterMessages(filteredParam) | orderBy : 'createdAt' : descending | limitTo: limitResults") 
+		div.messages.msg(ng-repeat="msg in messages = messages | filter : filterMessages(filteredParam) | orderBy : 'createdAt' : descending | limitTo: limitResults")
 			div.timestamp {{ getPresentableTime(msg.createdAt) }}
 			div.username {{ msg.author}}
 				span.user-status(style='padding: 0 0 0 5px;') Status: {{ status(msg.author).code }} Last updated at: {{getPresentableTime(status(msg.author).lastUpdatedAt)}}
