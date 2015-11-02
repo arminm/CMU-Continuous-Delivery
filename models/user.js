@@ -1,4 +1,5 @@
-var db = require('../config/db.js');
+var dbModule = require('../config/db.js');
+var db = dbModule.getDB();
 var utils = require('../utilities.js');
 var Status = require('./status.js');
 
@@ -49,6 +50,8 @@ module.exports = {
 
 	getAllUsers: function(callback) {
 		var users = [];
+		dbModule.reset();
+		db = dbModule.getDB();
 		var query = "SELECT * FROM users JOIN statusCrumbs WHERE users.username=statusCrumbs.username AND crumbId = (SELECT MAX(crumbId) FROM statusCrumbs WHERE users.username=statusCrumbs.username);";
 		db.each(query,
 			function(error, row) {
