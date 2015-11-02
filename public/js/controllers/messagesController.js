@@ -60,6 +60,7 @@ angular.module('myApp')
 		$scope.getAllMessages();
 		$scope.limitResults = 1000000;
 		$scope.searchText = '';
+		$scope.searchString = '';
 		$scope.descending = false;
 	};
 
@@ -85,6 +86,7 @@ angular.module('myApp')
 	$scope.$on('new message', function(event, message, type) {
 		if (type === $scope.messageType) {
 			$scope.messages.push(message);
+			scrollToBottom(true, '#scrollingMessages');
 		}
 	});
 	$scope.getAllMessages();
