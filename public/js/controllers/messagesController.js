@@ -4,7 +4,6 @@ angular.module('myApp')
 	$scope.username = User.getUsername();
 	$scope.messages = [];
 	$scope.limitResults = 1000000;
-	$scope.searchText = '';
 	$scope.filteredParam = [];
 	$scope.descending = false;
 	$scope.searchMode = false;
@@ -61,38 +60,37 @@ angular.module('myApp')
 		$scope.searchMode = false;
 		$scope.getAllMessages();
 		$scope.limitResults = 1000000;
-		$scope.searchText = '';
 		$scope.searchString = '';
+		$scope.filteredParam = [];
 		$scope.descending = false;
 	};
 
-	$scope.filterMessages = function() {
-		$scope.getAllMessages();
-		var messages = $scope.messages;
-		$scope.messages = [];
-		for (var i =  0; i < messages.length; i++) {
-			contents = messages[i].content.toLowerCase().split(' ');
+	$scope.filterMessages = function(criteria) {
+		return function(msg) {
+			if (criteria.length === 0) {
+				return true;
+			}
+			var contents = msg.content.toLowerCase().split(' ');
 			for (var j = 0; j < contents.length; j++) {
-				if ($scope.filteredParam.indexOf(contents[j]) > -1) {
-					$scope.messages.push(messages[i]);
-					break;
+				if (criteria.indexOf(contents[j]) > -1) {
+					return true;
 				}
 			}
+			return false;
 		}
-		console.log($scope.messages);
 	};
 
 	$scope.search = function(param) {
 		$scope.searchMode = true;
 		if (param !== '') {
-			params = param.toLowerCase().split(' ');
+			var params = param.toLowerCase().split(' ');
 			$scope.filteredParam = [];
 			for (var i = 0; i < params.length; i++) {
 				if ($scope.stopWords.indexOf(params[i]) === -1) {
 					$scope.filteredParam.push(params[i]);
 				}
 			}
-			$scope.filterMessages();
+			$scope.$apply();
 			if ($scope.limitResults === 1000000) {
 				$scope.descending = true;
 				$scope.limitResults = 10;
