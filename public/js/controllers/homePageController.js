@@ -39,49 +39,49 @@ angular.module('myApp')
     };
 
     $scope.register = function () {
-      if ($scope.formData.isRegistration) {
-        $scope.loginForm.$setValidity('server', true);
-        // Call factory
-        if ($scope.loginForm.$valid && ($scope.formData.passwordConfirm.length > 0)) {
-          var registerData = {
-            password: $scope.formData.password,
-            fullName: $scope.formData.fullName,
-            createdAt: Date.now()
-          };
-          JoinCommunity.register($scope.formData.username, registerData)
-            .success(function(data, status, headers, config) {
-              if (status == '201') {
-                User.setFirstTimeUser(status == '201');
-                User.setUsername($scope.formData.username);
-                User.setLastStatusUpdated(Date.now());
-                User.setStatus('OK');
-                Socket.emit('join', $scope.formData.username);
-              } else {
-                User.setUsername(data.username);
-                User.setLastStatusUpdated(data.statusUpdatedAt);
-                User.setStatus(data.statusCode);
-                // Join a private room
-                Socket.emit('join', data.username);
-              }
-              $scope.initializeSockets();
-              $location.path('/lobby');
-            })
-            .error(function(data, status, headers, config) {
-              if (status == '401') {
-                $scope.formError.username = "Please enter a different username";
-                $scope.loginForm.username.$setValidity('server', false);
-              } else {
-                $scope.formError.generic = "Something went wrong. Please try again.";
-                $scope.loginForm.$setValidity('server', false);
-              }
-            });
+      $scope.formData.isRegistration = true;
+      $scope.formError.generic = '';
+      $scope.loginForm.$setValidity('server', true);
+      // Call factory
+      if ($scope.loginForm.$valid && ($scope.formData.passwordConfirm.length > 0)) {
+        var registerData = {
+          password: $scope.formData.password,
+          fullName: $scope.formData.fullName,
+          createdAt: Date.now()
+        };
+        JoinCommunity.register($scope.formData.username, registerData)
+          .success(function(data, status, headers, config) {
+            if (status == '201') {
+              User.setFirstTimeUser(status == '201');
+              User.setUsername($scope.formData.username);
+              User.setLastStatusUpdated(Date.now());
+              User.setStatus('OK');
+              Socket.emit('join', $scope.formData.username);
+            } else {
+              User.setUsername(data.username);
+              User.setLastStatusUpdated(data.statusUpdatedAt);
+              User.setStatus(data.statusCode);
+              // Join a private room
+              Socket.emit('join', data.username);
+            }
+            $scope.initializeSockets();
+            $location.path('/lobby');
+          })
+          .error(function(data, status, headers, config) {
+            if (status == '401') {
+              $scope.formError.username = "Please enter a different username";
+              $scope.loginForm.username.$setValidity('server', false);
+            } else {
+              $scope.formError.generic = "Something went wrong. Please try again.";
+              $scope.loginForm.$setValidity('server', false);
+            }
+          });
         }
-      } else {
-        $scope.formData.isRegistration = true;
-      }
     };
     $scope.login = function () {
       $scope.formData.isRegistration = false;
+      $scope.formError.generic = '';
+      $scope.loginForm.$setValidity('server', true);
       // Call factory
       if ($scope.loginForm.$valid) {
         var loginData = {
