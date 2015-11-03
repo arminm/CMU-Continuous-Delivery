@@ -7,6 +7,7 @@ machine:
 # with the updated version of master
 checkout:
    post:
+    - rm -fr "/home/ubuntu/FSE-F15-SA5-SSNoC/.git/rebase-apply"
     - git rebase origin/master
 
 # install dependencies
