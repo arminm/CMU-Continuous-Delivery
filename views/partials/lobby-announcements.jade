@@ -4,7 +4,7 @@ div(ng-controller='messagesController')
     input.form-control(type='text',style='width:80%', ng-model='messageInput')
     button.btn.btn-warning(type='button', style='width:20%', ng-click='post()') Post
   div.alert.alert-dismissible.alert-warning#announcements(ng-repeat="message in messages | orderBy : 'createdAt':true") 
-    div.timestamp {{ getPresentableTime(message.createdAt) }}
+    div.timestamp {{ message.createdAt | date : 'MM/dd/yyyy HH:mm:ss a' }}
     div.username {{ message.author}}
-      span.user-status(style='padding: 0 0 0 5px;') Status: {{ status(message.author).code }} Last updated at: {{getPresentableTime(status(message.author).lastUpdatedAt)}}
+      span.user-status(style='padding: 0 0 0 5px;') Status: {{ status(message.author).code }} Last updated at: {{ status(message.author).lastUpdatedAt | date : 'MM/dd/yyyy HH:mm:ss a' }}
     div {{ message.content}}

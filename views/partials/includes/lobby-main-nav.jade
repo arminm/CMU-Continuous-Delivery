@@ -19,7 +19,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top.nav-justified
 					span Status:
 					span.bold {{ userStatus }} 
 					span.time-separator Last updated at: 
-					span.bold {{ getPresentableTime(userStatusLastUpdateTime) }}
+					span.bold {{ userStatusLastUpdateTime | date : 'MM/dd/yyyy HH:mm:ss a' }}
 			li#onlineUser(ng-repeat="onlineitem in onlineResult = (onlineitems | filter: filterUsers(searchText) | orderBy: 'username')", ui-sref='chat({ username: onlineitem.username })')
 				span.glyphicon.glyphicon-user 
 				span.user.username {{onlineitem.username}}
@@ -27,7 +27,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top.nav-justified
 					span Status:
 					span.bold {{ onlineitem.statusCode }} 
 					span.time-separator Last updated at: 
-					span.bold {{ getPresentableTime(onlineitem.statusUpdatedAt) }}
+					span.bold {{ onlineitem.statusUpdatedAt | date : 'MM/dd/yyyy HH:mm:ss a' }}
 			li#offlineUser(ng-repeat="offlineitem in offlineResult = (offlineitems | filter: filterUsers(searchText) | orderBy: 'username')") 
 				span.glyphicon.glyphicon-user
 				span.user.username {{offlineitem.username}}
@@ -35,8 +35,8 @@ nav.navbar.navbar-inverse.navbar-fixed-top.nav-justified
 					span Status:
 					span.bold {{ offlineitem.statusCode }} 
 					span.time-separator Last updated at: 
-					span.bold {{ getPresentableTime(offlineitem.statusUpdatedAt) }}
-			li(ng-show='onlineResult.length == 0 && offlineResult.length == 0') No results for your search
+					span.bold {{ offlineitem.statusUpdatedAt | date : 'MM/dd/yyyy HH:mm:ss a' }}
+			li(ng-show='onlineResult.length == 0 && offlineResult.length == 0 && (!onlineitems.length==0 && !offlineitems.length==0)') No results for your search
 			li#searchField
 				div
 					a.btn.glyphicon.glyphicon-search(ng-click='showSearch()')

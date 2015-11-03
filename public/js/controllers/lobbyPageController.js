@@ -91,9 +91,9 @@ angular.module('myApp')
 			}
 			statuses = [];
 			for (var i = 0; i < $scope.statuses.length; i++) {
-				statuses.push($scope.statuses[i])
+				statuses.push($scope.statuses[i].toLowerCase());
 			}
-			if (statuses.indexOf(criteria)) {
+			if (statuses.indexOf(criteria) > -1) {
 				// we are searching for status
 				return item.statusCode.toLowerCase() === criteria;
 			} else {
