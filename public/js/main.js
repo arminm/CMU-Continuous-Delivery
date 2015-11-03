@@ -51,12 +51,6 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
         Socket.removeAllListeners('ANNOUNCEMENTS');
         Socket.removeAllListeners('WALL');
     };
-    
-    /*$scope.getPresentableTime = function(timestamp) {
-        var date = new Date(Number(timestamp));
-        var dateString = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
-        return dateString;
-    };*/
 
     $scope.disburseSocketMessage = function(data, type) {
         console.log('message: ' + JSON.stringify(data));
