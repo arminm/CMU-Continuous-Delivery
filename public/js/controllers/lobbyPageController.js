@@ -89,8 +89,11 @@ angular.module('myApp')
 			if (criteria.length === 0) {
 				return true;
 			}
-			console.log(criteria);
-			if (criteria === 'ok' || criteria === 'help' || criteria === 'emergency' || criteria === 'undefined') {
+			statuses = [];
+			for (var i = 0; i < $scope.statuses.length; i++) {
+				statuses.push($scope.statuses[i])
+			}
+			if (statuses.indexOf(criteria)) {
 				// we are searching for status
 				return item.statusCode.toLowerCase() === criteria;
 			} else {
