@@ -1,11 +1,12 @@
 div(ng-controller='messagesController')
 	include includes/lobby-basic-nav.jade
 	div#scrollingMessages
-		div.messages.msg(ng-repeat="msg in messages = messages | filter : filterMessages(filteredParam) | orderBy : 'createdAt' : descending | limitTo: limitResults")
+		div.messages.msg(ng-repeat="msg in result = (messages | filter : filterMessages(filteredParam) | orderBy : 'createdAt' : descending | limitTo: limitResults)")
 			div.timestamp {{ getPresentableTime(msg.createdAt) }}
 			div.username {{ msg.author}}
 				span.user-status(style='padding: 0 0 0 5px;') Status: {{ status(msg.author).code }} Last updated at: {{getPresentableTime(status(msg.author).lastUpdatedAt)}}
-			div {{ msg.content}}
+			div {{ msg.content }}
+	span(ng-show='result.length == 0') No results for your search
 	div.input-group#wallmessageForm
 		input.form-control(type='text',style='width:80%', ng-model='messageInput')
 		button.btn.btn-warning(type='button', style='width:20%', ng-click='post()') Send
