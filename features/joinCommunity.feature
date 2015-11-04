@@ -1,5 +1,4 @@
 Feature: Test visiting homepage
-
   This is intended to test the use of Cucumber.js
 
   Scenario: The user goes to the home page

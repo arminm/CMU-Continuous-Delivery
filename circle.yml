@@ -12,8 +12,7 @@ checkout:
 # install dependencies
 dependencies:
   override:
-    - npm install
-    - bower install
+    - npm install && bower install
     - npm install -g grunt-cli
     - npm install sqlite3
 
@@ -29,4 +28,4 @@ test:
     - mkdir -p $CIRCLE_TEST_REPORTS/mocha
     - DB=test npm start:
         background: true
-    - npm test
+    - DB=test grunt circle
