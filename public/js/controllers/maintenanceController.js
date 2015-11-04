@@ -3,20 +3,39 @@ angular.module('myApp')
 	$scope.duration = null;
 	$scope.testMode = false;
 	$scope.resultMode = false;
-	$scope.username = User.getUsername();
-
+  $scope.username = "dummy";
+	$scope.access_key = User.getUsername();
+  $scope.limit = 1000;
+  $scope.totalCalls = 0;
+  $scope.totalSuccessfulGets = 0;
+  $scope.totalUnsuccessfulGets = 0;
+  $scope.totalSuccessfulPosts = 0;
+  $scope.totalUnsuccessfulPosts = 0;
   var requestPromise;
   var timer;
 
 	$scope.start = function() {
-		var startPromise = MaintenanceFactory.post($scope.username);
-		startPromise.then(
-			function(payload) { 
+    $scope.totalCalls = 0;
+    $scope.totalSuccessfulGets = 0;
+    $scope.totalUnsuccessfulGets = 0;
+    $scope.totalSuccessfulPosts = 0;
+    $scope.totalUnsuccessfulPosts = 0;
+		MaintenanceFactory.post($scope.access_key)
+    .success(function(data) {
+      var registerData = {
+        password: '1111',
+        fullName: '',
+        createdAt: Date.now()
+      };
+      MaintenanceFactory.register($scope.username, $scope.access_key, registerData)
+      .success(function(data) {
         $scope.test();
-      },
-      function(errorPayload) {
-      }
-    );
+      })
+      .error(function(data) {
+      });
+    })
+    .error(function(data) {
+    });
 	};
 
 	$scope.test = function() {
@@ -32,13 +51,7 @@ angular.module('myApp')
 	};
 
 	$scope.stop = function() {
-		var stopPromise = MaintenanceFactory.delete($scope.username);
-		// stopPromise.then(
-		// 	function(payload) { 
-  // 		},
-  // 		function(errorPayload) {
-  // 		}
-  //   );
+		var stopPromise = MaintenanceFactory.delete($scope.access_key);
     $scope.abort();
     MaintenanceFactory.abort();
 	};
@@ -53,9 +66,22 @@ angular.module('myApp')
       postedAt: Date.now()
     };
     requestPromise = $interval(function() {
-      if ($scope.testMode) {
-        var promiseA = MaintenanceFactory.postWallMessage($scope.username, messageData);
-        var promiseB = MaintenanceFactory.getAllWallMessages($scope.username);
+      if ($scope.totalCalls <= $scope.limit) {
+        $scope.totalCalls += 2;
+        MaintenanceFactory.postWallMessage($scope.username, $scope.access_key, messageData)
+        .success(function() {
+          $scope.totalSuccessfulPosts++;
+        })
+        .error(function() {
+          $scope.totalUnsuccessfulPosts++;
+        });
+        MaintenanceFactory.getAllWallMessages($scope.username, $scope.access_key)
+        .success(function() {
+          $scope.totalSuccessfulGets++;
+        })
+        .error(function() {
+          $scope.totalUnsuccessfulGets++;
+        });
       } else {
         $scope.stopRequest();
       }

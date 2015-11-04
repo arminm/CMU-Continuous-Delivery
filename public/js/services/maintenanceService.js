@@ -17,24 +17,25 @@ angular.module('MaintenanceService', [])
 })
 .factory('MaintenanceFactory', function($http, $q, pendingRequests) {
     return {
-        post : function(username) {
-            return $http.post('/maintenance?access_key=' + username);
+        post : function(access_key) {
+            return $http.post('/maintenance?access_key=' + access_key);
         },
-        delete : function(username) {
-            return $http.delete('/maintenance?access_key=' + username);
+        delete : function(access_key) {
+            return $http.delete('/maintenance?access_key=' + access_key);
         },
-        postWallMessage : function(username, data) {
+        postWallMessage : function(username, access_key, data) {
             var canceller = $q.defer();
-            pendingRequests.add({canceller: canceller});
-            var requestPromise = $http.post('/messages/' + username + '?access_key=' + username, data, {timeout : canceller.promise});
+            pendingRequests.add({canceller: canceller, type: 'post'});
+            var requestPromise = $http.post('/messages/' + username + '?access_key=' + access_key, data, {timeout : canceller.promise});
             requestPromise.finally(function() {
                 canceller.resolve();
             });
             return requestPromise;
         },
-        getAllWallMessages : function(username) {
+        getAllWallMessages : function(username, access_key) {
             var canceller = $q.defer();
-            var requestPromise =  $http.get('/messages?messageType=WALL&access_key=' + username, {timeout : canceller.promise});
+            pendingRequests.add({canceller: canceller, type: 'get'});
+            var requestPromise =  $http.get('/messages?messageType=WALL&access_key=' + access_key, {timeout : canceller.promise});
             requestPromise.finally(function() {
                 canceller.resolve();
             });
@@ -42,6 +43,9 @@ angular.module('MaintenanceService', [])
         },
         abort : function() {
             pendingRequests.cancelAll();
+        },
+        register : function(username, access_key, registrationData) {
+            return $http.post('/signup/' + username + '?access_key=' + access_key, registrationData);
         }
     }
 });

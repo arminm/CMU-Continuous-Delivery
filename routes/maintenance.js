@@ -46,6 +46,9 @@ function maintenance(app, options) {
 			});
 
 			app.delete(url, checkAccess, function (req, res) {
+				var db = dbModule.getDB();
+				db.run("DELETE FROM messages");
+				db.run("DELETE FROM users");
 				dbModule.switchBack();
 				accessKey = null;	// clear the accessKey to allow for other admins to connect
 				mode = false;

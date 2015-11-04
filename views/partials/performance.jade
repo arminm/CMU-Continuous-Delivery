@@ -16,8 +16,13 @@ form#maintenanceForm.form-horizontal(name="maintenanceForm", ng-controller="main
 			span.col-lg-10
 				div Time elapsed: {{elapsedTime}}
 				div(ng-show='resultMode')
-					div Number of POST requests per second
-					div Number of GET requests per second
+					//- div Number of POST requests per second
+					//- div Number of GET requests per second
+					div Total calls: {{totalCalls}}
+					div Total successful post calls: {{totalSuccessfulPosts}}
+					div Total unsuccessful post calls: {{totalUnsuccessfulPosts}}
+					div Total successful get calls: {{totalSuccessfulGets}}
+					div Total unsuccessful get calls: {{totalUnsuccessfulGets}}
 		div.form-group
 			span.col-lg-10
 				button.btn.btn-primary(ui-sref='lobby', ng-disabled='testMode') Go back
