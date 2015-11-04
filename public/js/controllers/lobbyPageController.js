@@ -98,7 +98,7 @@ angular.module('myApp')
 				return item.statusCode.toLowerCase() === criteria;
 			} else {
 				// we are searching for username
-				return item.username.indexOf(criteria) > -1;
+				return item.username.toLowerCase().indexOf(criteria) > -1;
 			}
 		}
 	};
