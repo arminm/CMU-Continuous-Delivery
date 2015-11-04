@@ -13,6 +13,9 @@ angular.module('myApp')
 		{name: 'Emergency', color: '#b94a48'},
 		{name: 'Undefined', color: ''}
 	];
+	$scope.searchIsActive = false;
+	$scope.searchText = '';
+	$scope.searchString = '';
 
 	$scope.selectedStatus = $scope.statusOptions.filter(function(option) {
 		return option.name === User.getStatus();
@@ -59,5 +62,44 @@ angular.module('myApp')
 	};
 	$scope.resetFirstTimeUser = function() {
 		User.resetFirstTimeUser();
+	};
+
+	$scope.showSearch = function() {
+		$scope.searchIsActive = true;
+	};
+
+	$scope.clear = function() {
+		$scope.searchText = '';
+		$scope.searchString = '';
+		$scope.searchIsActive = false;
+	};
+
+	$scope.search = function(param) {
+		if (param !== '') {
+			var params = param.toLowerCase().split(/[^A-Za-z0-9]/);
+			$scope.searchText = params[0];
+			$scope.$apply();
+		} else {
+			$scope.searchText = '';
+		}
+	};
+
+	$scope.filterUsers = function(criteria) {
+		return function(item) {
+			if (criteria.length === 0) {
+				return true;
+			}
+			statuses = [];
+			for (var i = 0; i < $scope.statuses.length; i++) {
+				statuses.push($scope.statuses[i].toLowerCase());
+			}
+			if (statuses.indexOf(criteria) > -1) {
+				// we are searching for status
+				return item.statusCode.toLowerCase() === criteria;
+			} else {
+				// we are searching for username
+				return item.username.indexOf(criteria) > -1;
+			}
+		}
 	};
 });
