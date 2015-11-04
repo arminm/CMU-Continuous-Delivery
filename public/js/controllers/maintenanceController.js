@@ -53,12 +53,13 @@ angular.module('myApp')
 	$scope.stop = function() {
 		var stopPromise = MaintenanceFactory.delete($scope.access_key);
     $scope.abort();
+    $scope.stopRequest();
     MaintenanceFactory.abort();
 	};
 
 	$scope.makeRequests = function() {
     if (angular.isDefined(requestPromise)) return;
-		var messageData = {
+    var messageData = {
       target: null,
       // The below message is exactly 20 characters long
       content: '20 character message',
@@ -66,37 +67,38 @@ angular.module('myApp')
       postedAt: Date.now()
     };
     requestPromise = $interval(function() {
-      if ($scope.totalCalls <= $scope.limit) {
-        $scope.totalCalls += 2;
-        MaintenanceFactory.postWallMessage($scope.username, $scope.access_key, messageData)
-        .success(function() {
-          $scope.totalSuccessfulPosts++;
-        })
-        .error(function() {
-          $scope.totalUnsuccessfulPosts++;
-        });
-        MaintenanceFactory.getAllWallMessages($scope.username, $scope.access_key)
-        .success(function() {
-          $scope.totalSuccessfulGets++;
-        })
-        .error(function() {
-          $scope.totalUnsuccessfulGets++;
-        });
+      if (($scope.totalSuccessfulPosts + $scope.totalUnsuccessfulPosts) < $scope.limit) {
+        if ($scope.totalCalls < $scope.limit) {        
+          $scope.totalCalls++;
+          MaintenanceFactory.postWallMessage($scope.username, $scope.access_key, messageData)
+          .success(function() {
+            if($scope.testMode) $scope.totalSuccessfulPosts++;
+          })
+          .error(function() {
+            if($scope.testMode) $scope.totalUnsuccessfulPosts++;
+          });
+          MaintenanceFactory.getAllWallMessages($scope.username, $scope.access_key)
+          .success(function() {
+            if($scope.testMode) $scope.totalSuccessfulGets++;
+          })
+          .error(function() {
+            if($scope.testMode) $scope.totalUnsuccessfulGets++;
+          });
+        }
       } else {
-        $scope.stopRequest();
+        $scope.stop();
       }
-		}, 0);
+    }, 0);
   };
 
   $scope.startTimer = function() {
     // Don't start a new timer if we are already running one
     if (angular.isDefined(timer)) return;
-    $scope.elapsedTime = $scope.duration;
+    $scope.elapsedTime = 0;
     timer = $interval(function() {
-      if ($scope.elapsedTime > 0) {
-        $scope.elapsedTime--;
+      if ($scope.elapsedTime < $scope.duration) {
+        $scope.elapsedTime++;
       } else {
-        $scope.stopRequest();
         $scope.stop();
       }
     }, 1000);
