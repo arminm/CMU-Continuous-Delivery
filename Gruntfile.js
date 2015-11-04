@@ -37,7 +37,7 @@ module.exports = function(grunt) {
       src: 'features',
       options: {
         format: 'html',
-        output: process.env.CIRCLE_TEST_REPORTS + 'cucumber/report.html'
+        output: process.env.CIRCLE_TEST_REPORTS + '/cucumber/report.html'
       }
     }
   });
