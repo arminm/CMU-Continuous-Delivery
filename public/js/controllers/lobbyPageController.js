@@ -89,17 +89,9 @@ angular.module('myApp')
 			if (criteria.length === 0) {
 				return true;
 			}
-			statuses = [];
-			for (var i = 0; i < $scope.statuses.length; i++) {
-				statuses.push($scope.statuses[i].toLowerCase());
-			}
-			if (statuses.indexOf(criteria) > -1) {
-				// we are searching for status
-				return item.statusCode.toLowerCase() === criteria;
-			} else {
-				// we are searching for username
-				return item.username.toLowerCase().indexOf(criteria) > -1;
-			}
+			var statusMatch = item.statusCode.toLowerCase().indexOf(criteria) > -1;
+			var usernameMatch = item.username.toLowerCase().indexOf(criteria) > -1;
+			return  usernameMatch || statusMatch;
 		}
 	};
 });

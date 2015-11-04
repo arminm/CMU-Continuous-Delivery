@@ -9,34 +9,34 @@ nav.navbar.navbar-inverse.navbar-fixed-top.nav-justified
 			a.btn.glyphicon.glyphicon-off#logoutButton(ng-click='logout()')
 	div#statusBar.navbar-text
 		label(for='statusSelect') Your status:
-		select#statusSelect(name='statusSelect', ng-options="status.name for status in statusOptions track by status.name", ng-model='selectedStatus', ng-style="{'background-color': selectedStatus.color}", ng-change='setStatus()')     
+		select#statusSelect(name='statusSelect', ng-options="status.name for status in statusOptions track by status.name", ng-model='selectedStatus', ng-style="{'background-color': selectedStatus.color}", ng-change='setStatus()')
 	div.navbar-collapse.collapse
 		ul.nav.navbar-nav
 			li#currentuser
-				span.glyphicon.glyphicon-user 
+				span.glyphicon.glyphicon-user
 				span.user.username {{ username }}
 				span.user-status
 					span Status:
-					span.bold {{ userStatus }} 
-					span.time-separator Last updated at: 
+					span.bold {{ userStatus }}
+					span.time-separator Last updated at:
 					span.bold {{ userStatusLastUpdateTime | date : 'MM/dd/yyyy HH:mm:ss a' }}
 			li#onlineUser(ng-repeat="onlineitem in onlineResult = (onlineitems | filter: filterUsers(searchText) | orderBy: 'username')", ui-sref='chat({ username: onlineitem.username })')
-				span.glyphicon.glyphicon-user 
+				span.glyphicon.glyphicon-user
 				span.user.username {{onlineitem.username}}
 				span.user-status
 					span Status:
-					span.bold {{ onlineitem.statusCode }} 
-					span.time-separator Last updated at: 
+					span.bold {{ onlineitem.statusCode }}
+					span.time-separator Last updated at:
 					span.bold {{ onlineitem.statusUpdatedAt | date : 'MM/dd/yyyy HH:mm:ss a' }}
-			li#offlineUser(ng-repeat="offlineitem in offlineResult = (offlineitems | filter: filterUsers(searchText) | orderBy: 'username')") 
+			li#offlineUser(ng-repeat="offlineitem in offlineResult = (offlineitems | filter: filterUsers(searchText) | orderBy: 'username')")
 				span.glyphicon.glyphicon-user
 				span.user.username {{offlineitem.username}}
 				span.user-status
 					span Status:
-					span.bold {{ offlineitem.statusCode }} 
-					span.time-separator Last updated at: 
+					span.bold {{ offlineitem.statusCode }}
+					span.time-separator Last updated at:
 					span.bold {{ offlineitem.statusUpdatedAt | date : 'MM/dd/yyyy HH:mm:ss a' }}
-			li(ng-show='onlineResult.length == 0 && offlineResult.length == 0 && (!onlineitems.length==0 && !offlineitems.length==0)') No results for your search
+			li(ng-show='onlineResult.length == 0 && offlineResult.length == 0 && (!onlineitems.length==0 || !offlineitems.length==0)') No results for your search
 			li.searchField
 				div
 					a.searchField.btn.glyphicon.glyphicon-search(ng-click='showSearch()')
