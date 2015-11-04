@@ -34,10 +34,18 @@ module.exports = function(grunt) {
       }
     },
     cucumberjs: {
-      src: 'features',
-      options: {
-        format: 'html',
-        output: process.env.CIRCLE_TEST_REPORTS + '/cucumber/report.html'
+      circle: {
+        src: 'features',
+        options: {
+          format: 'html',
+          output: process.env.CIRCLE_TEST_REPORTS + '/cucumber/report.html'
+        }
+      },
+      local: {
+        src: 'features',
+        options: {
+          format: 'pretty',
+        }
       }
     }
   });
@@ -52,10 +60,10 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['mochaTest:test']);
 
   // Cucumber
-  grunt.registerTask('cucumber', ['cucumberjs']);
+  grunt.registerTask('cucumber', ['cucumberjs:local']);
 
   // Circle
-  grunt.registerTask('circle', ['mochaTest:circle', 'cucumberjs', 'mocha_istanbul']);
+  grunt.registerTask('circle', ['mochaTest:circle', 'cucumberjs:circle', 'mocha_istanbul']);
 
   //Coverage
   grunt.registerTask('coverage', ['mocha_istanbul']);

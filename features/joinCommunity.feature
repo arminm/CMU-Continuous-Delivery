@@ -3,4 +3,4 @@ Feature: Test visiting homepage
 
   Scenario: The user goes to the home page
     Given I am on the home page
-    Then I should see SSNoCNOT as the title
+    Then I should see SSNoC as the title
