@@ -2,7 +2,8 @@ var expect = require('expect.js');
 var Client = require('node-rest-client').Client;
 var User = require('../../models/user.js');
 var Status = require('../../models/status.js');
-var db = require('../../config/db.js');
+var dbModule = require('../../config/db.js');
+var db = dbModule.getDB();
 
 suite('REST: Status', function() {
   var statusCrumbID;

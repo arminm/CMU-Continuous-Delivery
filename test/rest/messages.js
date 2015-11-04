@@ -1,7 +1,8 @@
 var expect = require('expect.js');
 var Client = require('node-rest-client').Client;
 var User = require('../../models/user.js');
-var db = require('../../config/db.js');
+var dbModule = require('../../config/db.js');
+var db = dbModule.getDB();
 var Message = require('../../models/message.js');
 
 function createMessage(messageType, content, target, callback) {
