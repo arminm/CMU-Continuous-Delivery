@@ -1,6 +1,10 @@
-Feature: Test visiting homepage
-  This is intended to test the use of Cucumber.js
+Feature: Join Community
+  As a user, I can join the community.
 
-  Scenario: The user goes to the home page
+  Scenario: Registration
     Given I am on the home page
-    Then I should see SSNoC as the title
+    Given I hit the "Register" button
+    Given I provide the username "armin" and password "1234"
+    Given I confirm the password "1234"
+    When I hit the "Register" button
+    Then I should see "SSNoC" as the title
