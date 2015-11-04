@@ -1,6 +1,7 @@
 var Status = require('../../models/status.js');
 var expect = require('expect.js');
-var db = require('../../config/db.js');
+var dbModule = require('../../config/db.js');
+var db = dbModule.getDB();
 var Utils = require('../../utilities.js');
 var now = function() {return (new Date()).getTime();};
 

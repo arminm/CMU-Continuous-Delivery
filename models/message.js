@@ -1,9 +1,10 @@
-var db = require('../config/db.js');
+var dbModule = require('../config/db.js');
 var utils = require('../utilities.js');
 
 
 module.exports = {
 	create: function(info, callback) {
+		var db = dbModule.getDB();
 		if (info.content === '') {
 			callback();
 			return;
@@ -33,6 +34,7 @@ module.exports = {
 	},
 
 	getAllMessages: function(messageType, userA, userB, callback) {
+		var db = dbModule.getDB();
 		var messages = [];
 		var query = '';
 		if (userA && userB) {
@@ -59,6 +61,7 @@ module.exports = {
 	},
 
 	get: function(id, callback) {
+		var db = dbModule.getDB();
 		db.get("SELECT * FROM messages WHERE id=" + id + ";", function(error, row) {
 			if (error) {
 				callback(null, error);
