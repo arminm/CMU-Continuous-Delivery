@@ -12,7 +12,7 @@ checkout:
 # install dependencies
 dependencies:
   override:
-    - npm install && bower install
+    - npm install
     - npm install -g grunt-cli
     - npm install sqlite3
 
