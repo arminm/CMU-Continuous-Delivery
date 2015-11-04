@@ -1,9 +1,10 @@
-var db = require('../config/db.js');
+var dbModule = require('../config/db.js');
 var utils = require('../utilities.js');
 var Status = require('./status.js');
 
 module.exports = {
 	create: function(info, callback) {
+		var db = dbModule.getDB();
 		db.run('INSERT INTO users (fullName, username, password, createdAt, lastLoginAt) VALUES ($1, $2, $3, $4, $5);', {
 			$1: info.fullName,
 			$2: info.username,
@@ -33,6 +34,7 @@ module.exports = {
 	},
 
 	get: function(username, callback) {
+		var db = dbModule.getDB();
 		var query ="SELECT * FROM users JOIN statusCrumbs WHERE users.username='" + username + "' AND users.username=statusCrumbs.username AND crumbId = (SELECT MAX(crumbId) FROM statusCrumbs WHERE users.username=statusCrumbs.username);";
 		db.get(query, function(error, row) {
 			if (error) {
@@ -48,6 +50,7 @@ module.exports = {
 	},
 
 	getAllUsers: function(callback) {
+		var db = dbModule.getDB();
 		var users = [];
 		var query = "SELECT * FROM users JOIN statusCrumbs WHERE users.username=statusCrumbs.username AND crumbId = (SELECT MAX(crumbId) FROM statusCrumbs WHERE users.username=statusCrumbs.username);";
 		db.each(query,
@@ -67,6 +70,7 @@ module.exports = {
 	},
 
 	updateLogin: function(username, lastLoginAt, isOnline, callback) {
+		var db = dbModule.getDB();
 		db.run("UPDATE users SET lastLoginAt = ?, isOnline = ? WHERE username = ?;", lastLoginAt, isOnline, username, function(error) {
 			if (error) {
 				callback(false, error);
@@ -77,6 +81,7 @@ module.exports = {
 	},
 
 	logout: function(username, callback) {
+		var db = dbModule.getDB();
 		db.run("UPDATE users SET isOnline = ? WHERE username = ?;", false, username, function(error) {
 			if (error) {
 				callback(error);

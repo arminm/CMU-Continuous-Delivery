@@ -12,7 +12,7 @@ var messages = require('./routes/messages');
 var status = require('./routes/status');
 var routers = [ users, routes, messages, status];
 
-var maintenance = require('maintenance');
+var maintenance = require('./routes/maintenance');
 var app = express();
 
 // Configure Maintenance

@@ -1,8 +1,9 @@
-var db = require('../config/db.js');
+var dbModule = require('../config/db.js');
 var utils = require('../utilities.js');
 
 module.exports = {
 	createStatusCrumb: function(info, callback) {
+		var db = dbModule.getDB();
 		db.run('INSERT INTO statusCrumbs (username, statusCode, statusUpdatedAt) VALUES ($1, $2, $3);', {
 			$1: info.username,
 			$2: info.statusCode,
@@ -26,6 +27,7 @@ module.exports = {
 	},
 
 	getAllStatusCrumbs: function(username, callback) {
+		var db = dbModule.getDB();
 		var statusCrumbs = [];
 		db.each("SELECT * FROM statusCrumbs WHERE username='" + username + "';",
 			function(error, row) {
@@ -42,6 +44,7 @@ module.exports = {
 	},
 
 	getStatusCrumb: function(id, callback) {
+		var db = dbModule.getDB();
 		db.get("SELECT * FROM statusCrumbs WHERE crumbID=" + id + ";", function(error, row) {
 			if (error) {
 				callback(null, error);
