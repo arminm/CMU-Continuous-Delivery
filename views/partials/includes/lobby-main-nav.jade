@@ -37,8 +37,8 @@ nav.navbar.navbar-inverse.navbar-fixed-top.nav-justified
 					span.time-separator Last updated at: 
 					span.bold {{ offlineitem.statusUpdatedAt | date : 'MM/dd/yyyy HH:mm:ss a' }}
 			li(ng-show='onlineResult.length == 0 && offlineResult.length == 0 && (!onlineitems.length==0 && !offlineitems.length==0)') No results for your search
-			li#searchField
+			li.searchField
 				div
-					a.btn.glyphicon.glyphicon-search(ng-click='showSearch()')
-					search(param='searchString', placeholder='Search', search='search($param)', ng-show='searchIsActive')
-					a.btn.glyphicon.glyphicon-remove-sign(ng-click='clear()', ng-show='searchIsActive')
+					a.searchField.btn.glyphicon.glyphicon-search(ng-click='showSearch()')
+					input#searchBox(type='text', placeholder='Search', ng-model='searchString', ng-change='search(searchString)', ng-show='searchIsActive')
+					a.searchField.btn.glyphicon.glyphicon-remove-sign(ng-click='clear()', ng-show='searchIsActive')

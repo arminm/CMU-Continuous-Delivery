@@ -87,8 +87,8 @@ angular.module('myApp')
 	};
 
 	$scope.search = function(param) {
-		$scope.searchMode = true;
 		if (param !== '') {
+			$scope.searchMode = true;
 			var params = param.toLowerCase().split(/[^A-Za-z0-9]/);
 			$scope.filteredParam = [];
 			for (var i = 0; i < params.length; i++) {
@@ -102,6 +102,7 @@ angular.module('myApp')
 			}
 			$scope.$apply();
 		} else {
+			$scope.searchMode = false;
 			$scope.filteredParam = [];
 			$scope.getAllMessages();
 			$scope.limitResults = 1000000;

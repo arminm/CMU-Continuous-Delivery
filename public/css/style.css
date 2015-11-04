@@ -65,20 +65,31 @@ body {
 	background-color: #EFB73E;
 }
 
-.searchField {
+a.searchField {
+	margin: 5px auto;
+}
+
+#showMore {
+	padding-top: 7px;
+	padding-left: 5px;
+}
+
+#searchBox {
+	margin-top: 8px;
 	float: left;
-	font-size: 25px;
-	vertical-align: center;
+	width: 50%;
+}
+
+.searchField {
+	margin: auto;
+	float: left;
+	display: inline;
 }
 
 #backtolobbyButton{
 	float: left !important;
 	font-size: 2em;
 	padding: 3px 0 0 0;
-}
-
-#searchField {
-	float: left !important;
 }
 
 #logoutButton {
