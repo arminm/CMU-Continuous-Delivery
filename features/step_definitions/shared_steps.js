@@ -21,8 +21,8 @@ var SharedSteps = function() {
     callback();
   });
 
-  this.Then('I should see "$title" as the title', function(title, callback) {
-    expect(title).to.be.eql(this.browser.text('title'));
+  this.Then('I should see the welcome message for "$username"', function(username, callback) {
+    expect('Welcome, ' + username + '!').to.be.eql(this.browser.text('h3'));
     callback();
   });
 };
