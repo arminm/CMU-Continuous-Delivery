@@ -36,7 +36,8 @@ module.exports = function(grunt) {
     cucumberjs: {
       src: 'features',
       options: {
-        format: 'pretty'
+        format: 'html',
+        output: process.env.CIRCLE_TEST_REPORTS + 'cucumber/report.html'
       }
     }
   });
