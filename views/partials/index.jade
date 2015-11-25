@@ -18,7 +18,7 @@ form#loginForm.form-horizontal(name="loginForm", ng-controller="homePageControll
           div.invalid(ng-message='server') {{formError.password}}
     div.form-group.animate-hide(ng-show='formData.isRegistration')
       div.col-lg-10
-        input#confirmPassword.form-control(name="confirmPassword", placeholder='Confirm Password', type='password', autocomplete='off', ng-model='formData.passwordConfirm', first-password='{{ formData.password }}', password-equality)
+        input#confirmPassword.form-control(name="confirmPassword", placeholder='Confirm Password', type='password', autocomplete='off', ng-model='formData.passwordConfirm', first-password='{{ formData.password }}', password-equality, server-error)
         div(ng-messages="loginForm.confirmPassword.$error")
           div.invalid(ng-message='passwordEquality') Passwords must match
     div.form-group.animate-hide(ng-show='formData.isRegistration')

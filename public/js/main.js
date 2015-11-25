@@ -31,11 +31,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 app.directive('serverError', function (){ 
  return {
-    require: '?ngModel',
-    link: function(scope, elem, attr, ngModel) {
-        elem.bind('keyup change', function () {
-          ngModel.$setValidity('server', true);
-          scope.formError.generic = '';
+    scope: false,
+    link: function(scope, elem, attr) {
+        elem.bind('keyup', function () {
+            scope.loginForm.$setValidity('server', true);
+            scope.formError.generic = '';
+            scope.$apply();
         });
     }
  };
