@@ -26,14 +26,17 @@ angular.module('myApp')
 			statusUpdatedAt: Date.now(),
 			statusCode: $scope.selectedStatus.name
 		};
-		$scope.userStatus = $scope.selectedStatus.name;
-		$scope.userStatusLastUpdateTime = Date.now();
+		var oldStatus = $scope.statusOptions.filter(function(option) {
+			return option.name === $scope.userStatus;
+		})[0];
 		Status.update($scope.username, statusData)
 		.success(function(data) {
 			User.setStatus($scope.selectedStatus.name);
+			$scope.userStatus = $scope.selectedStatus.name;
+			$scope.userStatusLastUpdateTime = Date.now();
 		})
 		.error(function(data) {
-
+			$scope.selectedStatus = oldStatus;
 		});
 	};
 	$scope.directory = function () {
