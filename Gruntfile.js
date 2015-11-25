@@ -100,7 +100,9 @@ module.exports = function(grunt) {
   // Register tasks (Both `$ grunt` and `$ grunt test` would run mochaTest)
   grunt.registerTask('default', ['mochaTest:test']);
   grunt.registerTask('test', ['mochaTest:test']);
-  grunt.registerTask('default', 'jslint');
+
+  // jslint
+  grunt.registerTask('jslint', 'jslint');
 
   // Cucumber
   grunt.registerTask('cucumber', ['cucumberjs:local']);
