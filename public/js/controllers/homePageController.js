@@ -40,10 +40,8 @@ angular.module('myApp')
 
     $scope.register = function () {
       $scope.formData.isRegistration = true;
-      $scope.formError.generic = '';
-      $scope.loginForm.$setValidity('server', true);
       // Call factory
-      if ($scope.loginForm.$valid && ($scope.formData.passwordConfirm.length > 0)) {
+      if ($scope.loginForm.$valid && ($scope.formData.confirmPassword.length > 0)) {
         var registerData = {
           password: $scope.formData.password,
           fullName: $scope.formData.fullName,
@@ -80,8 +78,6 @@ angular.module('myApp')
     };
     $scope.login = function () {
       $scope.formData.isRegistration = false;
-      $scope.formError.generic = '';
-      $scope.loginForm.$setValidity('server', true);
       // Call factory
       if ($scope.loginForm.$valid) {
         var loginData = {
