@@ -12,7 +12,8 @@ exports.up = function(db, callback) {
     updatedAt: 'timestamp',
     lastLoginAt: 'timestamp',
     isActive: {type: 'boolean', notNull: true, defaultValue: 1},
-    isOnline: {type: 'boolean', notNull: true, defaultValue: 1}
+    isOnline: {type: 'boolean', notNull: true, defaultValue: 1},
+    profile: {type: 'string', notNull: true, defaultValue: 'CITIZEN'}
   }, callback);
 };
 
