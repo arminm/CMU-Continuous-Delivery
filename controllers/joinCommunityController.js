@@ -12,7 +12,9 @@ module.exports = {
 		var now = (new Date()).getTime();
 		User.get(userInfo.username, function(user, actualPassword) {
 			if (user !== undefined) {
-				if (userInfo.password === actualPassword) {
+				if (!user.isActive) {
+					res.sendStatus(403);
+				} else if (userInfo.password === actualPassword) {
 					User.updateLogin(userInfo.username, now, true, function(isUpdated, error) {
 						if (isUpdated) {
 							res.status(200).send(user);
@@ -43,7 +45,9 @@ module.exports = {
 			if (error) {
 				res.status(500).send();
 			} else if (user !== undefined) {
-				if (password === actualPassword) {
+				if (!user.isActive) {
+					res.sendStatus(403);
+				} else if (password === actualPassword) {
 					User.updateLogin(username, lastLoginAt, true, function(isUpdated, error) {
 						if (error) {
 							res.sendStatus(500);
