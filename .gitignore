@@ -9,3 +9,6 @@ public/libs/*
 
 # ignore log files
 npm-debug.log
+
+# ignore jslint output files
+out/*
