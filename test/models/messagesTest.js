@@ -1,3 +1,4 @@
+var User = require('../../models/user.js');
 var Message = require('../../models/message.js');
 var expect = require('expect.js');
 var dbModule = require('../../config/db.js');
@@ -14,6 +15,27 @@ function createDouble(options) {
     target: options.target,
     messageType: options.messageType || 'WALL',
     createdAt: options.createdAt || now()
+  };
+  return double;
+};
+
+
+// Creates a user double object to be used for creating users
+// in the database and checking the results
+function createUserDouble(options) {
+  var currentTime = now();
+  var double = {
+    fullName: options.fullName || 'Random Name',
+    username: options.username || 'Random Username ' + currentTime,
+    password: options.password || '1234',
+    createdAt: options.createdAt || currentTime,
+    updatedAt: options.updatedAt || null,
+    lastLoginAt: options.lastLoginAt || currentTime,
+    isActive: options.isActive || true,
+    isOnline: options.isOnline || true,
+    statusCode: options.statusCode || 'OK',
+    statusUpdatedAt: options.statusUpdatedAt || currentTime,
+    profile: options.profile || 'CITIZEN'
   };
   return double;
 };
@@ -46,21 +68,31 @@ function areTheSame(double, message) {
 
 suite('Message: ', function() {
   var messageWallId;
-  var messageWallA, messageWallB, messageChat;
+  var messageWallA, messageWallB, messageChat, userA, userB, userC;
 
   setup(function() {
+    userA = createUserDouble({
+      username: "john"
+    });
+    User.create(userA, function(isCreated, error) {});
     messageWallA = createDouble({
       content: "Hello",
       author: "john",
       messageType: "WALL"
     });
-
+    userB = createUserDouble({
+      username: "armin"
+    });
+    User.create(userB, function(isCreated, error) {});
     messageWallB = createDouble ({
       content: "Bye",
       author: "armin",
       messageType: "WALL"
     });
-
+    userC = createUserDouble({
+      username: "mandy"
+    });
+    User.create(userC, function(isCreated, error) {});
     messageChat = createDouble ({
       content: "Let's chat!",
       author: "armin",
