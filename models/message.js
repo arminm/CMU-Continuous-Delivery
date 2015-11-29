@@ -38,11 +38,9 @@ module.exports = {
 		var messages = [];
 		var query = '';
 		if (userA && userB) {
-			query = "SELECT * FROM messages WHERE messageType='" + messageType
-				+ "' AND ((author='" + userA + "' AND target='" + userB +
-				  "') OR (author='" + userB + "' AND target='" + userA + "'));";
+			query = "SELECT messages.* FROM messages JOIN users ON messages.author = users.username WHERE messages.messageType='" + messageType + "' AND ((messages.author='" + userA + "' AND messages.target='" + userB + "') OR (messages.author='" + userB + "' AND messages.target='" + userA + "')) AND users.isActive;";
 		} else if (messageType !== 'CHAT') {
-			query = "SELECT * FROM messages WHERE messageType='" + messageType + "';";
+			query = "SELECT messages.* FROM messages, users WHERE messageType='" + messageType + "' AND users.isActive AND user.username = message.author;";
 		} else {
 			callback();
 		}
