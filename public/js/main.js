@@ -93,6 +93,10 @@ app.directive('regExpRequire', function() {
 });
 
 app.controller('mainController', function($scope, $rootScope, $location, $state, User, JoinCommunity, Socket, MessageFactory) {
+    $scope.isAdmin = false;
+    $scope.isMonitor = false;
+    $scope.isCoordinator = false;
+
     $scope.logout = function () {
         // When the user opts to logout, take them to home page and clear user data regardless the call's status
         JoinCommunity.logout(User.getUsername())
@@ -139,6 +143,27 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
                 $scope.disburseSocketMessage(data, 'CHAT', User.getUsername());
             }
         });
+    };
+
+    $scope.findRole = function () {
+        var privilegeLevel = User.getPrivilegeLevel();
+        switch (privilegeLevel) {
+            case 'Coordinator':
+                $scope.isAdmin = false;
+                $scope.isMonitor = false;
+                $scope.isCoordinator = true;
+                break;
+            case 'Monitor':
+                $scope.isAdmin = false;
+                $scope.isMonitor = true;
+                $scope.isCoordinator = false;
+                break;
+            case 'Administrator':
+                $scope.isAdmin = true;
+                $scope.isMonitor = true;
+                $scope.isCoordinator = true;
+                break;
+        }
     };
 });
 

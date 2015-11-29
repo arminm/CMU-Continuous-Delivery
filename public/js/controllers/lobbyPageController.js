@@ -97,25 +97,4 @@ angular.module('myApp')
 			return  usernameMatch || statusMatch;
 		}
 	};
-
-	$scope.findRole = function () {
-		var privilegeLevel = User.getPrivilegeLevel();
-		switch (privilegeLevel) {
-			case 'Coordinator':
-				$scope.isAdmin = false;
-				$scope.isMonitor = false;
-				$scope.isCoordinator = true;
-				break;
-			case 'Monitor':
-				$scope.isAdmin = false;
-				$scope.isMonitor = true;
-				$scope.isCoordinator = false;
-				break;
-			case 'Administrator':
-				$scope.isAdmin = true;
-				$scope.isMonitor = true;
-				$scope.isCoordinator = true;
-				break;
-		}
-	};
 });

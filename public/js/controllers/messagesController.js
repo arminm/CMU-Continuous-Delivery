@@ -47,7 +47,7 @@ angular.module('myApp')
 			messageType: $scope.messageType,
 			postedAt: Date.now()
 		};
-		MessageFactory.post($scope.username,messageData)
+		MessageFactory.post($scope.username, messageData, $scope.username)
 		.success(function(data, status, headers, config) {
 			$scope.messageInput = '';
 		})

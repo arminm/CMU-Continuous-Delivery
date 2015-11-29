@@ -32,6 +32,10 @@ angular.module('UserService', []).service('User', function () {
     this.status = value;
   };
 
+  this.setPrivilegeLevel = function (value) {
+    this.privilegeLevel = value;
+  }
+
   this.checkFirstTimeUser = function() {
     return this.isFirstTimeUser;
   };

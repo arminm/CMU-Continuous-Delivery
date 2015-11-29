@@ -34,8 +34,8 @@ angular.module('MessageService', [])
 })
 .factory('MessageFactory', function($http) {
         return {
-            post : function(username, data) {
-                return $http.post('/messages/' + username, data);
+            post : function(username, data, access_key) {
+                return $http.post('/messages/' + username + '?access_key=' + access_key, data);
             },
             getAll : function(messageType, sender, receiver, access_key) {
                 if (receiver != null) {

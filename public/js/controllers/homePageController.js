@@ -42,6 +42,7 @@ angular.module('myApp')
               User.setUsername($scope.formData.username);
               User.setLastStatusUpdated(Date.now());
               User.setStatus('OK');
+              User.setPrivilegeLevel('Citizen');
               Socket.emit('join', $scope.formData.username);
             } else {
               User.setUsername(data.username);
@@ -79,6 +80,7 @@ angular.module('myApp')
             User.setUsername(data.username);
             User.setLastStatusUpdated(data.statusUpdatedAt);
             User.setStatus(data.statusCode);
+            User.setPrivilegeLevel(data.profile);
             // Go to next page
             $location.path('/lobby');
             $scope.initializeSockets();
