@@ -8,4 +8,7 @@ router.get('/', userController.getAllUsers);
 // GET specific user info
 router.get('/:username', userController.getUser);
 
+// Update specific user info
+router.put('/:username', userController.updateUser);
+
 module.exports = router;
