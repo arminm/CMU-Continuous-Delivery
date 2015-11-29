@@ -3,7 +3,7 @@ var Utils = require('../utilities.js');
 
 module.exports = {
 	getAllUsers: function(req, res) {
-		User.get(req.params.access_key, function(user, password, error) {
+		User.get(req.query.access_key, function(user, password, error) {
 			if (error) {
 				res.sendStatus(500);
 			} else if (user) {
@@ -34,7 +34,7 @@ module.exports = {
 	},
 
 	updateUser: function(req, res) {
-		User.get(req.params.access_key, function(user, password, error) {
+		User.get(req.query.access_key, function(user, password, error) {
 			if (error) {
 				res.sendStatus(500);
 			} else if (user && user.profile == 'ADMINISTRATOR') {
