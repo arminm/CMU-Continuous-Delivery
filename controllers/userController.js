@@ -45,9 +45,12 @@ module.exports = {
 					profile: req.body.profile,
 					username: req.params.username
 				};
-				User.updateUser(userInfo, function(success, error) {
+				User.updateUser(userInfo, function(success, updateString, error) {
 					if (error) {
 						res.sendStatus(400);
+					} else if (updateString) {
+						io.broadcast('UPDATE', req.params.username, updateString, null, null);
+						res.sendStatus(200);
 					}
 				});
 			} else {
