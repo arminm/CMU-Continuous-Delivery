@@ -7,8 +7,6 @@ machine:
 # with the updated version of master
 checkout:
    post:
-    - git config user.email "sarlis.dim@gmail.com"
-    - git config user.name "Dimitris Sarlis"
     - git merge --no-ff origin/master
 
 # install dependencies
