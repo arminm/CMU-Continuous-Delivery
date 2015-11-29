@@ -45,6 +45,16 @@ module.exports = {
 	// stringify an object and log to console
 	logObject: function(object) {
 		console.log(JSON.stringify(object));
+	},
+
+	isEmpty: function(obj) {
+		if ((obj == null) || (obj == undefined)) {
+			return true;
+		}
+		if ((typeof obj == 'string') && obj.length == 0) {
+			return true;
+		}
+		return false;
 	}
 
 }
