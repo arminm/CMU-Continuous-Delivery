@@ -77,33 +77,38 @@ module.exports = {
 		var db = dbModule.getDB();
 		var query = "UPDATE users SET ";
 		var firstValue = true;
+		var updateString = "";
 		if (!utils.isEmpty(info.isActive)) {
 			query += (firstValue? "" : ", ") + "isActive = " + info.isActive;
 			firstValue = false;
+			updateString += (firstValue? "" : ", ") + "inactive";
 		}
 		if (!utils.isEmpty(info.profile)) {
 			query += (firstValue? "" : ", ") + "profile = '" + info.profile + "'";
 			firstValue = false;
+			updateString += (firstValue? "" : ", ") + "profile";
 		}		
 		if (!utils.isEmpty(info.newUsername)) {
 			query += (firstValue? "" : ", ") + "username = '" + info.newUsername + "'";
 			firstValue = false;
+			updateString += (firstValue? "" : ", ") + "username";
 		}		
 		if (!utils.isEmpty(info.password)) {
 			query += (firstValue? "" : ", ") + "password = '" + info.password + "'";
 			firstValue = false;
+			updateString += (firstValue? "" : ", ") + "password";
 		}
 		if (!firstValue) { // If firstValue is still true, it means no value was updated	
 			query += " WHERE username = '" + info.username + "';"
 			db.run(query, function(error) {
 				if (error) {
-					callback(false, error);
+					callback(false, null, error);
 				} else {
-					callback(true);
+					callback(true, updateString);
 				}
 			});
 		} else {
-			callback(false, "Nothing to update");
+			callback(false, null, "Nothing to update");
 		}
 	},
 
