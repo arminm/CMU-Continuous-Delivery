@@ -251,3 +251,12 @@ h3{
 .time-separator {
 	padding: 0 0 0 5px;
 }
+
+#adminUserList {
+	margin-top: 20px;
+}
+
+#adminEdit {
+	padding-left: 10px;
+}
+
