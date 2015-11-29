@@ -34,26 +34,29 @@ suite('REST: Message', function() {
       password: '1234',
       createdAt: 123123123123
     };
-    User.create(userInfo, function(isCreated) {});
+    User.create(userInfo, function(isCreated) {
+      var userInfo = {
+        fullName: 'dimitris',
+        username: 'dimitris',
+        password: '1234',
+        createdAt: 123123123123
+      };
 
-    var userInfo = {
-      fullName: 'dimitris',
-      username: 'dimitris',
-      password: '1234',
-      createdAt: 123123123123
-    };
-    User.create(userInfo, function(isCreated) {});
-    var info = {
-      username: 'dimitris',
-      profile: 'COORDINATOR'
-    };
-    User.updateUser(info, function(isUpdated) {});
-    createMessage('WALL', 'armin', 'Hello', null, function(id) {
-      messageId = id;
+      User.create(userInfo, function(isCreated) {
+        var info = {
+          username: 'dimitris',
+          profile: 'COORDINATOR'
+        };
+        User.updateUser(info, function(isUpdated) {
+          createMessage('WALL', 'armin', 'Hello', null, function(id) {
+            messageId = id;
 
-      createMessage('CHAT', 'armin', 'Hello2', 'dimitris', function(id){
-        createMessage('ANNOUNCEMENTS', 'dimitris', 'Hello World!', null, function() {
-          done();
+            createMessage('CHAT', 'armin', 'Hello2', 'dimitris', function(id){
+              createMessage('ANNOUNCEMENTS', 'dimitris', 'Hello World!', null, function() {
+                done();
+              });
+            });
+          });
         });
       });
     });
