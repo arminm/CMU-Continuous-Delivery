@@ -1,4 +1,5 @@
 var dbModule = require('../config/db.js');
+var User = require('../models/user.js');
 
 function maintenance(app, options) {
 	var mode = false,
@@ -29,7 +30,16 @@ function maintenance(app, options) {
 
 		var match = !accessKey || req.query.access_key === accessKey;
 		if (match) {
-			return next();
+			// Check user profile
+			User.get(req.query.access_key, function(user, password, error) {
+				if (error) {
+					res.sendStatus(500);
+				} else if (user && user.profile == 'MONITOR') {
+					return next();
+				} else {
+					res.sendStatus(404);
+				}
+			});
 		}
 
 		res.sendStatus(401);
