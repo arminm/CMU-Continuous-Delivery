@@ -37,22 +37,26 @@ module.exports = {
 		User.get(req.query.access_key, function(user, password, error) {
 			if (error) {
 				res.sendStatus(500);
-			} else if (user && user.profile == 'ADMINISTRATOR') {
-				var userInfo = {
-					isActive: req.body.isActive,
-					givenUsername: req.body.givenUsername,
-					password: req.body.password,
-					profile: req.body.profile,
-					username: req.params.username
-				};
-				User.updateUser(userInfo, function(success, updateString, error) {
-					if (error) {
-						res.sendStatus(400);
-					} else if (updateString) {
-						io.broadcast('UPDATE', req.params.username, updateString, null, null);
-						res.sendStatus(200);
-					}
-				});
+			} else if (user) {
+				if (user.profile == 'ADMINISTRATOR') {
+					var userInfo = {
+						isActive: req.body.isActive,
+						givenUsername: req.body.givenUsername,
+						password: req.body.password,
+						profile: req.body.profile,
+						username: req.params.username
+					};
+					User.updateUser(userInfo, function(success, updateString, error) {
+						if (error) {
+							res.sendStatus(400);
+						} else if (updateString) {
+							io.broadcast('UPDATE', req.params.username, updateString, null, null);
+							res.sendStatus(200);
+						}
+					});
+				} else {
+					res.sendStatus(403);
+				}
 			} else {
 				res.sendStatus(404);
 			}
