@@ -42,7 +42,7 @@ angular.module('myApp')
 	$scope.directory = function () {
 		$scope.onlineitems = [];
 		$scope.offlineitems = [];
-		JoinCommunity.allUsers()
+		JoinCommunity.allUsers($scope.username)
 		.success(function(users) {
 			User.setUsers(users);
 			// Filter the current user

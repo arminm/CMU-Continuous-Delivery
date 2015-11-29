@@ -26,7 +26,7 @@ angular.module('myApp')
 	}
 
 	$scope.getAllMessages = function () {
-		MessageFactory.getAll($scope.messageType, User.getUsername(), $scope.buddy)
+		MessageFactory.getAll($scope.messageType, $scope.username, $scope.buddy, $scope.username)
 		.success(function(data, status, headers, config) {
 			$scope.messages = data;
 			scrollToBottom(false, '#scrollingMessages');

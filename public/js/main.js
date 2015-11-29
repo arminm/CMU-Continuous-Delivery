@@ -107,10 +107,10 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
         Socket.removeAllListeners('WALL');
     };
 
-    $scope.disburseSocketMessage = function(data, type) {
+    $scope.disburseSocketMessage = function(data, type, access_key) {
         console.log('message: ' + JSON.stringify(data));
         if ((User.getUsername().length > 0) && (data.action === 'created')) {
-            MessageFactory.get(data.id)
+            MessageFactory.get(data.id, access_key)
             .success(function(message, status, headers, config) {
                 $scope.$broadcast('new message', message, type);
             })
@@ -121,11 +121,11 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
     };
     $scope.initializeSockets = function() {
         Socket.on('ANNOUNCEMENTS', function(data) {
-            $scope.disburseSocketMessage(data, 'ANNOUNCEMENTS');
+            $scope.disburseSocketMessage(data, 'ANNOUNCEMENTS', User.getUsername());
         });
 
         Socket.on('WALL', function(data) {
-            $scope.disburseSocketMessage(data, 'WALL');
+            $scope.disburseSocketMessage(data, 'WALL', User.getUsername());
         });
 
         Socket.on('CHAT', function(data) {
@@ -136,7 +136,7 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
                     }
                 }
             } else {
-                $scope.disburseSocketMessage(data, 'CHAT');
+                $scope.disburseSocketMessage(data, 'CHAT', User.getUsername());
             }
         });
     };
