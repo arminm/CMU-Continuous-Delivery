@@ -8,7 +8,7 @@ module.exports = {
 			username: req.params.username,
 			statusCode: req.body.statusCode,
 			statusUpdatedAt: req.body.statusUpdatedAt
-		}
+		};
 		User.get(statusInfo.username, function(user, password, error) {
 			if (user) {
 				Status.createStatusCrumb(statusInfo, function(crumbID, error) {
