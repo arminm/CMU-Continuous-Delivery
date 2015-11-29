@@ -10,7 +10,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var messages = require('./routes/messages');
 var status = require('./routes/status');
-var routers = [ users, routes, messages, status];
+var routers = [ users, routes, messages, status ];
 
 var maintenance = require('./routes/maintenance');
 var app = express();

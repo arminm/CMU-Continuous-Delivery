@@ -5,10 +5,10 @@ var dbModule = require('../../config/db.js');
 var db = dbModule.getDB();
 var Message = require('../../models/message.js');
 
-function createMessage(messageType, content, target, callback) {
+function createMessage(messageType, author, content, target, callback) {
   var messageInfo = {
       content: content,
-      author: "john",
+      author: author,
       messageType: messageType,
       target: target,
       createdAt: 1231242121412
@@ -33,15 +33,30 @@ suite('REST: Message', function() {
       username: 'armin',
       password: '1234',
       createdAt: 123123123123
-    }
-    User.create(userInfo, function(isCreated) {});
+    };
+    User.create(userInfo, function(isCreated) {
+      var userInfo = {
+        fullName: 'dimitris',
+        username: 'dimitris',
+        password: '1234',
+        createdAt: 123123123123
+      };
 
-    createMessage('WALL', 'Hello', null, function(id) {
-      messageId = id;
+      User.create(userInfo, function(isCreated) {
+        var info = {
+          username: 'dimitris',
+          profile: 'COORDINATOR'
+        };
+        User.updateUser(info, function(isUpdated) {
+          createMessage('WALL', 'armin', 'Hello', null, function(id) {
+            messageId = id;
 
-      createMessage('CHAT', 'Hello2', 'dimitris', function(id){
-        createMessage('ANNOUNCEMENTS', 'Hello World!', null, function() {
-          done();
+            createMessage('CHAT', 'armin', 'Hello2', 'dimitris', function(id){
+              createMessage('ANNOUNCEMENTS', 'dimitris', 'Hello World!', null, function() {
+                done();
+              });
+            });
+          });
         });
       });
     });
@@ -71,7 +86,7 @@ suite('REST: Message', function() {
       headers:{"Content-Type": "application/json"}
     };
 
-    client.post("http://localhost:4444/messages/dimitris", args, function(data,response) {
+    client.post("http://localhost:4444/messages/pragya", args, function(data,response) {
       expect(response.statusCode).to.eql(404);
       done();
     });
@@ -80,7 +95,7 @@ suite('REST: Message', function() {
   test('Get a specific message that exists', function(done) {
     var args = {};
 
-    client.get("http://localhost:4444/messages/" + messageId, args, function(data,response) {
+    client.get("http://localhost:4444/messages/" + messageId + "?access_key=dimitris", args, function(data,response) {
       expect(response.statusCode).to.eql(200);
       done();
     });
@@ -88,7 +103,7 @@ suite('REST: Message', function() {
 
   test('Get a specific message that does not exist', function(done) {
     var args = {};
-    client.get("http://localhost:4444/messages/0", args, function(data,response) {
+    client.get("http://localhost:4444/messages/0?access_key=dimitris", args, function(data,response) {
       expect(response.statusCode).to.eql(404);
       done();
     });
@@ -96,7 +111,7 @@ suite('REST: Message', function() {
 
   test('Get all messages for WALL', function(done) {
     var args = {};
-    client.get("http://localhost:4444/messages?messageType=WALL", args, function(data,response) {
+    client.get("http://localhost:4444/messages?messageType=WALL&access_key=dimitris", args, function(data,response) {
       expect(response.statusCode).to.eql(200);
       var messages = JSON.parse(data);
       expect(messages).to.have.length(1);
@@ -107,7 +122,7 @@ suite('REST: Message', function() {
 
   test('Get all messages that are not for WALL', function(done) {
     var args = {};
-    client.get("http://localhost:4444/messages?messageType=CHAT&sender=john&receiver=dimitris", args, function(data,response) {
+    client.get("http://localhost:4444/messages?messageType=CHAT&sender=armin&receiver=dimitris&access_key=dimitris", args, function(data,response) {
       expect(response.statusCode).to.eql(200);
       expect(JSON.parse(data)).to.have.length(1);
       var messages = JSON.parse(data);
@@ -122,10 +137,10 @@ suite('REST: Message', function() {
       data: { content : "announcement", messageType: "ANNOUNCEMENTS", postedAt: 123124124124 },
       headers:{"Content-Type": "application/json"}
     };
-    client.post("http://localhost:4444/messages/armin", args, function(data,response) {
+    client.post("http://localhost:4444/messages/dimitris", args, function(data,response) {
       expect(response.statusCode).to.eql(201);
       args = {};
-      client.get("http://localhost:4444/messages?messageType=ANNOUNCEMENTS", args, function(data, response) {
+      client.get("http://localhost:4444/messages?messageType=ANNOUNCEMENTS&access_key=dimitris", args, function(data, response) {
         expect(response.statusCode).to.eql(200);
         var messages = JSON.parse(data);
         expect(messages).to.have.length(2);
@@ -137,7 +152,7 @@ suite('REST: Message', function() {
 
   test('Get all announcements', function(done) {
     var args = {};
-    client.get("http://localhost:4444/messages?messageType=ANNOUNCEMENTS", args, function(data,response) {
+    client.get("http://localhost:4444/messages?messageType=ANNOUNCEMENTS&access_key=dimitris", args, function(data,response) {
       expect(response.statusCode).to.eql(200);
       var messages = JSON.parse(data);
       expect(messages).to.have.length(1);
@@ -148,7 +163,7 @@ suite('REST: Message', function() {
 
   test('Get all messages between two users', function(done) {
     var args = {};
-    client.get("http://localhost:4444/messages?messageType=CHAT&sender=john&receiver=dimitris", args, function(data,response) {
+    client.get("http://localhost:4444/messages?messageType=CHAT&sender=armin&receiver=dimitris&access_key=dimitris", args, function(data,response) {
       expect(response.statusCode).to.eql(200);
       var messages = JSON.parse(data);
       expect(messages).to.have.length(1);

@@ -78,7 +78,7 @@ suite('REST: User', function() {
 
 	test('Get all users', function(done) {
 		var args = {};
-		client.get("http://localhost:4444/users", args, function(data,response) {
+		client.get("http://localhost:4444/users?access_key=dimitris", args, function(data,response) {
     		expect(response.statusCode).to.eql(200);
     		expect(JSON.parse(data)).to.have.length(1);
     		done();

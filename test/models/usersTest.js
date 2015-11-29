@@ -19,7 +19,8 @@ function createDouble(options) {
     isActive: options.isActive || true,
     isOnline: options.isOnline || true,
     statusCode: options.statusCode || 'OK',
-    statusUpdatedAt: options.statusUpdatedAt || currentTime
+    statusUpdatedAt: options.statusUpdatedAt || currentTime,
+    profile: options.profile || 'CITIZEN'
   };
   return double;
 };
@@ -115,7 +116,7 @@ suite('User: ', function() {
   test('Get all users', function(done){
     createUser(userArmin, function() {
       createUser(userDimitris, function() {
-        User.getAllUsers(function(users, error) {
+        User.getAllUsers(true, function(users, error) {
           expect(error).to.not.be.ok();
           // make sure there are two results, and they are both what we expected
           expect(users.length).to.eql(2);

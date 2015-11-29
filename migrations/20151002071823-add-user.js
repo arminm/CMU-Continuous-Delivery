@@ -12,8 +12,16 @@ exports.up = function(db, callback) {
     updatedAt: 'timestamp',
     lastLoginAt: 'timestamp',
     isActive: {type: 'boolean', notNull: true, defaultValue: 1},
-    isOnline: {type: 'boolean', notNull: true, defaultValue: 1}
-  }, callback);
+    isOnline: {type: 'boolean', notNull: true, defaultValue: 1},
+    profile: {type: 'string', notNull: true, defaultValue: 'CITIZEN'}
+  }, createAdmin);
+  function createAdmin(error) {
+    if (error) {
+      callback(error);
+      return;
+    }
+    db.insert('users', ['username', 'password', 'createdAt', 'profile', 'isOnline'], ['SSNAdmin', 'admin', (new Date()).getTime(), 'ADMINISTRATOR', 0], callback);
+  }
 };
 
 exports.down = function(db, callback) {
