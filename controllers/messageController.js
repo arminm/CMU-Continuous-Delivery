@@ -36,28 +36,17 @@ module.exports = {
 	},
 
 	getAllMessages: function(req, res) {
-		if (req.query.messageType == 'ANNOUNCEMENTS') {
-			if (req.params.access_key) {
-				User.get(req.params.access_key, function(user, password, error) {
-					if (user && (user.profile != 'COORDINATOR')) {
-						res.sendStatus(401);
-						Message.getAllMessages(req.query.messageType, req.query.sender, req.query.receiver, function(messages, error) {
-							if (error) {
-								res.sendStatus(500);
-							} else {
-								res.status(200).send(messages);
-							}
-						});
-					}
-				});
+		Message.getAllMessages(req.query.messageType, req.query.sender, req.query.receiver, function(messages, error) {
+			if (error) {
+				res.sendStatus(500);
 			} else {
-				res.sendStatus(404);
+				res.status(200).send(messages);
 			}
-		} 
+		}); 
 	},
 
 	get: function(req, res) {
-		User.get(req.params.access_key, function(user, password, error) {
+		User.get(req.query.access_key, function(user, password, error) {
 			Message.get(req.params.id, function(message, error) {
 				if (error) {
 					res.sendStatus(500);

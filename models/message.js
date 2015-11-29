@@ -40,7 +40,7 @@ module.exports = {
 		if (userA && userB) {
 			query = "SELECT messages.* FROM messages JOIN users ON messages.author = users.username WHERE messages.messageType='" + messageType + "' AND ((messages.author='" + userA + "' AND messages.target='" + userB + "') OR (messages.author='" + userB + "' AND messages.target='" + userA + "')) AND users.isActive;";
 		} else if (messageType !== 'CHAT') {
-			query = "SELECT messages.* FROM messages, users WHERE messageType='" + messageType + "' AND users.isActive AND user.username = message.author;";
+			query = "SELECT messages.* FROM messages JOIN users WHERE messageType='" + messageType + "' AND users.isActive AND users.username = messages.author;";
 		} else {
 			callback();
 		}
