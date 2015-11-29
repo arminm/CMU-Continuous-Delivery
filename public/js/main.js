@@ -38,6 +38,13 @@ app.directive('serverError', function (){
     scope: false,
     link: function(scope, elem, attr) {
         elem.bind('keyup', function () {
+            if (elem[0].id == 'password') {
+                scope.loginForm.password.$setValidity('server', true);
+                scope.formError.password = '';
+            } else if (elem[0].id == 'username') {
+                scope.loginForm.username.$setValidity('server', true);
+                scope.formError.username = '';
+            }
             scope.loginForm.$setValidity('server', true);
             scope.formError.generic = '';
             scope.$apply();
