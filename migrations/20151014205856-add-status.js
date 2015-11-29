@@ -8,7 +8,14 @@ exports.up = function(db, callback) {
     username: {type: 'string', notNull: true},
     statusCode: {type: 'string', notNull: true},
     statusUpdatedAt: {type: 'timestamp', notNull: true}
-  }, callback);
+  }, createStatus);
+  function createStatus(error) {
+    if (error) {
+      callback(error);
+      return;
+    }
+	db.insert('statusCrumbs', ['username', 'statusCode', 'statusUpdatedAt'], ['SSNAdmin', 'OK', (new Date()).getTime()], callback);
+  }
 };
 
 exports.down = function(db, callback) {

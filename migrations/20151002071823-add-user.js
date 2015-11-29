@@ -14,7 +14,14 @@ exports.up = function(db, callback) {
     isActive: {type: 'boolean', notNull: true, defaultValue: 1},
     isOnline: {type: 'boolean', notNull: true, defaultValue: 1},
     profile: {type: 'string', notNull: true, defaultValue: 'CITIZEN'}
-  }, callback);
+  }, createAdmin);
+  function createAdmin(error) {
+    if (error) {
+      callback(error);
+      return;
+    }
+    db.insert('users', ['username', 'password', 'createdAt', 'profile', 'isOnline'], ['SSNAdmin', 'admin', (new Date()).getTime(), 'ADMINISTRATOR', 0], callback);
+  }
 };
 
 exports.down = function(db, callback) {
