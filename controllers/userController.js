@@ -3,7 +3,7 @@ var Utils = require('../utilities.js');
 
 module.exports = {
 	getAllUsers: function(req, res) {
-		User.getAllUsers(function(users, error) {
+		User.getAllUsers(true, function(users, error) {
 			if (error) {
 				res.sendStatus(500);
 			} else {

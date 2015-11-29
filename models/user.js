@@ -49,10 +49,14 @@ module.exports = {
 		});
 	},
 
-	getAllUsers: function(callback) {
+	getAllUsers: function(activeOnly, callback) {
 		var db = dbModule.getDB();
 		var users = [];
-		var query = "SELECT * FROM users JOIN statusCrumbs WHERE users.username=statusCrumbs.username AND crumbId = (SELECT MAX(crumbId) FROM statusCrumbs WHERE users.username=statusCrumbs.username);";
+		var query = "SELECT * FROM users JOIN statusCrumbs WHERE ";
+		if (activeOnly) {
+			query += "users.isActive AND ";
+		}
+		query += "users.username=statusCrumbs.username AND crumbId = (SELECT MAX(crumbId) FROM statusCrumbs WHERE users.username=statusCrumbs.username);";
 		db.each(query,
 			function(error, row) {
 				if (error) {
@@ -67,6 +71,40 @@ module.exports = {
 				callback(users, null);
 			}
 		);
+	},
+
+	updateUser: function(info, callback) {
+		var db = dbModule.getDB();
+		var query = "UPDATE users SET ";
+		var firstValue = true;
+		if (!utils.isEmpty(info.isActive)) {
+			query += (firstValue? "" : ", ") + "isActive = " + info.isActive;
+			firstValue = false;
+		}
+		if (!utils.isEmpty(info.profile)) {
+			query += (firstValue? "" : ", ") + "profile = '" + info.profile + "'";
+			firstValue = false;
+		}		
+		if (!utils.isEmpty(info.newUsername)) {
+			query += (firstValue? "" : ", ") + "username = '" + info.newUsername + "'";
+			firstValue = false;
+		}		
+		if (!utils.isEmpty(info.password)) {
+			query += (firstValue? "" : ", ") + "password = '" + info.password + "'";
+			firstValue = false;
+		}
+		if (!firstValue) { // If firstValue is still true, it means no value was updated	
+			query += " WHERE username = '" + info.username + "';"
+			db.run(query, function(error) {
+				if (error) {
+					callback(false, error);
+				} else {
+					callback(true);
+				}
+			});
+		} else {
+			callback(false, "Nothing to update");
+		}
 	},
 
 	updateLogin: function(username, lastLoginAt, isOnline, callback) {
