@@ -7,7 +7,7 @@ machine:
 # with the updated version of master
 checkout:
    post:
-    - git merge --no-ff origin/master
+    - git merge --no-ff origin master
 
 # install dependencies
 dependencies:
