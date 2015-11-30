@@ -162,6 +162,7 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
 
         Socket.on('UPDATE', function(data) {
             var message = "";
+            
             if (data.action.isActive === 0) {
                 message += "Your account has been deactivated. You will be logged out now!\n";
             }
