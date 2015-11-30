@@ -29,20 +29,23 @@ function maintenance(app, options) {
 	var checkAccess = function (req, res, next) {
 
 		var match = !accessKey || req.query.access_key === accessKey;
-		if (match) {
+		if (!accessKey) {
 			// Check user profile
 			User.get(req.query.access_key, function(user, password, error) {
 				if (error) {
 					res.sendStatus(500);
-				} else if (user && user.profile == 'MONITOR') {
-					return next();
+				} else if (user && (user.profile == 'MONITOR' || user.profile == 'ADMINISTRATOR')) {
+					next();
 				} else {
 					res.sendStatus(404);
 				}
 			});
+		} else if (req.query.access_key === accessKey) {
+			next();
+		} 
+		else {
+			res.sendStatus(401);
 		}
-
-		res.sendStatus(401);
 	};
 
 	var server = function (app) {

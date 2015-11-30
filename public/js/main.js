@@ -23,13 +23,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/lobby/chatbuddies?username',
             templateUrl: 'partials/lobby-message.jade'
         })
-        .state('maintenance', {
-            url: '/maintenance',
+        .state('performance', {
+            url: '/performance',
             templateUrl: 'partials/performance.jade'
         })
         .state('administer', {
             url: '/lobby/administer',
             templateUrl: 'partials/administer.jade'
+        })
+        .state('maintainance', {
+            url: '/maintainance',
+            templateUrl: 'maintainance.jade'
         })
 });
 
