@@ -1,6 +1,6 @@
 div(ng-controller='messagesController')
   include includes/lobby-basic-nav.jade
-  div.input-group#postAnnouncementForm
+  div.input-group#postAnnouncementForm(ng-show='isCoordinator || isAdmin')
     input.form-control(type='text',style='width:80%', ng-model='messageInput')
     button.btn.btn-warning(type='button', style='width:20%', ng-click='post()') Post
   div.alert.alert-dismissible.alert-warning#announcements(ng-repeat="message in messages | orderBy : 'createdAt':true") 

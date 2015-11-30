@@ -116,6 +116,9 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
         Socket.removeAllListeners('CHAT');
         Socket.removeAllListeners('ANNOUNCEMENTS');
         Socket.removeAllListeners('WALL');
+        $scope.isAdmin = false;
+        $scope.isMonitor = false;
+        $scope.isCoordinator = false;
     };
 
     $scope.disburseSocketMessage = function(data, type, access_key) {
@@ -155,17 +158,17 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
     $scope.findRole = function () {
         var privilegeLevel = User.getPrivilegeLevel();
         switch (privilegeLevel) {
-            case 'Coordinator':
+            case 'COORDINATOR':
                 $scope.isAdmin = false;
                 $scope.isMonitor = false;
                 $scope.isCoordinator = true;
                 break;
-            case 'Monitor':
+            case 'MONITOR':
                 $scope.isAdmin = false;
                 $scope.isMonitor = true;
                 $scope.isCoordinator = false;
                 break;
-            case 'Administrator':
+            case 'ADMINISTRATOR':
                 $scope.isAdmin = true;
                 $scope.isMonitor = true;
                 $scope.isCoordinator = true;

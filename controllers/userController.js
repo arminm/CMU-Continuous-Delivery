@@ -1,5 +1,6 @@
 var User = require('../models/user.js');
 var Utils = require('../utilities.js');
+var io = require('../io.js');
 
 module.exports = {
 	getAllUsers: function(req, res) {

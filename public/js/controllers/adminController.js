@@ -7,10 +7,10 @@ angular.module('myApp')
 	$scope.formData = {};
 	$scope.selectedUser = undefined;
 	$scope.availableAccountStatuses = ["Active", "Inactive"];
-	$scope.availablePrivilegeLevels = ["Administrator", "Citizen", "Coordinator", "Monitor"];
+	$scope.availablePrivilegeLevels = ["ADMINISTRATOR", "CITIZEN", "COORDINATOR", "MONITOR"];
 
 	$scope.getUsers = function () {
-		Admin.getUsers()
+		Admin.getUsers($scope.username)
 		.success(function(users) {
 			$scope.users = users.filter(function(user) {
 				return (user.username != $scope.username);
@@ -27,7 +27,7 @@ angular.module('myApp')
 			$scope.selectedUser = user;
 			$scope.formData.accountStatus = $scope.selectedUser.isActive ? "Active" : "Inactive";
 			// TODO return role from object
-			$scope.formData.privilegeLevel = "Citizen";
+			$scope.formData.privilegeLevel = $scope.selectedUser.profile;
 			$scope.formData.username = $scope.selectedUsername = $scope.selectedUser.username;
 		}
 		console.log($scope.selectedUser);
@@ -36,10 +36,11 @@ angular.module('myApp')
 	$scope.saveChanges = function () {
 		if ($scope.editForm.$valid) {
 			var editData = {
-				accountStatus: $scope.formData.accountStatus,
-				privilegeLevel: $scope.formData.privilegeLevel,
-				username: $scope.formData.username,
-				password: $scope.formData.password
+				isActive: $scope.formData.accountStatus === "Active" ? 1 : 0,
+				profile: $scope.formData.privilegeLevel,
+				givenUsername: $scope.formData.username,
+				password: $scope.formData.password,
+				username: $scope.selectedUsername
 			};
 			Admin.updateUser($scope.selectedUsername, $scope.username, editData)
 			.success(function(users) {
@@ -57,6 +58,7 @@ angular.module('myApp')
 		$scope.selectedAccountStatus = null;
 		$scope.selectedPrivilegeLevel = null;
 		$scope.formData = {};
+		$scope.getUsers();
 	};
 
 	$scope.getUsers();

@@ -252,11 +252,16 @@ h3{
 	padding: 0 0 0 5px;
 }
 
-#adminUserList {
+#adminPage {
 	margin-top: 20px;
 }
 
 #adminEdit {
-	padding-left: 10px;
+	float: right;
 }
+
+#editFormSpan {
+	text-align: center;
+}
+
 

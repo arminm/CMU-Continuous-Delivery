@@ -52,6 +52,7 @@ angular.module('myApp')
               Socket.emit('join', data.username);
             }
             $scope.initializeSockets();
+            $scope.findRole();
             $location.path('/lobby');
           })
           .error(function(data, status, headers, config) {
@@ -83,6 +84,7 @@ angular.module('myApp')
             User.setPrivilegeLevel(data.profile);
             // Go to next page
             $location.path('/lobby');
+            $scope.findRole();
             $scope.initializeSockets();
           })
           .error(function(data, status, headers, config) {
