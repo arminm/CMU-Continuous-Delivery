@@ -100,10 +100,7 @@ angular.module('myApp')
               } else if (status == '404') {
                 $scope.formError.generic = "User not found.";
                 $scope.loginForm.$setValidity('server', false);
-              } else if (status == '503') {
-                $state.go('maintainance');
-              } 
-              else {
+              } else {
                 $scope.formError.generic = "Something went wrong. Please try again.";
                 $scope.loginForm.$setValidity('server', false);
               }

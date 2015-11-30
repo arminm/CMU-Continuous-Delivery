@@ -8,6 +8,9 @@ angular.module('myApp')
 	$scope.selectedUser = undefined;
 	$scope.availableAccountStatuses = ["Active", "Inactive"];
 	$scope.availablePrivilegeLevels = ["ADMINISTRATOR", "CITIZEN", "COORDINATOR", "MONITOR"];
+	$scope.formError = {
+		generic: ''
+	};
 
 	$scope.getUsers = function () {
 		Admin.getUsers($scope.username)
@@ -16,7 +19,16 @@ angular.module('myApp')
 				return (user.username != $scope.username);
 			});
 		})
-		.error(function(data) {
+		.error(function(data, status, headers, config) {
+			var message = "";
+			if (status == '403') {
+				message = "You don't have access to this resource";
+			} else if (status == '404') {
+                message = "No users found for your call";
+            } else {
+            	message = "Something went wrong. Please try again later.";
+            }
+            alert(message);
 		});
 	};
 
@@ -30,7 +42,6 @@ angular.module('myApp')
 			$scope.formData.privilegeLevel = $scope.selectedPrivilegeLevel = $scope.selectedUser.profile;
 			$scope.formData.username = $scope.selectedUsername = $scope.selectedUser.username;
 		}
-		console.log($scope.selectedUser);
 	};
 
 	$scope.saveChanges = function () {
@@ -52,9 +63,19 @@ angular.module('myApp')
 			.success(function(users) {
 				$scope.resetScope();
 			})
-			.error(function(data) {
-				// TODO 
-				$scope.formError.generic = "Something went wrong. Please try again.";
+			.error(function(data, status, headers, config) {
+				$scope.editForm.$setValidity('server', false);
+				if (status == '400') {
+					$scope.formError.generic = "Bad request. An error happened while trying to update";
+				} else if (status == '401') {
+                	$scope.formError.generic = "You are not an administrator";
+            	} else if (status == '403') {
+                	$scope.formError.generic = "The username already exists. Please enter a different username";
+            	} else if (status == '404') {
+                	$scope.formError.generic = "No user found matching your access_key";
+            	} else {
+            		$scope.formError.generic = "Something went wrong. Please try again later.";
+            	}
 			});
 		}
 	};

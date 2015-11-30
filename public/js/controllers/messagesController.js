@@ -24,6 +24,9 @@ angular.module('myApp')
 			$scope.title = "Wall";
 			break;
 	}
+	$scope.formError = {
+		generic: '',
+	};
 
 	$scope.getAllMessages = function () {
 		MessageFactory.getAll($scope.messageType, $scope.username, $scope.buddy, $scope.username)
@@ -32,7 +35,7 @@ angular.module('myApp')
 			scrollToBottom(false, '#scrollingMessages');
 		})
 		.error(function(data, status, headers, config) {
-			$scope.formError.generic = "Something went wrong. Please try again.";
+			alert("Something went wrong and we couldn't retrieve previous messages. Please try again.");
 		});
 	};
 
@@ -52,8 +55,16 @@ angular.module('myApp')
 			$scope.messageInput = '';
 		})
 		.error(function(data, status, headers, config) {
-			// TODO 
-			$scope.formError.generic = "Something went wrong. Please try again.";
+			if ($state.$current.url.sourcePath === '/lobby/announcements') {
+				$scope.postAnnouncementForm.$setValidity('server', false);
+			} else {
+				$scope.wallmessageForm.$setValidity('server', false);
+			}
+			if (status == '404') {
+				$scope.formError.generic = "The author of the message could not be found.";
+			} else {
+				$scope.formError.generic = "There was a problem while trying to store your message. Please try again.";
+			}
 		});
 	};
 

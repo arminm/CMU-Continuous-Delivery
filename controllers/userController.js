@@ -12,12 +12,14 @@ module.exports = {
 				User.getAllUsers(activeOnly, function(users, error) {
 					if (error) {
 						res.sendStatus(500);
-					} else {
+					} else if (users) {
 						res.status(200).send(users);
+					} else {
+						res.sendStatus(404);
 					}
 				});
 			} else {
-				res.sendStatus(404);
+				res.sendStatus(403);
 			}
 		});
 	},

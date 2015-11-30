@@ -42,7 +42,7 @@ module.exports = {
 			} else {
 				res.status(200).send(messages);
 			}
-		}); 
+		});
 	},
 
 	get: function(req, res) {

@@ -29,11 +29,10 @@ div(ng-controller="adminController")
 							input#password.form-control(name="password", placeholder="Password", type="password", ng-minlength="4", autocomplete="off", ng-model="formData.password", edit-error)
 							div(ng-messages="editForm.password.$error")
 								div.invalid(ng-message="minlength") Password must be at least 4 characters long
-								div.invalid(ng-message="server") {{formError.password}}
 					div.form-group
 						span.col-lg-6
 							button#saveChanges.btn.btn-info(ng-click="saveChanges()") Save
 							span(style='padding-right: 10px')
 							button#back.btn.btn-warning(ng-click="resetScope()") Back
-						div(ng-messages="editForm.$error")
-							div.invalid(ng-message="server"){{ formError.generic }}
+							div(ng-messages="editForm.$error")
+								div.invalid(ng-message="server"){{ formError.generic }}

@@ -57,18 +57,42 @@ app.directive('serverError', function (){
  };
 });
 
+var resetFormError = function (scope) {
+    scope.formError.generic = '';
+    scope.$apply();
+};
+
 app.directive('editError', function (){ 
  return {
     scope: false,
     link: function(scope, elem, attr) {
         elem.bind('keyup', function () {
-            if (elem[0].id == 'password') {
-                scope.editForm.password.$setValidity('server', true);
-            } else if (elem[0].id == 'username') {
-                scope.editForm.username.$setValidity('server', true);
-            }
             scope.editForm.$setValidity('server', true);
-            scope.$apply();
+            resetFormError(scope);
+        });
+    }
+ };
+});
+
+app.directive('messageError', function (){ 
+ return {
+    scope: false,
+    link: function(scope, elem, attr) {
+        elem.bind('keyup', function () {
+            scope.wallmessageForm.$setValidity('server', true);
+            resetFormError(scope);
+        });
+    }
+ };
+});
+
+app.directive('announcementError', function (){ 
+ return {
+    scope: false,
+    link: function(scope, elem, attr) {
+        elem.bind('keyup', function () {
+            scope.postAnnouncementForm.$setValidity('server', true);
+            resetFormError(scope);
         });
     }
  };
