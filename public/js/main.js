@@ -58,6 +58,11 @@ app.directive('editError', function (){
     scope: false,
     link: function(scope, elem, attr) {
         elem.bind('keyup', function () {
+            if (elem[0].id == 'password') {
+                scope.editForm.password.$setValidity('server', true);
+            } else if (elem[0].id == 'username') {
+                scope.editForm.username.$setValidity('server', true);
+            }
             scope.editForm.$setValidity('server', true);
             scope.$apply();
         });
