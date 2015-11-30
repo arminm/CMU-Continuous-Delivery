@@ -88,10 +88,10 @@ module.exports = {
 			firstValue = false;
 			updateObject.profile = info.profile;
 		}		
-		if (!utils.isEmpty(info.newUsername)) {
-			query += (firstValue? "" : ", ") + "username = '" + info.newUsername + "'";
+		if (!utils.isEmpty(info.givenUsername)) {
+			query += (firstValue? "" : ", ") + "username = '" + info.givenUsername + "'";
 			firstValue = false;
-			updateObject.username = info.username;
+			updateObject.username = info.givenUsername;
 		}		
 		if (!utils.isEmpty(info.password)) {
 			query += (firstValue? "" : ", ") + "password = '" + info.password + "'";

@@ -49,14 +49,18 @@ module.exports = {
 					};
 					User.updateUser(userInfo, function(success, updateObject, error) {
 						if (error) {
-							res.sendStatus(400);
+							if (error.errno === 19) {
+								res.sendStatus(403);
+							} else {
+								res.sendStatus(400);
+							}
 						} else if (updateObject !== {}) {
 							io.broadcast('UPDATE', req.params.username, updateObject, null, null);
 							res.sendStatus(200);
 						}
 					});
 				} else {
-					res.sendStatus(403);
+					res.sendStatus(401);
 				}
 			} else {
 				res.sendStatus(404);

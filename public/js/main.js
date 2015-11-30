@@ -172,10 +172,9 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
             if (data.action.username || data.action.password) {
                 message += "Your credentials have been changed. Please log in again!";
             }
-            if (confirm(message) == true) {
-                $scope.logout();
-                $state.go('home');
-            }
+            confirm(message);
+            $scope.logout();
+            $state.go('home');
         });
     };
 

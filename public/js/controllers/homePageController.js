@@ -59,6 +59,9 @@ angular.module('myApp')
             if (status == '401') {
               $scope.formError.username = "Please enter a different username";
               $scope.loginForm.username.$setValidity('server', false);
+            } else if (status == '403') {
+                $scope.formError.generic = "Your account has been deactivated. Please contact an administrator";
+                $scope.loginForm.$setValidity('server', false);
             } else {
               $scope.formError.generic = "Something went wrong. Please try again.";
               $scope.loginForm.$setValidity('server', false);
