@@ -116,6 +116,7 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
         Socket.removeAllListeners('CHAT');
         Socket.removeAllListeners('ANNOUNCEMENTS');
         Socket.removeAllListeners('WALL');
+        Socket.removeAllListeners('UPDATE');
         $scope.isAdmin = false;
         $scope.isMonitor = false;
         $scope.isCoordinator = false;
@@ -151,6 +152,23 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
                 }
             } else {
                 $scope.disburseSocketMessage(data, 'CHAT', User.getUsername());
+            }
+        });
+
+        Socket.on('UPDATE', function(data) {
+            var message = "";
+            if (data.action.isActive === 0) {
+                message += "Your account has been deactivated. You will be logged out now!\n";
+            }
+            if (data.action.profile) {
+                message += "Your role has been updated to " + data.action.profile + "\n";
+            } 
+            if (data.action.username || data.action.password) {
+                message += "Your credentials have been changed. Please log in again!";
+            }
+            if (confirm(message) == true) {
+                $scope.logout();
+                $state.go('home');
             }
         });
     };

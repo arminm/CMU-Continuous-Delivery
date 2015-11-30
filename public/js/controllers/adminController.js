@@ -25,9 +25,9 @@ angular.module('myApp')
 			$scope.resetScope();
 		} else {
 			$scope.selectedUser = user;
-			$scope.formData.accountStatus = $scope.selectedUser.isActive ? "Active" : "Inactive";
+			$scope.formData.accountStatus = $scope.selectedAccountStatus = $scope.selectedUser.isActive ? "Active" : "Inactive";
 			// TODO return role from object
-			$scope.formData.privilegeLevel = $scope.selectedUser.profile;
+			$scope.formData.privilegeLevel = $scope.selectedPrivilegeLevel = $scope.selectedUser.profile;
 			$scope.formData.username = $scope.selectedUsername = $scope.selectedUser.username;
 		}
 		console.log($scope.selectedUser);
@@ -36,12 +36,18 @@ angular.module('myApp')
 	$scope.saveChanges = function () {
 		if ($scope.editForm.$valid) {
 			var editData = {
-				isActive: $scope.formData.accountStatus === "Active" ? 1 : 0,
-				profile: $scope.formData.privilegeLevel,
-				givenUsername: $scope.formData.username,
 				password: $scope.formData.password,
 				username: $scope.selectedUsername
 			};
+			if ($scope.formData.accountStatus !== $scope.selectedAccountStatus) {
+				editData.isActive = $scope.formData.accountStatus === "Active" ? 1 : 0;
+			}
+			if ($scope.formData.privilegeLevel !== $scope.selectedPrivilegeLevel) {
+				editData.profile = $scope.formData.privilegeLevel;
+			}
+			if ($scope.formData.username !== $scope.selectedUsername) {
+				editData.givenUsername = $scope.formData.username;
+			}
 			Admin.updateUser($scope.selectedUsername, $scope.username, editData)
 			.success(function(users) {
 				$scope.resetScope();

@@ -91,6 +91,9 @@ angular.module('myApp')
               if (status == '401') {
                 $scope.formError.password = "Your password is wrong";
                 $scope.loginForm.password.$setValidity('server', false);
+              } else if (status == '403') {
+                $scope.formError.generic = "Your account has been deactivated. Please contact an administrator";
+                $scope.loginForm.$setValidity('server', false);
               } else if (status == '404') {
                 $scope.formError.generic = "User not found.";
                 $scope.loginForm.$setValidity('server', false);
