@@ -77,46 +77,26 @@ module.exports = {
 		var db = dbModule.getDB();
 		var query = "UPDATE users SET ";
 		var firstValue = true;
-<<<<<<< HEAD
 		var updateObject = {};
 		if (!utils.isEmpty(info.isActive)) {
 			query += (firstValue? "" : ", ") + "isActive = " + info.isActive;
 			firstValue = false;
 			updateObject.isActive = info.isActive;
-=======
-		var updateString = "";
-		if (!utils.isEmpty(info.isActive)) {
-			query += (firstValue? "" : ", ") + "isActive = " + info.isActive;
-			firstValue = false;
-			updateString += (firstValue? "" : ", ") + "inactive";
->>>>>>> origin/master
 		}
 		if (!utils.isEmpty(info.profile)) {
 			query += (firstValue? "" : ", ") + "profile = '" + info.profile + "'";
 			firstValue = false;
-<<<<<<< HEAD
 			updateObject.profile = info.profile;
-=======
-			updateString += (firstValue? "" : ", ") + "profile";
->>>>>>> origin/master
 		}		
 		if (!utils.isEmpty(info.newUsername)) {
 			query += (firstValue? "" : ", ") + "username = '" + info.newUsername + "'";
 			firstValue = false;
-<<<<<<< HEAD
 			updateObject.username = info.username;
-=======
-			updateString += (firstValue? "" : ", ") + "username";
->>>>>>> origin/master
 		}		
 		if (!utils.isEmpty(info.password)) {
 			query += (firstValue? "" : ", ") + "password = '" + info.password + "'";
 			firstValue = false;
-<<<<<<< HEAD
 			updateObject.password = info.password;
-=======
-			updateString += (firstValue? "" : ", ") + "password";
->>>>>>> origin/master
 		}
 		if (!firstValue) { // If firstValue is still true, it means no value was updated	
 			query += " WHERE username = '" + info.username + "';"
@@ -124,11 +104,7 @@ module.exports = {
 				if (error) {
 					callback(false, null, error);
 				} else {
-<<<<<<< HEAD
 					callback(true, updateObject);
-=======
-					callback(true, updateString);
->>>>>>> origin/master
 				}
 			});
 		} else {
