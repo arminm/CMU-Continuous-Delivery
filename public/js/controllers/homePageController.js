@@ -1,5 +1,5 @@
 angular.module('myApp')
-  .directive('passwordEquality', function (){ 
+  .directive('passwordEquality', function (){
     return {
       require: '?ngModel',
       link: function(scope, elem, attr, ngModel) {
@@ -11,7 +11,7 @@ angular.module('myApp')
       }
     };
   })
-  .controller('homePageController', function($scope, $state, $location, JoinCommunity, User, Socket, $translate) {
+  .controller('homePageController', function($scope, $state, $location, JoinCommunity, User, Socket) {
     $scope.formData = {
       isRegistration: '',
       username: '',
@@ -26,9 +26,36 @@ angular.module('myApp')
       generic: ''
     };
 
-    $scope.changeLanguage = function (langKey) {
-      console.log("CHANGE LANGUAGE CALLED!");
-      $translate.use(langKey);
+    $scope.availableLanguages = [
+      {
+        id: "zh",
+        language: "Chinese"
+      },
+      {
+        id: "en",
+        language: "English"
+      },
+      {
+        id: "gr",
+        language: "Greek"
+      },
+      {
+        id: "ne",
+        language: "Nepali"
+      },
+      {
+        id: "fa",
+        language: "Persian"
+      },
+    ];
+
+    $scope.lang = {
+      id: "en",
+      language: "English"
+    };
+
+    $scope.changeLanguage = function () {
+      $scope.translate.use($scope.lang.id);
     };
 
     $scope.register = function () {

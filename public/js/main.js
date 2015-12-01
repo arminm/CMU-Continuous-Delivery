@@ -142,10 +142,12 @@ app.directive('regExpRequire', function() {
     }
 });
 
-app.controller('mainController', function($scope, $rootScope, $location, $state, User, JoinCommunity, Socket, MessageFactory) {
+app.controller('mainController', function($scope, $rootScope, $location, $state, $translate, User, JoinCommunity, Socket, MessageFactory) {
     $scope.isAdmin = false;
     $scope.isMonitor = false;
     $scope.isCoordinator = false;
+    
+    $scope.translate = $translate;
 
     $scope.logout = function () {
         // When the user opts to logout, take them to home page and clear user data regardless the call's status
