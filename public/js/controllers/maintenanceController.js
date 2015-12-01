@@ -31,10 +31,28 @@ angular.module('myApp')
       .success(function(data) {
         $scope.test();
       })
-      .error(function(data) {
+      .error(function(data, status, headers, config) {
+        var message = "";
+        if (status == '401') {
+          message = "You credentials are wrong.";
+        } else if (status == '403') {
+          message = "You have no permission to access this resource";
+        } else {
+          message = "There was an error. Try again.";
+        }
+        alert(message);
       });
     })
-    .error(function(data) {
+    .error(function(data, status, headers, config) {
+      var message = "";
+      if (status == '401') {
+        message = "You don't have permission to start a performance test.";
+      } else if (status == '404') {
+        message = "No user found matching your username.";
+      } else {
+        message = "There was an error. Try again.";
+      }
+      alert(message);
     });
 	};
 

@@ -12,6 +12,10 @@ angular.module('UserService', []).service('User', function () {
     return this.lastStatusUpdated;
   };
 
+  this.getPrivilegeLevel = function () {
+    return this.privilegeLevel;
+  };
+
   this.setLastStatusUpdated= function(time) {
     this.lastStatusUpdated = time;
   };
@@ -27,6 +31,10 @@ angular.module('UserService', []).service('User', function () {
   this.setStatus = function(value) {
     this.status = value;
   };
+
+  this.setPrivilegeLevel = function (value) {
+    this.privilegeLevel = value;
+  }
 
   this.checkFirstTimeUser = function() {
     return this.isFirstTimeUser;
@@ -45,6 +53,10 @@ angular.module('UserService', []).service('User', function () {
 
   this.setUsers = function(users) {
     this.users = users;
+  };
+
+  this.getUsers = function() {
+    return this.users;
   };
 
   this.getStatus = function(username) {

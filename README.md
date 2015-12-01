@@ -37,7 +37,7 @@ Run `$sudo npm install -g bower`. Since bower needs admin permission, its not in
 
 ## Run tests
 
-1. Run the server in test mode.
+1. Run the server in test mode `$ DB=test npm start`
 
 2. Execute `$ npm test` 
 
@@ -53,5 +53,9 @@ Maintenance mode is added for performance testing to lock down the server and al
 
 NOTE: When the server is locked, only the calls with the right `access_key` will go through. All other calls will get a `503` status (for unavailable) and a rendered `maintenance.jade` page.
 
+## Docs
+
+* [Architecture Haiku](https://docs.google.com/a/west.cmu.edu/document/d/1enDhC-zBWqhBFh9mAKJev_VB1Syqj7CuyZVnfWO5OvQ/edit?usp=sharing)
+* [REST API](https://docs.google.com/a/west.cmu.edu/spreadsheets/d/1r6JaLjP75mXDJkChZKPmHAPfm28KCY6HTk0wZlEg8a8/edit?usp=sharing) 
 
 ![](https://s-media-cache-ak0.pinimg.com/236x/d9/8a/99/d98a99d92253adf6c694e014ea3ee9af.jpg)

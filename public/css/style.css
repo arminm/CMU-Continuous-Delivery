@@ -172,6 +172,7 @@ h3{
 	font-size: 16px;
 	display: inline-table;
 	width: 100%;
+	margin-top: 20px;
 }
 .timestamp {
 	float: right;
@@ -251,3 +252,17 @@ h3{
 .time-separator {
 	padding: 0 0 0 5px;
 }
+
+#adminPage {
+	margin-top: 20px;
+}
+
+#adminEdit {
+	float: right;
+}
+
+#editFormSpan {
+	text-align: center;
+}
+
+

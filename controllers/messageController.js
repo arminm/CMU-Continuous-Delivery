@@ -13,7 +13,7 @@ module.exports = {
 		};
 		User.get(req.params.author, function(user, password, error) {
 			if (user) {
-				if ((messageInfo.messageType == 'ANNOUNCEMENTS') && (user.profile != 'COORDINATOR')) {
+				if (messageInfo.messageType == 'ANNOUNCEMENTS' && (user.profile != 'COORDINATOR' && user.profile != 'ADMINISTRATOR')) {
 					res.sendStatus(401);
 				} else {
 					Message.create(messageInfo, function(messageId, error) {
@@ -42,7 +42,7 @@ module.exports = {
 			} else {
 				res.status(200).send(messages);
 			}
-		}); 
+		});
 	},
 
 	get: function(req, res) {
@@ -51,7 +51,7 @@ module.exports = {
 				if (error) {
 					res.sendStatus(500);
 				} else if (message) {
-					if ((message.messageType == 'ANNOUNCEMENTS') && (user.profile != 'COORDINATOR')) {
+					if (message.messageType == 'ANNOUNCEMENTS' && (user.profile != 'COORDINATOR' && user.profile != 'ADMINISTRATOR')) {
 						res.sendStatus(401);
 					} else {
 						res.status(200).send(message);

@@ -1,5 +1,6 @@
 var User = require('../models/user.js');
 var Utils = require('../utilities.js');
+var io = require('../io.js');
 
 module.exports = {
 	getAllUsers: function(req, res) {
@@ -11,12 +12,14 @@ module.exports = {
 				User.getAllUsers(activeOnly, function(users, error) {
 					if (error) {
 						res.sendStatus(500);
-					} else {
+					} else if (users) {
 						res.status(200).send(users);
+					} else {
+						res.sendStatus(404);
 					}
 				});
 			} else {
-				res.sendStatus(404);
+				res.sendStatus(403);
 			}
 		});
 	},
@@ -46,16 +49,20 @@ module.exports = {
 						profile: req.body.profile,
 						username: req.params.username
 					};
-					User.updateUser(userInfo, function(success, updateString, error) {
+					User.updateUser(userInfo, function(success, updateObject, error) {
 						if (error) {
-							res.sendStatus(400);
-						} else if (updateString) {
-							io.broadcast('UPDATE', req.params.username, updateString, null, null);
+							if (error.errno === 19) {
+								res.sendStatus(403);
+							} else {
+								res.sendStatus(400);
+							}
+						} else if (updateObject !== {}) {
+							io.broadcast('UPDATE', req.params.username, updateObject, null, null);
 							res.sendStatus(200);
 						}
 					});
 				} else {
-					res.sendStatus(403);
+					res.sendStatus(401);
 				}
 			} else {
 				res.sendStatus(404);

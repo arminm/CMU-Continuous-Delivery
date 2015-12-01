@@ -34,19 +34,19 @@ angular.module('MessageService', [])
 })
 .factory('MessageFactory', function($http) {
         return {
-            post : function(username, data) {
-                return $http.post('/messages/' + username, data);
+            post : function(username, data, access_key) {
+                return $http.post('/messages/' + username + '?access_key=' + access_key, data);
             },
-            getAll : function(messageType, sender, receiver) {
+            getAll : function(messageType, sender, receiver, access_key) {
                 if (receiver != null) {
-                    return $http.get('/messages?messageType=' + messageType + '&sender=' + sender + '&receiver=' + receiver);
+                    return $http.get('/messages?messageType=' + messageType + '&sender=' + sender + '&receiver=' + receiver + '&access_key=' + access_key);
                 } else {
-                    return $http.get('/messages?messageType=' + messageType);
+                    return $http.get('/messages?messageType=' + messageType + '&access_key=' + access_key);
                 }
 
             },
-            get : function(id) {
-                return $http.get('/messages/' + id);
+            get : function(id, access_key) {
+                return $http.get('/messages/' + id + '?access_key=' + access_key);
             }
         }
     });

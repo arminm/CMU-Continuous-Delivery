@@ -35,4 +35,5 @@ div#lobbyPage(ng-controller='lobbyPageController')
     div#buttonBlocks
       a.btn.btn-info.btn-lg.btn-block(ui-sref='announcements') Announcements
       a.btn.btn-info.btn-lg.btn-block(ui-sref='wall') Wall
-      a.btn.btn-info.btn-lg.btn-block(ui-sref='maintenance') Measure Performance
+      a.btn.btn-info.btn-lg.btn-block(ui-sref='performance', ng-show='isMonitor || isAdmin') Measure Performance
+      a.btn.btn-info.btn-lg.btn-block(ui-sref='administer', ng-show='isAdmin') Administer Profile
