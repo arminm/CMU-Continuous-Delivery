@@ -1,7 +1,11 @@
 var app = angular.module('myApp',['ui.router', 'ngMessages', 'ui.bootstrap', 'MainService', 'UserService', 'socketService', 'MessageService', 'StatusService', 'MaintenanceService', 'pascalprecht.translate']);
 
-app.config('$translateProvider', function($translateProvider){
-  // Localization configuration code goes here...
+app.config(function($translateProvider){
+  $translateProvider.useStaticFilesLoader({
+    prefix: '/languages/',
+    suffix: '.json'
+  });
+
   $translateProvider.preferredLanguage('en');
 });
 

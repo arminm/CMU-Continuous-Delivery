@@ -1,23 +1,30 @@
 doctype html
 html(ng-app="myApp")
   head
-    title= title
+    title {{ "TITLE" | translate }}
     meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
     link(rel='stylesheet', href='/libs/bootswatch-dist/css/bootstrap.min.css')
     link(rel='stylesheet', href='/libs/angular-bootstrap/ui-bootstrap-csp.css')
     link(rel='stylesheet', href='/css/style.css')
   body(ng-controller="mainController")
+    // Libraries
     script(src='/libs/angular/angular.js')
     script(src='/libs/angular-bootstrap/ui-bootstrap-tpls.js')
     script(src='/libs/angular-ui-router/release/angular-ui-router.min.js')
     script(src='/libs/angular-messages/angular-messages.min.js')
     script(src='/libs/jquery/dist/jquery.min.js')
     script(src='/libs/bootstrap/dist/js/bootstrap.min.js')
+    script(src="/libs/angular-translate/angular-translate.min.js")
+    script(src="/libs/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js")
+    
+    // Services
     script(src='/js/services/mainService.js')
     script(src='/js/services/userService.js')
     script(src='/js/services/messageService.js')
     script(src='/js/services/statusService.js')
     script(src='/js/services/maintenanceService.js')
+    
+    // Controllers, etc...
     script(src='/js/main.js')
     script(src='/socket.io/socket.io.js')
     script(src='/js/socket.js')
@@ -25,6 +32,5 @@ html(ng-app="myApp")
     script(src='/js/controllers/lobbyPageController.js')
     script(src='/js/controllers/messagesController.js')
     script(src='/js/controllers/maintenanceController.js')
-    script(src="/js/angular-translate.min.js")
-    script(src="/js/angular-translate-loader-url.min.js")
+    
     div(ui-view)
