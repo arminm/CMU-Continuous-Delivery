@@ -6,7 +6,7 @@ angular.module('myApp')
 	$scope.users = [];
 	$scope.formData = {};
 	$scope.selectedUser = undefined;
-	$scope.availableAccountStatuses = ["Active", "Inactive"];
+	$scope.availableAccountStatuses = ["ACTIVE", "INACTIVE"];
 	$scope.availablePrivilegeLevels = ["ADMINISTRATOR", "CITIZEN", "COORDINATOR", "MONITOR"];
 	$scope.formError = {
 		generic: ''
@@ -37,7 +37,7 @@ angular.module('myApp')
 			$scope.resetScope();
 		} else {
 			$scope.selectedUser = user;
-			$scope.formData.accountStatus = $scope.selectedAccountStatus = $scope.selectedUser.isActive ? "Active" : "Inactive";
+			$scope.formData.accountStatus = $scope.selectedAccountStatus = $scope.selectedUser.isActive ? "ACTIVE" : "INACTIVE";
 			// TODO return role from object
 			$scope.formData.privilegeLevel = $scope.selectedPrivilegeLevel = $scope.selectedUser.profile;
 			$scope.formData.username = $scope.selectedUsername = $scope.selectedUser.username;
@@ -51,7 +51,7 @@ angular.module('myApp')
 				username: $scope.selectedUsername
 			};
 			if ($scope.formData.accountStatus !== $scope.selectedAccountStatus) {
-				editData.isActive = $scope.formData.accountStatus === "Active" ? 1 : 0;
+				editData.isActive = $scope.formData.accountStatus === "ACTIVE" ? 1 : 0;
 			}
 			if ($scope.formData.privilegeLevel !== $scope.selectedPrivilegeLevel) {
 				editData.profile = $scope.formData.privilegeLevel;

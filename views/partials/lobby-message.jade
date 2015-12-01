@@ -4,13 +4,13 @@ div(ng-controller='messagesController')
 		div.messages.msg(ng-repeat="msg in result = (messages | filter : filterMessages(filteredParam) | orderBy : 'createdAt' : descending | limitTo: limitResults)")
 			div.timestamp {{ msg.createdAt | date : 'MM/dd/yyyy HH:mm:ss a' }}
 			div.username {{ msg.author}}
-				span.user-status(style='padding: 0 0 0 5px;') Status: {{ status(msg.author).code }} Last updated at: {{ status(msg.author).lastUpdatedAt | date : 'MM/dd/yyyy HH:mm:ss a' }}
+				span.user-status(style='padding: 0 0 0 5px;') {{"STATUS" | translate}}: {{ status(msg.author).code | translate}} {{"LAST_UPDATED_AT" | translate}}: {{ status(msg.author).lastUpdatedAt | date : 'MM/dd/yyyy HH:mm:ss a' }}
 			div {{ msg.content }}
-		button.btn.btn-warning#showMore(type='button', style='width:20%', ng-click='showMoreResults()', ng-show='searchMode && !result.length==0') Show more
-	span(ng-show='result.length == 0 && !messages.length==0') No results for your search
+		button.btn.btn-warning#showMore(type='button', style='width:20%', ng-click='showMoreResults()', ng-show='searchMode && !result.length==0') {{ "SHOW_MORE" | translate }}
+	span(ng-show='result.length == 0 && !messages.length==0') {{ "NO_SEARCH_RESULTS" | translate }}
 	div.input-group#wallmessageForm
 		form(name="wallmessageForm")
 			input.form-control(type='text',style='width:80%', ng-model='messageInput', message-error)
-			button.btn.btn-warning(type='button', style='width:20%', ng-click='post()') Send
+			button.btn.btn-warning(type='button', style='width:20%', ng-click='post()') {{ "SEND" | translate }}
 			div(ng-messages="wallmessageForm.$error")
 				div.invalid(ng-message="server"){{ formError.generic }}

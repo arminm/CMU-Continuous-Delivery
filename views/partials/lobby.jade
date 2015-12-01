@@ -1,39 +1,40 @@
 div#lobbyPage(ng-controller='lobbyPageController')
   include includes/lobby-main-nav.jade
   div.well
+    div#buttonBlocks
+      a.btn.btn-info.btn-lg.btn-block(ui-sref='announcements') {{ "ANNOUNCEMENTS" | translate}}
+      a.btn.btn-info.btn-lg.btn-block(ui-sref='wall') {{"WALL" | translate}}
+      a.btn.btn-info.btn-lg.btn-block(ui-sref='performance', ng-show='isMonitor || isAdmin') {{"MEASURE_PERFORMANCE" | translate}}
+      a.btn.btn-info.btn-lg.btn-block(ui-sref='administer', ng-show='isAdmin') {{"ADMINISTER_PROFILE" | translate}}
+      
     div.alert.alert-dismissible.alert-warning.animate-hide#welcomemessage(ng-show='firstwelcome')
-      button.close(type='button',data-dismiss='alert',ng-click='resetFirstTimeUser()') ×
-      h3 Welcome, {{username}}!
-      p This is a <strong><em>Survivable Social Network on a Chip (SSNoC)</em></strong> which can help you in emergency. The first thing you'd better do is to <strong><em>share your status</em></strong> to let others know the situation.
-      p.text-primary The categories of status:
+      button.close(type='button',data-dismiss='alert',ng-click='resetFirstTimeUser()') x
+      h3(translate="WELCOME_USERNAME"  translate-values="{ username: '{{username}}' }")
+      p(translate="WELCOME_PARAGRAPH" translate-compile)
+      p.text-primary {{"CATEGORIES_TITLE" | translate}}
       table.table.table-striped.table-hover
         thead
           tr
-            th Status
-            th Explanation
-            th Color Code
+            th {{"STATUS" | translate}}
+            th {{"EXPLANATION" | translate}}
+            th {{"COLOR_CODE" | translate}}
         tbody
           tr
-            td OK
-            td I am OK, I do not need help.
-            td.text-success Green
+            td {{"OK" | translate}}
+            td {{"OK_EXPLANATION" | translate}}
+            td.text-success {{"GREEN" | translate}}
           tr
-            td Help
-            td I need help, but this is not a life threatening emergency.
-            td.text-warning Yellow
+            td {{"HELP" | translate}}
+            td {{"HELP_EXPLANATION" | translate}}
+            td.text-warning {{"YELLOW" | translate}}
           tr
-            td Emergency
-            td I need help now, as this is a life threatening emergency!
-            td.text-danger Red
+            td {{"EMERGENCY" | translate}}
+            td {{"EMERGENCY_EXPLANATION" | translate}}
+            td.text-danger {{"RED" | translate}}
           tr
-            td Undefined
-            td The user has not provided their status yet.
+            td {{"UNDEFINED" | translate}}
+            td {{"UNDEFINED_EXPLANATION" | translate}}
             td 
-      p.text-primary How to share your status:
-      p Step 1: Elect to share status in the main page
-      p Step 2: Select one from the set of statuses in the dropdown
-    div#buttonBlocks
-      a.btn.btn-info.btn-lg.btn-block(ui-sref='announcements') Announcements
-      a.btn.btn-info.btn-lg.btn-block(ui-sref='wall') Wall
-      a.btn.btn-info.btn-lg.btn-block(ui-sref='performance', ng-show='isMonitor || isAdmin') Measure Performance
-      a.btn.btn-info.btn-lg.btn-block(ui-sref='administer', ng-show='isAdmin') Administer Profile
+      p.text-primary {{"HOW_TO_SHARE_STATUS_TITLE" | translate}}
+      p {{"HOW_TO_SHARE_STATUS_STEP_1" | translate}}
+      p {{"HOW_TO_SHARE_STATUS_STEP_2" | translate}}

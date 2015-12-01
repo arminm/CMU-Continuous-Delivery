@@ -9,16 +9,16 @@ angular.module('myApp')
 	$scope.statuses = ['OK', 'Help', 'Emergency', 'Undefined'];
 	$scope.statusOptions= [
 		{name: 'OK', color: '#468847'},
-		{name: 'Help', color: '#c09853'},
-		{name: 'Emergency', color: '#b94a48'},
-		{name: 'Undefined', color: ''}
+		{name: 'HELP', color: '#c09853'},
+		{name: 'EMERGENCY', color: '#b94a48'},
+		{name: 'UNDEFINED', color: ''}
 	];
 	$scope.searchIsActive = false;
 	$scope.searchText = '';
 	$scope.searchString = '';
 
 	$scope.selectedStatus = $scope.statusOptions.filter(function(option) {
-		return option.name === User.getStatus();
+		return option.name === User.getStatus().toUpperCase();
 	})[0];
 
 	$scope.setStatus = function () {
@@ -27,7 +27,7 @@ angular.module('myApp')
 			statusCode: $scope.selectedStatus.name
 		};
 		var oldStatus = $scope.statusOptions.filter(function(option) {
-			return option.name === $scope.userStatus;
+			return option.name === $scope.userStatus.toUpperCase();
 		})[0];
 		Status.update($scope.username, statusData)
 		.success(function(data) {

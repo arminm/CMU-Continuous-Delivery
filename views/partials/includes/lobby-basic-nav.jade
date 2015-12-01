@@ -2,10 +2,10 @@ nav.navbar.navbar-inverse.navbar-fixed-top
 	div.navbar-header
 		div
 			a.btn.glyphicon.glyphicon-circle-arrow-left#backtolobbyButton(ui-sref='lobby')
-		div.navbar-brand {{title}}
+		p.navbar-brand(translate="{{title}}"  translate-values="{ username: '{{buddy}}' }")
 		div.searchField(ng-hide='isAdmin')
 			a.searchField.btn.glyphicon.glyphicon-search(ng-click='showSearch()')
-			input#searchBox(type='text', placeholder='Search', ng-model='searchString', ng-change='search(searchString)', ng-show='searchIsActive')
+			input#searchBox(type='text', placeholder='{{"SEARCH" | translate}}', ng-model='searchString', ng-change='search(searchString)', ng-show='searchIsActive')
 			a.searchField.btn.glyphicon.glyphicon-remove-sign(ng-click='clear()', ng-show='searchIsActive')
 		div
 			a.btn.glyphicon.glyphicon-off#logoutButton(ng-click='logout()')
