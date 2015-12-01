@@ -29,29 +29,29 @@ angular.module('myApp')
     $scope.availableLanguages = [
       {
         id: "zh",
-        language: "🇨🇳 Chinese"
+        language: "CHINESE"
       },
       {
         id: "en",
-        language: "🇺🇸 English"
+        language: "ENGLISH"
       },
       {
         id: "gr",
-        language: "🇬🇷 Greek"
+        language: "GREEK"
       },
       {
         id: "ne",
-        language: "🇳🇵 Nepali"
+        language: "NEPALI"
       },
       {
         id: "fa",
-        language: "🇮🇷 Persian"
+        language: "PERSIAN"
       },
     ];
 
     $scope.lang = {
       id: "en",
-      language: "🇺🇸 English"
+      language: "ENGLISH"
     };
 
     $scope.changeLanguage = function () {

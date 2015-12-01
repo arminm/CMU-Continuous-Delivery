@@ -32,27 +32,29 @@ angular.module('myApp')
         $scope.test();
       })
       .error(function(data, status, headers, config) {
-        var message = "";
-        if (status == '401') {
-          message = "You credentials are wrong.";
-        } else if (status == '403') {
-          message = "You have no permission to access this resource";
-        } else {
-          message = "There was an error. Try again.";
-        }
-        alert(message);
+        $scope.translate(["ERROR_WRONG_CREDENTIALS", "ERROR_UNAUTHORIZED",
+          "ERROR_GENERIC"]).then(function (translations) {
+          if (status == '401') {
+            alert(translations.ERROR_WRONG_CREDENTIALS);
+          } else if (status == '403') {
+            alert(translations.ERROR_UNAUTHORIZED);
+          } else {
+            alert(translations.ERROR_GENERIC);
+          }
+        });
       });
     })
     .error(function(data, status, headers, config) {
-      var message = "";
-      if (status == '401') {
-        message = "You don't have permission to start a performance test.";
-      } else if (status == '404') {
-        message = "No user found matching your username.";
-      } else {
-        message = "There was an error. Try again.";
-      }
-      alert(message);
+      $scope.translate(["ERROR_NO_PERMISSION_FOR_PERFOMANCE_TEST", "ERROR_NO_MATCHING_USER",
+        "ERROR_GENERIC"]).then(function (translations) {
+        if (status == '401') {
+          alert(translations.ERROR_NO_PERMISSION_FOR_PERFOMANCE_TEST);
+        } else if (status == '404') {
+          alert(translations.ERROR_NO_MATCHING_USER);
+        } else {
+          alert(translations.ERROR_GENERIC);
+        }
+      });
     });
 	};
 

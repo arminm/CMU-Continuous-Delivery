@@ -8,7 +8,7 @@ div(ng-controller="adminController")
 					span.glyphicon.glyphicon-user
 					span.user.username {{user.username}}
 					span.glyphicon.glyphicon-pencil#adminEdit(ng-click="administerProfile(user)")
-		div.animate-hide.col-lg-6#editFormSpan(ng-show="selectedUser")
+		div.animate-hide.col-lg-6#editFormSpan(ng-show="selectedUser", style="margin-top:10px")
 			form#editForm.form-horizontal(name="editForm")
 				fieldset
 					div.form-group

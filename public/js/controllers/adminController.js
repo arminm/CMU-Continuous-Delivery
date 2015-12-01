@@ -1,7 +1,7 @@
 angular.module('myApp')
 .controller('adminController', function ($scope, $translate, User, JoinCommunity, Admin) {
 	$scope.username = User.getUsername();
-	$scope.title = "Admin Panel";
+	$scope.title = "ADMIN_PANEL";
 	$scope.isAdmin = true;
 	$scope.users = [];
 	$scope.formData = {};
@@ -15,20 +15,19 @@ angular.module('myApp')
 	$scope.getUsers = function () {
 		Admin.getUsers($scope.username)
 		.success(function(users) {
-			$scope.users = users.filter(function(user) {
-				return (user.username != $scope.username);
-			});
+			$scope.users = users;
 		})
 		.error(function(data, status, headers, config) {
-			var message = "";
-			if (status == '403') {
-				message = $translate("ERROR_UNAUTHORIZED");
-			} else if (status == '404') {
-                message = $translate("ERROR_NO_USERS_FOUND");
-            } else {
-            	message = $translate("ERROR_GENERIC");
-            }
-            alert(message);
+			$scope.translate(["ERROR_UNAUTHORIZED", "ERROR_NO_USERS_FOUND", 
+				"ERROR_GENERIC"]).then(function (translations) {
+				if (status == '403') {
+					alert(translations.ERROR_UNAUTHORIZED);
+				} else if (status == '404') {
+					alert(translations.ERROR_NO_USERS_FOUND);
+				} else {
+					alert(translations.ERROR_GENERIC);
+				}
+			});
 		});
 	};
 

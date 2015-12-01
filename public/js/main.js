@@ -191,9 +191,11 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
         Socket.on('CHAT', function(data) {
             if ((User.getUsername().length > 0) && ($state.$current.url.sourcePath != '/lobby/chatbuddies')) { // If the user is logged in or the user state is present
                 if (data.sender !== User.getUsername()) {
-                    if (confirm("You have a new message from "+ data.sender + ". Go to chat?") == true) {
-                        $state.go('chat',{ username: data.sender });
-                    }
+                    $scope.translate(["CONFIRM_NEW_MESSAGE_FIRST_PART", "CONFIRM_NEW_MESSAGE_SECOND_PART"]).then(function (translations) {
+                        if (confirm(translations.CONFIRM_NEW_MESSAGE_FIRST_PART + data.sender + translations.CONFIRM_NEW_MESSAGE_SECOND_PART) == true) {
+                            $state.go('chat',{ username: data.sender });
+                        }
+                    });
                 }
             } else {
                 $scope.disburseSocketMessage(data, 'CHAT', User.getUsername());
@@ -201,20 +203,22 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
         });
 
         Socket.on('UPDATE', function(data) {
-            var message = "";
-
-            if (data.action.isActive === 0) {
-                message += "Your account has been deactivated. You will be logged out now!\n";
-            }
-            if (data.action.profile) {
-                message += "Your role has been updated to " + data.action.profile + "\n";
-            }
-            if (data.action.username || data.action.password) {
-                message += "Your credentials have been changed. Please log in again!";
-            }
-            confirm(message);
-            $scope.logout();
-            $state.go('home');
+            $scope.translate(["CONFIRM_ACCOUNT_DEACTIVATED", "CONFIRM_ROLE_UPDATE", 
+                "CONFIRM_CHANGE_CREDENTIALS"]).then(function (translations) {
+                var message = "";
+                if (data.action.isActive === 0) {
+                    message += translations.CONFIRM_ACCOUNT_DEACTIVATED;
+                }
+                if (data.action.profile) {
+                    message += translations.CONFIRM_ROLE_UPDATE + data.action.profile + "\n";
+                }
+                if (data.action.username || data.action.password) {
+                    message += translations.CONFIRM_CHANGE_CREDENTIALS;
+                }
+                confirm(message);
+                $scope.logout();
+                $state.go('home');
+            });
         });
     };
 

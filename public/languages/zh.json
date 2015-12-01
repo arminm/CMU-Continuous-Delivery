@@ -13,6 +13,7 @@
   "REGISTER": "Register",
   "ERROR_GENERIC": "Something went wrong. Please try again.",
   "ERROR_WRONG_PASSWORD": "Your password is wrong",
+  "ERROR_WRONG_CREDENTIALS": "Your credentials are wrong",
   "ERROR_USER_DEACTIVATED": "Your account has been deactivated. Please contact an administrator",
   "ERROR_USERNAME_TAKEN": "The username already exists. Please enter a different username.",
   "ERROR_USER_NOT_FOUND": "User not found.",
@@ -22,6 +23,8 @@
   "ERROR_NO_USERS_FOUND": "No users found for your call",
   "ERROR_UNAUTHORIZED": "You don't have access to this resource",
   "ERROR_AUTHOR_NOT_FOUND": "The author of the message could not be found.",
+  "ERROR_NO_PERMISSION_FOR_PERFOMANCE_TEST": "You don't have permission to start a performance test.",
+  "ERROR_NO_MATCHING_USER": "No user found matching your username.",
 
   "WELCOME_USERNAME": "Welcome, {{username}}!",
   "WELCOME_PARAGRAPH": "This is a <strong><em>Survivable Social Network on a Chip (SSNoC)</em></strong> which can help you in emergency. The first thing you'd better do is to <strong><em>share your status</em></strong> to let others know the situation.",
@@ -65,6 +68,7 @@
   "START": "Start",
   "STOP": "Stop",
 
+  "ADMIN_PANEL": "Admin Panel",
   "ADMINISTRATOR": "Administrator",
   "COORDINATOR": "Coordinator",
   "CITIZEN": "Citizen",
@@ -72,5 +76,17 @@
   "ACTIVE": "Active",
   "INACTIVE": "Inactive",
   "SAVE": "Save",
-  "BACK": "Back"
+  "BACK": "Back",
+
+  "CONFIRM_ACCOUNT_DEACTIVATED": "Your account has been deactivated. You will be logged out now!\n",
+  "CONFIRM_ROLE_UPDATE": "Your role has been updated to ",
+  "CONFIRM_CHANGE_CREDENTIALS": "Your credentials have been changed. Please log in again!",
+  "CONFIRM_NEW_MESSAGE_FIRST_PART": "You have a new message from ",
+  "CONFIRM_NEW_MESSAGE_SECOND_PART": ". Go to chat?",
+
+  "ENGLISH": "English",
+  "CHINESE": "Chinese",
+  "GREEK": "Greek",
+  "NEPALI": "Nepali",
+  "PERSIAN": "Persian"
 }

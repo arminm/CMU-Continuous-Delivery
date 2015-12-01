@@ -35,7 +35,9 @@ angular.module('myApp')
 			scrollToBottom(false, '#scrollingMessages');
 		})
 		.error(function(data, status, headers, config) {
-			alert("Something went wrong and we couldn't retrieve previous messages. Please try again.");
+			$scope.translate(["ERROR_GENERIC"]).then(function (translations) {
+				alert(translations.ERROR_GENERIC);
+			});
 		});
 	};
 
