@@ -13,4 +13,4 @@ div(ng-controller='messagesController')
 			input.form-control(type='text',style='width:80%', ng-model='messageInput', message-error)
 			button.btn.btn-warning(type='button', style='width:20%', ng-click='post()') {{ "SEND" | translate }}
 			div(ng-messages="wallmessageForm.$error")
-				div.invalid(ng-message="server"){{ formError.generic }}
+				div.invalid(ng-message="server"){{ formError.generic | translate}}

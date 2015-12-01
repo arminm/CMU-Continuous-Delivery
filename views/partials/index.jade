@@ -30,7 +30,7 @@ form#loginForm.form-horizontal(name="loginForm", ng-controller="homePageControll
         span(style='padding-right: 10px')
         button#registerButton.btn.btn-warning(ng-click='register()') {{"REGISTER" | translate}}
       div(ng-messages="loginForm.$error")
-        div.invalid(ng-message='server'){{ formError.generic }}
+        div.invalid(ng-message='server'){{ formError.generic | translate}}
     div.form-group
       div.col-lg-2
         select.form-control(ng-model="lang", ng-options="option.language for option in availableLanguages track by option.id", ng-change="changeLanguage()")

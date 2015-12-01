@@ -1,5 +1,5 @@
 angular.module('myApp')
-.controller('adminController', function ($scope, User, JoinCommunity, Admin) {
+.controller('adminController', function ($scope, $translate, User, JoinCommunity, Admin) {
 	$scope.username = User.getUsername();
 	$scope.title = "Admin Panel";
 	$scope.isAdmin = true;
@@ -22,11 +22,11 @@ angular.module('myApp')
 		.error(function(data, status, headers, config) {
 			var message = "";
 			if (status == '403') {
-				message = "You don't have access to this resource";
+				message = $translate("ERROR_UNAUTHORIZED");
 			} else if (status == '404') {
-                message = "No users found for your call";
+                message = $translate("ERROR_NO_USERS_FOUND");
             } else {
-            	message = "Something went wrong. Please try again later.";
+            	message = $translate("ERROR_GENERIC");
             }
             alert(message);
 		});
@@ -66,15 +66,15 @@ angular.module('myApp')
 			.error(function(data, status, headers, config) {
 				$scope.editForm.$setValidity('server', false);
 				if (status == '400') {
-					$scope.formError.generic = "Bad request. An error happened while trying to update";
+					$scope.formError.generic = "ERROR_BAD_REQUEST";
 				} else if (status == '401') {
-                	$scope.formError.generic = "You are not an administrator";
+                	$scope.formError.generic = "ERROR_NOT_AN_ADMIN";
             	} else if (status == '403') {
-                	$scope.formError.generic = "The username already exists. Please enter a different username";
+                	$scope.formError.generic = "ERROR_USERNAME_TAKEN";
             	} else if (status == '404') {
-                	$scope.formError.generic = "No user found matching your access_key";
+                	$scope.formError.generic = "ERROR_ACCESS_KEY";
             	} else {
-            		$scope.formError.generic = "Something went wrong. Please try again later.";
+            		$scope.formError.generic = "ERROR_GENERIC";
             	}
 			});
 		}

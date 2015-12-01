@@ -89,13 +89,13 @@ angular.module('myApp')
           })
           .error(function(data, status, headers, config) {
             if (status == '401') {
-              $scope.formError.username = "Please enter a different username";
+              $scope.formError.username = "ERROR_USERNAME_TAKEN";
               $scope.loginForm.username.$setValidity('server', false);
             } else if (status == '403') {
-                $scope.formError.generic = "Your account has been deactivated. Please contact an administrator";
+                $scope.formError.generic = "ERROR_USER_DEACTIVATED";
                 $scope.loginForm.$setValidity('server', false);
             } else {
-              $scope.formError.generic = "Something went wrong. Please try again.";
+              $scope.formError.generic = "ERROR_GENERIC";
               $scope.loginForm.$setValidity('server', false);
             }
           });
@@ -124,16 +124,16 @@ angular.module('myApp')
           })
           .error(function(data, status, headers, config) {
               if (status == '401') {
-                $scope.formError.password = "Your password is wrong";
+                $scope.formError.password = "ERROR_WRONG_PASSWORD";
                 $scope.loginForm.password.$setValidity('server', false);
               } else if (status == '403') {
-                $scope.formError.generic = "Your account has been deactivated. Please contact an administrator";
+                $scope.formError.generic = "ERROR_USER_DEACTIVATED";
                 $scope.loginForm.$setValidity('server', false);
               } else if (status == '404') {
-                $scope.formError.generic = "User not found.";
+                $scope.formError.generic = "ERROR_USER_NOT_FOUND";
                 $scope.loginForm.$setValidity('server', false);
               } else {
-                $scope.formError.generic = "Something went wrong. Please try again.";
+                $scope.formError.generic = "ERROR_GENERIC";
                 $scope.loginForm.$setValidity('server', false);
               }
           });

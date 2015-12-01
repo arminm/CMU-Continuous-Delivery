@@ -61,9 +61,9 @@ angular.module('myApp')
 				$scope.wallmessageForm.$setValidity('server', false);
 			}
 			if (status == '404') {
-				$scope.formError.generic = "The author of the message could not be found.";
+				$scope.formError.generic = "ERROR_AUTHOR_NOT_FOUND";
 			} else {
-				$scope.formError.generic = "There was a problem while trying to store your message. Please try again.";
+				$scope.formError.generic = "ERROR_GENERIC";
 			}
 		});
 	};
