@@ -39,9 +39,10 @@ angular.module('myApp')
     };
 
     $scope.changeLanguage = function (langKey) {
+      console.log("CHANGE LANGUAGE CALLED!");
       $translate.use(langKey);
     };
-    
+
     $scope.register = function () {
       $scope.formData.isRegistration = true;
       // Call factory

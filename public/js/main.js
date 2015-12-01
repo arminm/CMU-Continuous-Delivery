@@ -1,6 +1,7 @@
 var app = angular.module('myApp',['ui.router', 'ngMessages', 'ui.bootstrap', 'MainService', 'UserService', 'socketService', 'MessageService', 'StatusService', 'MaintenanceService', 'pascalprecht.translate']);
 
 app.config(function($translateProvider){
+  $translateProvider.useSanitizeValueStrategy('escape');
   $translateProvider.useStaticFilesLoader({
     prefix: '/languages/',
     suffix: '.json'
