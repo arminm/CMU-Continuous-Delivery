@@ -146,6 +146,7 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
     $scope.isAdmin = false;
     $scope.isMonitor = false;
     $scope.isCoordinator = false;
+    
     $scope.translate = $translate;
 
     $scope.logout = function () {
