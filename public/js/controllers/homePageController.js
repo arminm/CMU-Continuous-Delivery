@@ -1,5 +1,5 @@
 angular.module('myApp')
-  .directive('reservedUsername', function (){ 
+  .directive('reservedUsername', function (){
    return {
       require: '?ngModel',
       link: function(scope, elem, attr, ngModel) {
@@ -11,7 +11,7 @@ angular.module('myApp')
       }
    };
   })
-  .directive('passwordEquality', function (){ 
+  .directive('passwordEquality', function (){
    return {
       require: '?ngModel',
       link: function(scope, elem, attr, ngModel) {
@@ -23,7 +23,7 @@ angular.module('myApp')
       }
    };
   })
-  .controller('homePageController', function($scope, $state, $location, JoinCommunity, User, Socket) {
+  .controller('homePageController', function($scope, $state, $location, JoinCommunity, User, Socket, $translate) {
     $scope.formData = {
       isRegistration: '',
       username: '',
@@ -38,6 +38,10 @@ angular.module('myApp')
       generic: ''
     };
 
+    $scope.changeLanguage = function (langKey) {
+      $translate.use(langKey);
+    };
+    
     $scope.register = function () {
       $scope.formData.isRegistration = true;
       // Call factory
@@ -111,4 +115,3 @@ angular.module('myApp')
 
     };
   });
-

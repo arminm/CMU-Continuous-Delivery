@@ -2,7 +2,7 @@ var app = angular.module('myApp',['ui.router', 'ngMessages', 'ui.bootstrap', 'Ma
 
 app.config('$translateProvider', function($translateProvider){
   // Localization configuration code goes here...
-  
+  $translateProvider.preferredLanguage('en');
 });
 
 app.config(function($stateProvider, $urlRouterProvider) {
