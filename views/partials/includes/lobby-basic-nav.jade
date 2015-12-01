@@ -3,7 +3,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top
 		div
 			a.btn.glyphicon.glyphicon-circle-arrow-left#backtolobbyButton(ui-sref='lobby')
 		div.navbar-brand {{title}}
-		div.searchField
+		div.searchField(ng-hide='isAdmin')
 			a.searchField.btn.glyphicon.glyphicon-search(ng-click='showSearch()')
 			input#searchBox(type='text', placeholder='Search', ng-model='searchString', ng-change='search(searchString)', ng-show='searchIsActive')
 			a.searchField.btn.glyphicon.glyphicon-remove-sign(ng-click='clear()', ng-show='searchIsActive')

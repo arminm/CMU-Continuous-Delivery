@@ -27,7 +27,10 @@ module.exports = {
 		if (receiver) {
 			io.sockets.in(sender).emit(type, formNotification(id, action, sender, receiver));
 			io.sockets.in(receiver).emit(type, formNotification(id, action, sender, receiver));
-		} else {
+		} else if (type == 'UPDATE') {
+			io.sockets.in(id).emit(type, formNotification(id, action, null, null));
+		}
+		else {
 			io.sockets.emit(type, formNotification(id, action, sender, null));
 		}
 	}

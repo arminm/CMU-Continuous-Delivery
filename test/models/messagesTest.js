@@ -70,11 +70,10 @@ suite('Message: ', function() {
   var messageWallId;
   var messageWallA, messageWallB, messageChat, userA, userB, userC;
 
-  setup(function() {
+  setup(function(done) {
     userA = createUserDouble({
       username: "john"
     });
-    User.create(userA, function(isCreated, error) {});
     messageWallA = createDouble({
       content: "Hello",
       author: "john",
@@ -83,7 +82,6 @@ suite('Message: ', function() {
     userB = createUserDouble({
       username: "armin"
     });
-    User.create(userB, function(isCreated, error) {});
     messageWallB = createDouble ({
       content: "Bye",
       author: "armin",
@@ -92,12 +90,18 @@ suite('Message: ', function() {
     userC = createUserDouble({
       username: "mandy"
     });
-    User.create(userC, function(isCreated, error) {});
     messageChat = createDouble ({
       content: "Let's chat!",
       author: "armin",
       target: "mandy",
       messageType: "CHAT"
+    });
+    User.create(userA, function(isCreated, error) {
+      User.create(userB, function(isCreated, error) {
+        User.create(userC, function(isCreated, error) {
+          done();
+        });
+      });
     });
   });
 

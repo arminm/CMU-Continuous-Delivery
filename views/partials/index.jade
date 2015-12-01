@@ -30,11 +30,11 @@ form#loginForm.form-horizontal(name="loginForm", ng-controller="homePageControll
         span(style='padding-right: 10px')
         button#registerButton.btn.btn-warning(ng-click='register()') Register
       div(ng-messages="loginForm.$error")
-        div.invalid(ng-message='server') {{ formError.generic }}
-    div
-      select
-        option(value="zh") Chinese
-        option(value="en" selected) English
-        option(value="el") Greek
-        option(value="ne") Nepali
-        option(value="fa") Persian
+        div.invalid(ng-message='server'){{ formError.generic }}
+      div
+        select
+          option(value="zh") Chinese
+          option(value="en" selected) English
+          option(value="el") Greek
+          option(value="ne") Nepali
+          option(value="fa") Persian

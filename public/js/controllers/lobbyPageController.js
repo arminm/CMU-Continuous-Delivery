@@ -35,14 +35,15 @@ angular.module('myApp')
 			$scope.userStatus = $scope.selectedStatus.name;
 			$scope.userStatusLastUpdateTime = Date.now();
 		})
-		.error(function(data) {
+		.error(function(data, status, headers, config) {
 			$scope.selectedStatus = oldStatus;
+            alert("Something went wrong. Please try again later.");
 		});
 	};
 	$scope.directory = function () {
 		$scope.onlineitems = [];
 		$scope.offlineitems = [];
-		JoinCommunity.allUsers()
+		JoinCommunity.allUsers($scope.username)
 		.success(function(users) {
 			User.setUsers(users);
 			// Filter the current user
@@ -56,11 +57,17 @@ angular.module('myApp')
 			$scope.offlineitems = usersWithoutCurrentUser.filter(function(user){
 				return user.isOnline == false;
 			});
-			console.log($scope.onlineitems);
-			console.log($scope.offlineitems);
 		})
-		.error(function(data) {
-
+		.error(function(data, status, headers, config) {
+			var message = "";
+			if (status == '403') {
+				message = "You don't have access to this resource";
+			} else if (status == '404') {
+                message = "No users found for your call";
+            } else {
+            	message = "Something went wrong. Please try again later.";
+            }
+            alert(message);
 		});
 	};
 	$scope.resetFirstTimeUser = function() {

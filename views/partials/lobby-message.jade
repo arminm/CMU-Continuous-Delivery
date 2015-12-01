@@ -9,5 +9,8 @@ div(ng-controller='messagesController')
 		button.btn.btn-warning#showMore(type='button', style='width:20%', ng-click='showMoreResults()', ng-show='searchMode && !result.length==0') Show more
 	span(ng-show='result.length == 0 && !messages.length==0') No results for your search
 	div.input-group#wallmessageForm
-		input.form-control(type='text',style='width:80%', ng-model='messageInput')
-		button.btn.btn-warning(type='button', style='width:20%', ng-click='post()') Send
+		form(name="wallmessageForm")
+			input.form-control(type='text',style='width:80%', ng-model='messageInput', message-error)
+			button.btn.btn-warning(type='button', style='width:20%', ng-click='post()') Send
+			div(ng-messages="wallmessageForm.$error")
+				div.invalid(ng-message="server"){{ formError.generic }}
