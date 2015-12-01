@@ -26,9 +26,36 @@ angular.module('myApp')
       generic: ''
     };
 
-    $scope.changeLanguage = function (langKey) {
-      console.log("CHANGE LANGUAGE CALLED!");
-      $translate.use(langKey);
+    $scope.availableLanguages = [
+      {
+        id: "zh",
+        language: "Chineze"
+      },
+      {
+        id: "en",
+        language: "English"
+      },
+      {
+        id: "gr",
+        language: "Greek"
+      },
+      {
+        id: "ne",
+        language: "Nepali"
+      },
+      {
+        id: "fa",
+        language: "Persian"
+      },
+    ];
+
+    $scope.lang = {
+      id: "en",
+      language: "English"
+    };
+
+    $scope.changeLanguage = function () {
+      $scope.translate.use($scope.lang.id);
     };
 
     $scope.register = function () {
