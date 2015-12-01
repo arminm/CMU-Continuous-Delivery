@@ -1,4 +1,9 @@
-var app = angular.module('myApp',['ui.router', 'ngMessages', 'ui.bootstrap', 'MainService', 'UserService', 'socketService', 'MessageService', 'StatusService', 'MaintenanceService']);
+var app = angular.module('myApp',['ui.router', 'ngMessages', 'ui.bootstrap', 'MainService', 'UserService', 'socketService', 'MessageService', 'StatusService', 'MaintenanceService', 'pascalprecht.translate']);
+
+app.config('$translateProvider', function($translateProvider){
+  // Localization configuration code goes here...
+  
+});
 
 app.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
@@ -29,7 +34,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 });
 
-app.directive('serverError', function (){ 
+app.directive('serverError', function (){
  return {
     scope: false,
     link: function(scope, elem, attr) {
@@ -74,7 +79,7 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
     $scope.logout = function () {
         // When the user opts to logout, take them to home page and clear user data regardless the call's status
         JoinCommunity.logout(User.getUsername())
-        .success(function(data, status, headers, config) {  
+        .success(function(data, status, headers, config) {
         })
         .error(function(data, status, headers, config) {
         });
@@ -93,7 +98,7 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
                 $scope.$broadcast('new message', message, type);
             })
             .error(function(data, status, headers, config) {
-                // Cannot do anything here 
+                // Cannot do anything here
             });
         }
     };
@@ -121,7 +126,7 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
 });
 
 function scrollToBottom(animated, id) {
-    if ($(id)[0] != undefined) {  
+    if ($(id)[0] != undefined) {
         if (animated) {
             $(id).animate({ scrollTop: $(id)[0].scrollHeight}, 1000);
         } else {
