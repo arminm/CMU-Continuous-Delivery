@@ -8,6 +8,7 @@
     "bootswatch-dist": "united",
     "angular-messages": "latest",
     "angular-ui-router": "latest",
-    "angular-translate": "~2.8.1"
+    "angular-translate": "~2.8.1",
+    "angular-translate-loader-static-files": "~2.8.1"
   }
 }
