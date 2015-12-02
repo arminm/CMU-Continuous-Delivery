@@ -1,23 +1,23 @@
 nav.navbar.navbar-inverse.navbar-fixed-top
 	div.navbar-header 
-		span.navbar-brand Measure Performance
+		span.navbar-brand {{"MEASURE_PERFORMANCE" | translate}}
 form#maintenanceForm.form-horizontal(name="maintenanceForm", ng-controller="maintenanceController")
 	fieldset
 		div.form-group
 			div.col-lg-10
-				label(for='duration') Enter duration to run test (in seconds)
-				input#duration.form-control(name="duration", placeholder='Enter duration', type='number', autocomplete='off', required, ng-model='duration', reg-exp-require='/^[0-9]*$/', ng-disabled='testMode')
+				label(for='duration') {{"PERFORMANCE_INPUT_LABEL" | translate}}
+				input#duration.form-control(name="duration", placeholder='{{"ENTER_DURATION" | translate}}', type='number', autocomplete='off', required, ng-model='duration', reg-exp-require='/^[0-9]*$/', ng-disabled='testMode')
 		div.form-group
 			span.col-lg-10
-				button#loginButton.btn.btn-info(ng-click='start()', ng-model='duration', ng-disabled='(duration < 1) || (duration == null) || testMode') Start
+				button#loginButton.btn.btn-info(ng-click='start()', ng-model='duration', ng-disabled='(duration < 1) || (duration == null) || testMode') {{"START" | translate}}
 				span(style='padding-right: 10px')
-				button#registerButton.btn.btn-warning(ng-click='stop()', ng-disabled='!testMode') Stop
+				button#registerButton.btn.btn-warning(ng-click='stop()', ng-disabled='!testMode') {{"STOP" | translate}}
 		div.form-group(ng-show='testMode || resultMode')
 			span.col-lg-10
-				div Time elapsed: {{elapsedTime}}
+				div {{"PERFORMANCE_TIME_LABEL" | translate}}: {{elapsedTime}}
 				div(ng-show='resultMode')
-					div Number of POST requests per second: {{(totalSuccessfulPosts / elapsedTime) | number : 0}}
-					div Number of GET requests per second: {{(totalSuccessfulGets / elapsedTime) | number : 0}}
+					div {{"PERFORMANCE_LABEL" | translate:"{method: 'POST'}"}}: {{(totalSuccessfulPosts / elapsedTime) | number : 0}}
+					div {{"PERFORMANCE_LABEL" | translate:"{method: 'GET'}"}}: {{(totalSuccessfulGets / elapsedTime) | number : 0}}
 					//- div Total POST calls: {{totalCalls}}
 					//- div Total successful post calls: {{totalSuccessfulPosts}}
 					//- div Total unsuccessful post calls: {{totalUnsuccessfulPosts}}
@@ -25,4 +25,4 @@ form#maintenanceForm.form-horizontal(name="maintenanceForm", ng-controller="main
 					//- div Total unsuccessful get calls: {{totalUnsuccessfulGets}}
 		div.form-group
 			span.col-lg-10
-				button.btn.btn-primary(ui-sref='lobby', ng-disabled='testMode') Go back
+				button.btn.btn-primary(ui-sref='lobby', ng-disabled='testMode') {{"GO_BACK" | translate}}

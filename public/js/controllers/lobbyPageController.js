@@ -9,16 +9,16 @@ angular.module('myApp')
 	$scope.statuses = ['OK', 'Help', 'Emergency', 'Undefined'];
 	$scope.statusOptions= [
 		{name: 'OK', color: '#468847'},
-		{name: 'Help', color: '#c09853'},
-		{name: 'Emergency', color: '#b94a48'},
-		{name: 'Undefined', color: ''}
+		{name: 'HELP', color: '#c09853'},
+		{name: 'EMERGENCY', color: '#b94a48'},
+		{name: 'UNDEFINED', color: ''}
 	];
 	$scope.searchIsActive = false;
 	$scope.searchText = '';
 	$scope.searchString = '';
 
 	$scope.selectedStatus = $scope.statusOptions.filter(function(option) {
-		return option.name === User.getStatus();
+		return option.name === User.getStatus().toUpperCase();
 	})[0];
 
 	$scope.setStatus = function () {
@@ -27,7 +27,7 @@ angular.module('myApp')
 			statusCode: $scope.selectedStatus.name
 		};
 		var oldStatus = $scope.statusOptions.filter(function(option) {
-			return option.name === $scope.userStatus;
+			return option.name === $scope.userStatus.toUpperCase();
 		})[0];
 		Status.update($scope.username, statusData)
 		.success(function(data) {
@@ -37,7 +37,9 @@ angular.module('myApp')
 		})
 		.error(function(data, status, headers, config) {
 			$scope.selectedStatus = oldStatus;
-            alert("Something went wrong. Please try again later.");
+			$scope.translate(["ERROR_GENERIC"]).then(function (translations) {
+				alert(translations.ERROR_GENERIC);
+			});
 		});
 	};
 	$scope.directory = function () {
@@ -59,15 +61,16 @@ angular.module('myApp')
 			});
 		})
 		.error(function(data, status, headers, config) {
-			var message = "";
-			if (status == '403') {
-				message = "You don't have access to this resource";
-			} else if (status == '404') {
-                message = "No users found for your call";
-            } else {
-            	message = "Something went wrong. Please try again later.";
-            }
-            alert(message);
+			$scope.translate(["ERROR_UNAUTHORIZED", "ERROR_NO_USERS_FOUND", 
+				"ERROR_GENERIC"]).then(function (translations) {
+				if (status == '403') {
+					alert(translations.ERROR_UNAUTHORIZED);
+				} else if (status == '404') {
+					alert(translations.ERROR_NO_USERS_FOUND);
+				} else {
+					alert(translations.ERROR_GENERIC);
+				}
+			});
 		});
 	};
 	$scope.resetFirstTimeUser = function() {

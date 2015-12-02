@@ -116,7 +116,7 @@ a {
 	color: #EFB73E;
 }
 
-h1, #loginForm, input#username, input#password, input#confirmPassword, #inputFullname, #maintenanceForm, input#duration {
+h1, #loginForm, input#username, input#password, input#confirmPassword, #inputFullname, #maintenanceForm, input#duration, #langSelect {
 	clear: both;
 	text-align: center;
 }
@@ -264,5 +264,3 @@ h3{
 #editFormSpan {
 	text-align: center;
 }
-
-

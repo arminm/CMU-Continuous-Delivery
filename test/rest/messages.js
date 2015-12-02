@@ -65,7 +65,7 @@ suite('REST: Message', function() {
   teardown(function() {
     // Clean up
     db.run("DELETE FROM users");
-    db.run("DELETE FROM messages");
+    db.run("DELETE FROM messages"); 
   });
 
   test('Post a new message with an existing user', function(done) {

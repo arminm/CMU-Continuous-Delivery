@@ -8,31 +8,31 @@ div(ng-controller="adminController")
 					span.glyphicon.glyphicon-user
 					span.user.username {{user.username}}
 					span.glyphicon.glyphicon-pencil#adminEdit(ng-click="administerProfile(user)")
-		div.animate-hide.col-lg-6#editFormSpan(ng-show="selectedUser")
+		div.animate-hide.col-lg-6#editFormSpan(ng-show="selectedUser", style="margin-top:10px")
 			form#editForm.form-horizontal(name="editForm")
 				fieldset
 					div.form-group
 						div.col-lg-6
-							select.form-control#accountStatus(ng-model="formData.accountStatus", ng-options="option for option in availableAccountStatuses track by option")
+							select.form-control#accountStatus(ng-model="formData.accountStatus", ng-options="(option | translate) for option in availableAccountStatuses track by option")
 					div.form-group
 						div.col-lg-6
-							select.form-control#privilegeLevel(ng-model="formData.privilegeLevel", ng-options="option for option in availablePrivilegeLevels track by option")
+							select.form-control#privilegeLevel(ng-model="formData.privilegeLevel", ng-options="(option | translate) for option in availablePrivilegeLevels track by option")
 					div.form-group
 						div.col-lg-6
-							input#username.form-control(name="username", type="text", ng-minlength="3", autocomplete="off", ng-model="formData.username", reserved-username, edit-error)
+							input#username.form-control(name="username", placeholder='{{"USERNAME" | translate}}', type="text", ng-minlength="3", autocomplete="off", ng-model="formData.username", reserved-username, edit-error)
 							div(ng-messages="editForm.username.$error")
-								div.invalid(ng-message="minlength") Username must be at least 3 characters long
-								div.invalid(ng-message="reservedUsername") {{formData.username}} is a reserved username
-								div.invalid(ng-message="server") {{formError.username}}
+								div.invalid(ng-message="minlength") {{"USERNAME_ERROR_LENGTH" | translate}}
+								div.invalid(ng-message="reservedUsername") {{formData.username}} {{"USERNAME_ERROR_RESERVED" | translate}}
+								div.invalid(ng-message="server") {{formError.username | translate}}
 					div.form-group
 						div.col-lg-6
-							input#password.form-control(name="password", placeholder="Password", type="password", ng-minlength="4", autocomplete="off", ng-model="formData.password", edit-error)
+							input#password.form-control(name="password", placeholder='{{"PASSWORD" | translate}}', ng-minlength="4", autocomplete="off", ng-model="formData.password", edit-error)
 							div(ng-messages="editForm.password.$error")
-								div.invalid(ng-message="minlength") Password must be at least 4 characters long
+								div.invalid(ng-message="minlength") {{"PASSWORD_ERROR_LENGTH" | translate}}
 					div.form-group
 						span.col-lg-6
-							button#saveChanges.btn.btn-info(ng-click="saveChanges()") Save
+							button#saveChanges.btn.btn-info(ng-click="saveChanges()") {{"SAVE" | translate}}
 							span(style='padding-right: 10px')
-							button#back.btn.btn-warning(ng-click="resetScope()") Back
+							button#back.btn.btn-warning(ng-click="resetScope()") {{"BACK" | translate}}
 							div(ng-messages="editForm.$error")
-								div.invalid(ng-message="server"){{ formError.generic }}
+								div.invalid(ng-message="server"){{ formError.generic | translate}}

@@ -1,4 +1,14 @@
-var app = angular.module('myApp',['ui.router', 'ngMessages', 'ui.bootstrap', 'MainService', 'UserService', 'socketService', 'MessageService', 'StatusService', 'MaintenanceService', 'AdminService']);
+var app = angular.module('myApp',['ui.router', 'ngMessages', 'ui.bootstrap', 'MainService', 'UserService', 'socketService', 'MessageService', 'StatusService', 'MaintenanceService', 'pascalprecht.translate', 'AdminService']);
+
+app.config(function($translateProvider){
+  $translateProvider.useSanitizeValueStrategy('escaped');
+  $translateProvider.useStaticFilesLoader({
+    prefix: '/languages/',
+    suffix: '.json'
+  });
+
+  $translateProvider.preferredLanguage('en');
+});
 
 app.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
@@ -37,7 +47,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 });
 
-app.directive('serverError', function (){ 
+app.directive('serverError', function (){
  return {
     scope: false,
     link: function(scope, elem, attr) {
@@ -62,7 +72,7 @@ var resetFormError = function (scope) {
     scope.$apply();
 };
 
-app.directive('editError', function (){ 
+app.directive('editError', function (){
  return {
     scope: false,
     link: function(scope, elem, attr) {
@@ -74,7 +84,7 @@ app.directive('editError', function (){
  };
 });
 
-app.directive('messageError', function (){ 
+app.directive('messageError', function (){
  return {
     scope: false,
     link: function(scope, elem, attr) {
@@ -86,7 +96,7 @@ app.directive('messageError', function (){
  };
 });
 
-app.directive('announcementError', function (){ 
+app.directive('announcementError', function (){
  return {
     scope: false,
     link: function(scope, elem, attr) {
@@ -98,7 +108,7 @@ app.directive('announcementError', function (){
  };
 });
 
-app.directive('reservedUsername', function (){ 
+app.directive('reservedUsername', function (){
    return {
       require: '?ngModel',
       link: function(scope, elem, attr, ngModel) {
@@ -132,15 +142,17 @@ app.directive('regExpRequire', function() {
     }
 });
 
-app.controller('mainController', function($scope, $rootScope, $location, $state, User, JoinCommunity, Socket, MessageFactory) {
+app.controller('mainController', function($scope, $rootScope, $location, $state, $translate, User, JoinCommunity, Socket, MessageFactory) {
     $scope.isAdmin = false;
     $scope.isMonitor = false;
     $scope.isCoordinator = false;
+    
+    $scope.translate = $translate;
 
     $scope.logout = function () {
         // When the user opts to logout, take them to home page and clear user data regardless the call's status
         JoinCommunity.logout(User.getUsername())
-        .success(function(data, status, headers, config) {  
+        .success(function(data, status, headers, config) {
         })
         .error(function(data, status, headers, config) {
         });
@@ -153,6 +165,7 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
         $scope.isAdmin = false;
         $scope.isMonitor = false;
         $scope.isCoordinator = false;
+        $scope.lang = User.getLanguage();
     };
 
     $scope.disburseSocketMessage = function(data, type, access_key) {
@@ -163,7 +176,7 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
                 $scope.$broadcast('new message', message, type);
             })
             .error(function(data, status, headers, config) {
-                // Cannot do anything here 
+                // Cannot do anything here
             });
         }
     };
@@ -179,9 +192,11 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
         Socket.on('CHAT', function(data) {
             if ((User.getUsername().length > 0) && ($state.$current.url.sourcePath != '/lobby/chatbuddies')) { // If the user is logged in or the user state is present
                 if (data.sender !== User.getUsername()) {
-                    if (confirm("You have a new message from "+ data.sender + ". Go to chat?") == true) {
-                        $state.go('chat',{ username: data.sender });
-                    }
+                    $scope.translate(["CONFIRM_NEW_MESSAGE_FIRST_PART", "CONFIRM_NEW_MESSAGE_SECOND_PART"]).then(function (translations) {
+                        if (confirm(translations.CONFIRM_NEW_MESSAGE_FIRST_PART + data.sender + translations.CONFIRM_NEW_MESSAGE_SECOND_PART) == true) {
+                            $state.go('chat',{ username: data.sender });
+                        }
+                    });
                 }
             } else {
                 $scope.disburseSocketMessage(data, 'CHAT', User.getUsername());
@@ -189,20 +204,22 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
         });
 
         Socket.on('UPDATE', function(data) {
-            var message = "";
-            
-            if (data.action.isActive === 0) {
-                message += "Your account has been deactivated. You will be logged out now!\n";
-            }
-            if (data.action.profile) {
-                message += "Your role has been updated to " + data.action.profile + "\n";
-            } 
-            if (data.action.username || data.action.password) {
-                message += "Your credentials have been changed. Please log in again!";
-            }
-            confirm(message);
-            $scope.logout();
-            $state.go('home');
+            $scope.translate(["CONFIRM_ACCOUNT_DEACTIVATED", "CONFIRM_ROLE_UPDATE", 
+                "CONFIRM_CHANGE_CREDENTIALS"]).then(function (translations) {
+                var message = "";
+                if (data.action.isActive === 0) {
+                    message += translations.CONFIRM_ACCOUNT_DEACTIVATED;
+                }
+                if (data.action.profile) {
+                    message += translations.CONFIRM_ROLE_UPDATE + data.action.profile + "\n";
+                }
+                if (data.action.username || data.action.password) {
+                    message += translations.CONFIRM_CHANGE_CREDENTIALS;
+                }
+                confirm(message);
+                $scope.logout();
+                $state.go('home');
+            });
         });
     };
 
@@ -229,7 +246,7 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
 });
 
 function scrollToBottom(animated, id) {
-    if ($(id)[0] != undefined) {  
+    if ($(id)[0] != undefined) {
         if (animated) {
             $(id).animate({ scrollTop: $(id)[0].scrollHeight}, 1000);
         } else {
