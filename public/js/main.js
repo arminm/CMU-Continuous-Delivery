@@ -44,7 +44,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('maintainance', {
             url: '/maintainance',
             templateUrl: 'maintainance.jade'
-        })
+        });
 });
 
 app.directive('serverError', function (){
@@ -126,20 +126,22 @@ app.directive('regExpRequire', function() {
     return {
         restrict: "A",
         link: function(scope, elem, attrs) {
+            /*jshint -W061 */
             regexp = eval(attrs.regExpRequire);
+            /*jshint +W061 */
             var char;
             elem.on('keypress', function(event) {
                 var key = event.which;
                 // Do not prevent backspace or del
                 if ((key != 8) && (key != 46)) {
-                    char = String.fromCharCode(key)
+                    char = String.fromCharCode(key);
                     if(!regexp.test(elem.val() + char)) {
                         event.preventDefault();
                     }
                 }
             });
         }
-    }
+    };
 });
 
 app.controller('mainController', function($scope, $rootScope, $location, $state, $translate, User, JoinCommunity, Socket, MessageFactory) {
@@ -192,7 +194,7 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
             if ((User.getUsername().length > 0) && ($state.$current.url.sourcePath != '/lobby/chatbuddies')) { // If the user is logged in or the user state is present
                 if (data.sender !== User.getUsername()) {
                     $scope.translate(["CONFIRM_NEW_MESSAGE_FIRST_PART", "CONFIRM_NEW_MESSAGE_SECOND_PART"]).then(function (translations) {
-                        if (confirm(translations.CONFIRM_NEW_MESSAGE_FIRST_PART + data.sender + translations.CONFIRM_NEW_MESSAGE_SECOND_PART) == true) {
+                        if (confirm(translations.CONFIRM_NEW_MESSAGE_FIRST_PART + data.sender + translations.CONFIRM_NEW_MESSAGE_SECOND_PART) === true) {
                             $state.go('chat',{ username: data.sender });
                         }
                     });
@@ -245,7 +247,7 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
 });
 
 function scrollToBottom(animated, id) {
-    if ($(id)[0] != undefined) {
+    if ($(id)[0] !== undefined) {
         if (animated) {
             $(id).animate({ scrollTop: $(id)[0].scrollHeight}, 1000);
         } else {

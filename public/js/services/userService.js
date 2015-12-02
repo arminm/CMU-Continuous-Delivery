@@ -34,7 +34,7 @@ angular.module('UserService', []).service('User', function () {
 
   this.setPrivilegeLevel = function (value) {
     this.privilegeLevel = value;
-  }
+  };
 
   this.checkFirstTimeUser = function() {
     return this.isFirstTimeUser;
@@ -60,7 +60,7 @@ angular.module('UserService', []).service('User', function () {
   };
 
   this.getStatus = function(username) {
-    if (username == undefined) {
+    if (username === undefined) {
       return this.status;
     }
     var status = {code: 'OK', lastUpdatedAt: Date.now()};
@@ -71,7 +71,7 @@ angular.module('UserService', []).service('User', function () {
       }
     });
     return status;
-  }
+  };
 
   this.reset();
   this.resetFirstTimeUser();

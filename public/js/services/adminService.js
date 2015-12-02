@@ -7,5 +7,5 @@ angular.module('AdminService', [])
         updateUser : function(username, access_key, data) {
             return $http.put('/users/' + username + '?access_key=' + access_key, data);
         }
-    }
+    };
 });

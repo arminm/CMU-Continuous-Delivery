@@ -63,16 +63,19 @@ module.exports = function(grunt) {
           require: true,
           confirm: true,
           $: true,
-          scrollToBottom: true
+          scrollToBottom: true,
+          io: true,
+          __dirname: true
         },
       },
       with_overrides: {
+
         options: {
           curly: false,
           undef: true,
         },
         files: {
-          src: ['public/js/**/*.js', 'controllers/*.js', 'models/*.js', 'routes/*.js']
+          src: ['public/js/**/*.js', 'controllers/*.js', 'models/*.js', 'routes/*.js', 'app.js']
         },
       }
     }

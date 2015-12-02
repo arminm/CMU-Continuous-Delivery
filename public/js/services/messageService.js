@@ -6,7 +6,7 @@ angular.module('MessageService', [])
     };
 
     this.addToMessageQueue = function(username) {
-        if (this.messageQueue[username] == undefined){
+        if (this.messageQueue[username] === undefined){
             this.messageQueue[username] = 1;
         } else {
             ++this.messageQueue[username];
@@ -15,7 +15,7 @@ angular.module('MessageService', [])
     };
 
     this.clearQueueForUser = function(username) {
-        if (this.messageQueue[username] != undefined){
+        if (this.messageQueue[username] !== undefined){
             this.badgeCount -= this.messageQueue[username];
             this.messageQueue[username] = undefined;
         }
@@ -48,5 +48,5 @@ angular.module('MessageService', [])
             get : function(id, access_key) {
                 return $http.get('/messages/' + id + '?access_key=' + access_key);
             }
-        }
+        };
     });
