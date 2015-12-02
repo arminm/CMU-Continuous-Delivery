@@ -16,8 +16,8 @@ function createDouble(options) {
     createdAt: options.createdAt || currentTime,
     updatedAt: options.updatedAt || null,
     lastLoginAt: options.lastLoginAt || currentTime,
-    isActive: options.isActive || true,
-    isOnline: options.isOnline || true,
+    isActive: Utils.isEmpty(options.isActive) ? 1: options.isActive,
+    isOnline: Utils.isEmpty(options.isOnline) ? 1: options.isOnline,
     statusCode: options.statusCode || 'OK',
     statusUpdatedAt: options.statusUpdatedAt || currentTime,
     profile: options.profile || 'CITIZEN'
@@ -65,6 +65,18 @@ function updateLogin(double, callback) {
   });
 };
 
+function updateProfile(info, callback) {
+  User.updateUser(info, function(isUpdated, updateObject, error) {
+    if (isUpdated && error === undefined) {
+      getUser(info.username, function(user){
+        callback(isUpdated, error, user);
+      });
+    } else {
+      callback(isUpdated, error);
+    }
+  });
+};
+
 // Compare two user objects
 function areTheSame(double, user) {
   return Utils.areEqual(Utils.replacer(double, ['password']), user);
@@ -72,7 +84,7 @@ function areTheSame(double, user) {
 
 suite('User: ', function() {
   // Create user doubles to verify actual users with
-  var userArmin, userDimitris;
+  var userArmin, userDimitris, userInactive;
 
   setup(function() {
     // Setup
@@ -87,13 +99,21 @@ suite('User: ', function() {
       username: 'dimitris',
       password: '1234'
     });
+
+    userInactive = createDouble({
+      fullName: 'Pragya',
+      username: 'pragya',
+      password: '1234',
+      isActive: 0
+    });
   });
 
   teardown(function() {
     // Clean up
     db.run("DELETE FROM users");
+    db.run("DELETE FROM statusCrumbs");
   });
-
+ 
   test('Create a new user and get it', function(done) {
     createUser(userDimitris, function(isCreated, error, user) {
       expect(isCreated).to.be.ok();
@@ -112,26 +132,91 @@ suite('User: ', function() {
       });
     });
   });
-
-  test('Get all users', function(done){
+  test('Get all active users', function(done) {
     createUser(userArmin, function() {
       createUser(userDimitris, function() {
-        User.getAllUsers(true, function(users, error) {
-          expect(error).to.not.be.ok();
-          // make sure there are two results, and they are both what we expected
-          expect(users.length).to.eql(2);
-          // make sure they are not the same user
-          expect(areTheSame(users[0], users[1])).to.not.be.ok();
-          // Count matching unique users
-          var matchCount = 0;
-          for (var user of users) {
-            if (areTheSame(userArmin, user) || areTheSame(userDimitris, user)) {
-              matchCount++;
-            }
-          }
-          expect(matchCount).to.eql(2);
-          done();
+        createUser(userInactive, function() {
+          var info = {
+            isActive: 0, 
+            username: userInactive.username,
+            givenUsername: null,
+            password: null,
+            profile: null
+          };
+          updateProfile(info, function(isUpdated, error, userReceived){
+            User.getAllUsers(true, function(users, error) {
+              expect(error).to.not.be.ok();
+              // make sure there are two results, and they are both what we expected
+              expect(users.length).to.eql(2);
+              // make sure they are not the same user
+              expect(areTheSame(users[0], users[1])).to.not.be.ok();
+              // Count matching unique users
+              var matchCount = 0;
+              for (user of users) {
+                if (areTheSame(userArmin, user) || areTheSame(userDimitris, user)) {
+                  matchCount++;
+                }
+              }
+              expect(matchCount).to.eql(2);
+              done();
+            });
+          });
         });
+      });
+    });
+  });
+
+    test('Get all active and inactive users', function(done) {
+    createUser(userArmin, function() {
+      createUser(userDimitris, function() {
+        createUser(userInactive, function() {
+          var info = {
+            isActive: 0, 
+            username: userInactive.username,
+            givenUsername: null,
+            password: null,
+            profile: null
+          };
+          updateProfile(info, function(isUpdated, error, userReceived){
+            User.getAllUsers(false, function(users, error) {
+              expect(error).to.not.be.ok();
+              // make sure there are two results, and they are both what we expected
+              expect(users.length).to.eql(3);
+              // make sure they are not the same user
+              expect(areTheSame(users[0], users[1])).to.not.be.ok();
+              expect(areTheSame(users[1], users[2])).to.not.be.ok();
+              // Count matching unique users
+              var matchCount = 0;
+              for (user of users) {
+                if (areTheSame(userArmin, user) || areTheSame(userDimitris, user) || areTheSame(userInactive, user)) {
+                  matchCount++;
+                }
+              }
+              expect(matchCount).to.eql(3);
+              done();
+            });
+          });
+        });
+      });
+    });
+  });
+
+  test('Update user profile', function(done){
+    createUser(userArmin, function(isUpdated, error, user) {
+      var info = {
+        isActive: null,
+        givenUsername: null,
+        password: 'test',
+        profile: 'ADMINISTRATOR',
+        username: userArmin.username
+      };
+      userArmin.password = 'test';
+      userArmin.profile = 'ADMINISTRATOR';
+      updateProfile(info, function(isUpdated, error, user) {
+        expect(isUpdated).to.be.ok();
+        expect(error).to.not.be.ok();
+        expect(areTheSame(userArmin, user)).to.be.ok();
+        done();
       });
     });
   });
