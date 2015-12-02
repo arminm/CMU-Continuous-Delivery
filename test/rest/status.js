@@ -112,6 +112,7 @@ suite('REST: Status', function() {
   test('Get an existing statusCrumb', function(done) {
     client.get(host+"status/"+statusCrumbID, {}, function(data, response) {
       expect(response.statusCode).to.eql(200);
+      expect(Utils.areEqual(statusInfo, JSON.parse(data))).to.be.ok();
       done();
     });
   });
