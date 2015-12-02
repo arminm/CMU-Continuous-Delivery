@@ -54,10 +54,10 @@ angular.module('myApp')
 			});
 			// Filter online users
 			$scope.onlineitems = usersWithoutCurrentUser.filter(function(user){
-				return user.isOnline == true;
+				return user.isOnline === 1;
 			});
 			$scope.offlineitems = usersWithoutCurrentUser.filter(function(user){
-				return user.isOnline == false;
+				return user.isOnline === 0;
 			});
 		})
 		.error(function(data, status, headers, config) {
@@ -105,6 +105,6 @@ angular.module('myApp')
 			var statusMatch = item.statusCode.toLowerCase().indexOf(criteria) > -1;
 			var usernameMatch = item.username.toLowerCase().indexOf(criteria) > -1;
 			return  usernameMatch || statusMatch;
-		}
+		};
 	};
 });

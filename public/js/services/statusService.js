@@ -3,5 +3,5 @@
             update : function(username, data) {
                 return $http.post('/status/' + username, data);
             }
-        }
+        };
     });

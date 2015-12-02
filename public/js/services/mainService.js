@@ -12,5 +12,5 @@ angular.module('MainService', []).factory('JoinCommunity', function($http) {
             logout : function(username) {
                 return $http.post('/logout/' + username);
             }
-        }
+        };
     });

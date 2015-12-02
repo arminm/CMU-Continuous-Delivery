@@ -47,5 +47,5 @@ angular.module('MaintenanceService', [])
         register : function(username, access_key, registrationData) {
             return $http.post('/signup/' + username + '?access_key=' + access_key, registrationData);
         }
-    }
+    };
 });

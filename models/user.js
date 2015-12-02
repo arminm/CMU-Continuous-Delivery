@@ -99,7 +99,7 @@ module.exports = {
 			updateObject.password = info.password;
 		}
 		if (!firstValue) { // If firstValue is still true, it means no value was updated	
-			query += " WHERE username = '" + info.username + "';"
+			query += " WHERE username = '" + info.username + "';";
 			db.run(query, function(error) {
 				if (error) {
 					callback(false, null, error);
@@ -133,4 +133,4 @@ module.exports = {
 			}
 		});
 	}
-}
+};
