@@ -92,6 +92,7 @@ suite('User: ', function() {
   teardown(function() {
     // Clean up
     db.run("DELETE FROM users");
+    db.run("DELETE FROM statusCrumbs");
   });
 
   test('Create a new user and get it', function(done) {
