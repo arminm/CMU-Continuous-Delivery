@@ -78,6 +78,7 @@ module.exports = {
 		var query = "UPDATE users SET ";
 		var firstValue = true;
 		var updateObject = {};
+		var usernameChanged = !utils.isEmpty(info.givenUsername);
 		if (!utils.isEmpty(info.isActive)) {
 			query += (firstValue? "" : ", ") + "isActive = " + info.isActive;
 			firstValue = false;
@@ -87,24 +88,34 @@ module.exports = {
 			query += (firstValue? "" : ", ") + "profile = '" + info.profile + "'";
 			firstValue = false;
 			updateObject.profile = info.profile;
-		}		
-		if (!utils.isEmpty(info.givenUsername)) {
+		}
+		if (usernameChanged) {
 			query += (firstValue? "" : ", ") + "username = '" + info.givenUsername + "'";
 			firstValue = false;
 			updateObject.username = info.givenUsername;
-		}		
+		}
 		if (!utils.isEmpty(info.password)) {
 			query += (firstValue? "" : ", ") + "password = '" + info.password + "'";
 			firstValue = false;
 			updateObject.password = info.password;
 		}
-		if (!firstValue) { // If firstValue is still true, it means no value was updated	
+		if (!firstValue) { // If firstValue is still true, it means no value was updated
 			query += " WHERE username = '" + info.username + "';";
 			db.run(query, function(error) {
 				if (error) {
 					callback(false, null, error);
 				} else {
-					callback(true, updateObject);
+					if (usernameChanged) {
+						db.run("UPDATE statusCrumbs SET username = ? WHERE username = ?;", info.givenUsername, info.username, function(error){
+							if (error) {
+								callback(false, null, error);
+							} else {
+								callback(true, updateObject);
+							}
+						});
+					} else {
+						callback(true, updateObject);
+					}
 				}
 			});
 		} else {
