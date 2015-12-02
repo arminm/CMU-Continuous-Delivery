@@ -218,9 +218,11 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
                 if (data.action.username || data.action.password) {
                     message += translations.CONFIRM_CHANGE_CREDENTIALS;
                 }
-                confirm(message);
-                $scope.logout();
-                $state.go('home');
+                if (message !== "") {
+                    confirm(message);
+                    $scope.logout();
+                    $state.go('home');
+                } 
             });
         });
     };
