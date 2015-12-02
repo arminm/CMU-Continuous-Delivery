@@ -165,6 +165,7 @@ app.controller('mainController', function($scope, $rootScope, $location, $state,
         $scope.isAdmin = false;
         $scope.isMonitor = false;
         $scope.isCoordinator = false;
+        $scope.lang = User.getLanguage();
     };
 
     $scope.disburseSocketMessage = function(data, type, access_key) {

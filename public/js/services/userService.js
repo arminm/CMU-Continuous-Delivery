@@ -1,5 +1,4 @@
 angular.module('UserService', []).service('User', function () {
-
 	this.getUsername = function() {
     return this.username;
   };
@@ -15,6 +14,20 @@ angular.module('UserService', []).service('User', function () {
   this.getPrivilegeLevel = function () {
     return this.privilegeLevel;
   };
+
+  this.getLanguage = function () {
+    if (this.selectedLang === undefined ) {
+      this.selectedLang = {
+        id: "en",
+        language: "English"
+      };
+    }
+    return this.selectedLang;
+  };
+
+  this.setLanguage = function(lang) {
+    this.selectedLang = lang;
+  };  
 
   this.setLastStatusUpdated= function(time) {
     this.lastStatusUpdated = time;

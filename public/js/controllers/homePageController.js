@@ -49,13 +49,11 @@ angular.module('myApp')
       },
     ];
 
-    $scope.lang = {
-      id: "en",
-      language: "English"
-    };
+    $scope.lang = User.getLanguage();
 
     $scope.changeLanguage = function () {
       $scope.translate.use($scope.lang.id);
+      User.setLanguage($scope.lang);
     };
 
     $scope.register = function () {
