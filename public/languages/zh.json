@@ -78,14 +78,9 @@
   "SAVE": "保存",
   "BACK": "返回",
 
-  "CONFIRM_ACCOUNT_DEACTIVATED": "Your account has been deactivated. You will be logged out now!\n",
-  "CONFIRM_ROLE_UPDATE": "Your role has been updated to ",
-  "CONFIRM_CHANGE_CREDENTIALS": "Your credentials have been changed. Please log in again!",
-  "CONFIRM_NEW_MESSAGE_FIRST_PART": "You have a new message from ",
-  "CONFIRM_NEW_MESSAGE_SECOND_PART": ". Go to chat?"
   "CONFIRM_ACCOUNT_DEACTIVATED": "您的账户已被冻结。现在您将立刻被登出系统！\n",
   "CONFIRM_ROLE_UPDATE": "您的用户角色已被更新",
   "CONFIRM_CHANGE_CREDENTIALS": "您的证书已被改变。请重新登录！",
   "CONFIRM_NEW_MESSAGE_FIRST_PART": "您有一条新消息来自",
-  "CONFIRM_NEW_MESSAGE_SECOND_PART": "。现在开始聊天？",
+  "CONFIRM_NEW_MESSAGE_SECOND_PART": "。现在开始聊天？"
 }
