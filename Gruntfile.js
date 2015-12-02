@@ -49,44 +49,31 @@ module.exports = function(grunt) {
         }
       }
     },
-    jslint: { // configure the task 
-      // lint your project's server code 
-      server: {
-        src: [
-          'controllers/*.js',
-          'models/*.js'
-        ],
-        exclude: [
-          'server/config.js'
-        ],
-        directives: { // example directives 
-          node: true,
-          todo: true
+    jshint: {
+      options: {
+        curly: true,
+        eqnull: true,
+        browser: true,
+        globals: {
+          jQuery: true,
+          alert: true,
+          console: true,
+          angular: true,
+          module: true,
+          require: true,
+          confirm: true,
+          $: true,
+          scrollToBottom: true
         },
-        options: {
-          edition: 'latest', // specify an edition of jslint or use 'dir/mycustom-jslint.js' for own path 
-          junit: 'out/server-junit.xml', // write the output to a JUnit XML 
-          log: 'out/server-lint.log',
-          jslintXml: 'out/server-jslint.xml',
-          errorsOnly: true, // only display errors 
-          failOnError: false, // defaults to true 
-          checkstyle: 'out/server-checkstyle.xml' // write a checkstyle-XML 
-        }
       },
-      // lint your project's client code 
-      client: {
-        src: [
-          'public/js/**/*.js'
-        ],
-        directives: {
-          browser: true,
-          predef: [
-            'jQuery'
-          ]
-        },
+      with_overrides: {
         options: {
-          junit: 'out/client-junit.xml'
-        }
+          curly: false,
+          undef: true,
+        },
+        files: {
+          src: ['public/js/**/*.js', 'controllers/*.js', 'models/*.js', 'routes/*.js']
+        },
       }
     }
   });
@@ -95,14 +82,14 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-mocha-istanbul');
   grunt.loadNpmTasks('grunt-cucumberjs');
-  grunt.loadNpmTasks('grunt-jslint'); 
+  grunt.loadNpmTasks('grunt-contrib-jshint'); 
 
   // Register tasks (Both `$ grunt` and `$ grunt test` would run mochaTest)
   grunt.registerTask('default', ['mochaTest:test']);
   grunt.registerTask('test', ['mochaTest:test']);
 
   // jslint
-  grunt.registerTask('lint', 'jslint');
+  grunt.registerTask('hint', 'jshint');
 
   // Cucumber
   grunt.registerTask('cucumber', ['cucumberjs:local']);

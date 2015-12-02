@@ -72,7 +72,7 @@ angular.module('myApp')
 
 	$scope.showSearch = function() {
 		$scope.searchIsActive = true;
-	}
+	};
 
 	$scope.clear = function() {
 		$scope.searchMode = false;
@@ -96,7 +96,7 @@ angular.module('myApp')
 				}
 			}
 			return false;
-		}
+		};
 	};
 
 	$scope.search = function(param) {
