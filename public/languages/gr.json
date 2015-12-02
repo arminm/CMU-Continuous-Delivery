@@ -27,7 +27,7 @@
   "ERROR_NO_MATCHING_USER": "Δεν βρέθηκε χρήστης που να ταιριάζει με το όνομα που δώσατε.",
 
   "WELCOME_USERNAME": "Καλώς ήρθες, {{username}}!",
-  "WELCOME_PARAGRAPH": "This is a <strong><em>Survivable Social Network on a Chip (SSNoC)</em></strong> which can help you in emergency. The first thing you'd better do is to <strong><em>share your status</em></strong> to let others know the situation.",
+  "WELCOME_PARAGRAPH": "Αυτό είναι το <strong><em>Επιβιώσιμο Κοινωνικό Δίκτυο σε Τσιπ (SSNoC)</em></strong> το οποίο μπορεί να σε βοηθήσει σε περίπτωση ανάγκης. Το πρώτο πράγμα που θα έπρεπε να κάνεις είναι να <strong><em>κοινοποιήσεις την κατάστασή σου</em></strong> για να ενημερώσεις τους υπόλοιπους χρήστες.",
   "CATEGORIES_TITLE": "Οι κατηγορίες της κατάστασής σου είναι:",
   "STATUS" : "Κατάσταση",
   "EXPLANATION": "Επεξήγηση",
@@ -82,11 +82,5 @@
   "CONFIRM_ROLE_UPDATE": "Ο ρόλος σας ανανεώθηκε σε ",
   "CONFIRM_CHANGE_CREDENTIALS": "Τα στοιχεία του λογαριασμού σας άλλαξαν. Παρακαλώ εισέλθετε ξανά στην εφαρμογή",
   "CONFIRM_NEW_MESSAGE_FIRST_PART": "Έχετε νέο μήνυμα από τον/την ",
-  "CONFIRM_NEW_MESSAGE_SECOND_PART": ". Μετάβαση στη συνομιλία;",
-
-  "ENGLISH": "Αγγλικά",
-  "CHINESE": "Κινέζικα",
-  "GREEK": "Ελληνικά",
-  "NEPALI": "Νεπαλικά",
-  "PERSIAN": "Περσικά"
+  "CONFIRM_NEW_MESSAGE_SECOND_PART": ". Μετάβαση στη συνομιλία;"
 }

@@ -32,5 +32,6 @@ form#loginForm.form-horizontal(name="loginForm", ng-controller="homePageControll
       div(ng-messages="loginForm.$error")
         div.invalid(ng-message='server'){{ formError.generic | translate}}
     div.form-group
-      div.col-lg-2
-        select.form-control(ng-model="lang", ng-options="option.language | translate for option in availableLanguages track by option.id", ng-change="changeLanguage()")
+      div.col-lg-4
+      div.col-lg-4
+        select.form-control#langSelect(ng-model="lang", ng-options="option.language | translate for option in availableLanguages track by option.id", ng-change="changeLanguage()")

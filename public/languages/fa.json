@@ -82,11 +82,5 @@
   "CONFIRM_ROLE_UPDATE": "Your role has been updated to ",
   "CONFIRM_CHANGE_CREDENTIALS": "Your credentials have been changed. Please log in again!",
   "CONFIRM_NEW_MESSAGE_FIRST_PART": "You have a new message from ",
-  "CONFIRM_NEW_MESSAGE_SECOND_PART": ". Go to chat?",
-
-  "ENGLISH": "English",
-  "CHINESE": "Chinese",
-  "GREEK": "Greek",
-  "NEPALI": "Nepali",
-  "PERSIAN": "Persian"
+  "CONFIRM_NEW_MESSAGE_SECOND_PART": ". Go to chat?"
 }
