@@ -149,7 +149,7 @@ suite('REST: Message', function() {
     createMessage(messageWall, function(id){
       getMessage(id, userDimitris.username, function(data,response) {
         expect(response.statusCode).to.eql(200);
-        expect(areTheSame(messageWall, JSON.parse(data))).to.be.ok();
+        expect(areTheSame(messageWall, Utils.parseJSON(data))).to.be.ok();
         done();
       });
     })
@@ -168,7 +168,7 @@ suite('REST: Message', function() {
 
         client.get(host+"messages?messageType=WALL&access_key="+userArmin.username, {}, function(data,response) {
           expect(response.statusCode).to.eql(200);
-          var messages = JSON.parse(data);
+          var messages = Utils.parseJSON(data);
           expect(messages).to.have.length(1);
           expect(areTheSame(messageWall, messages[0])).to.be.ok();
           done();
@@ -182,7 +182,7 @@ suite('REST: Message', function() {
       createMessage(messageChat, function(id){
         client.get(host+"messages?messageType=CHAT&sender=armin&receiver=dimitris&access_key=dimitris", {}, function(data,response) {
           expect(response.statusCode).to.eql(200);
-          var messages = JSON.parse(data);
+          var messages = Utils.parseJSON(data);
           expect(messages).to.have.length(1);
           expect(areTheSame(messageChat, messages[0])).to.be.ok();
           done();
@@ -195,7 +195,7 @@ suite('REST: Message', function() {
     createMessage(messageAnn, function(id){
       client.get(host+"messages?messageType=ANNOUNCEMENTS&access_key=dimitris", {}, function(data, response) {
         expect(response.statusCode).to.eql(200);
-        var messages = JSON.parse(data);
+        var messages = Utils.parseJSON(data);
         expect(messages).to.have.length(1);
         expect(areTheSame(messageAnn, messages[0])).to.be.ok();
         done();
@@ -214,7 +214,7 @@ suite('REST: Message', function() {
       createMessage(messageChat2, function(id2){
         client.get(host+"messages?messageType=CHAT&sender=armin&receiver=dimitris&access_key=dimitris", {}, function(data,response) {
           expect(response.statusCode).to.eql(200);
-          var messages = JSON.parse(data);
+          var messages = Utils.parseJSON(data);
           expect(messages).to.have.length(2);
           var match_count = 0;
           for (msg of messages) {

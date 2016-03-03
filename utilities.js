@@ -55,6 +55,13 @@ module.exports = {
 			return true;
 		}
 		return false;
+	},
+
+	parseJSON: function(json) {
+		if ((json == null) || (json == undefined)) {
+			return undefined;
+		}
+		return JSON.parse(JSON.stringify(json).trim());
 	}
 
 }
