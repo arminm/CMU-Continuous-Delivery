@@ -1,7 +1,7 @@
 # setup node environment
-machine:
-  node:
-    version: 4.0
+#machine:
+ # node:
+  #  version: 4.0
 
 # merge master before testing to make sure all tests pass
 # with the updated version of master
