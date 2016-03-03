@@ -112,7 +112,7 @@ suite('REST: Status', function() {
   test('Get an existing statusCrumb', function(done) {
     client.get(host+"status/"+statusCrumbID, {}, function(data, response) {
       expect(response.statusCode).to.eql(200);
-      expect(Utils.areEqual(statusInfo, JSON.parse(data))).to.be.ok();
+      expect(Utils.areEqual(statusInfo, Utils.parseJSON(data))).to.be.ok();
       done();
     });
   });
@@ -127,7 +127,7 @@ suite('REST: Status', function() {
   test('Get all status crumbs for an existing user', function(done) {
     client.get(host+"status?username="+userArmin.username, {}, function(data,response) {
       expect(response.statusCode).to.eql(200);
-      expect(JSON.parse(data)).to.have.length(2);
+      expect(Utils.parseJSON(data)).to.have.length(2);
       done();
     });
   });

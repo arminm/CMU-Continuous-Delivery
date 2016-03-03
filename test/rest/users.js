@@ -121,7 +121,7 @@ suite('REST: User', function() {
       expect(response.statusCode).to.eql(201);
       getUser(userArmin, function(data,response) {
         expect(response.statusCode).to.eql(200);
-        expect(areTheSame(userArmin, JSON.parse(data))).to.be.ok();
+        expect(areTheSame(userArmin, Utils.parseJSON(data))).to.be.ok();
         done();
       });
     });
@@ -204,7 +204,7 @@ suite('REST: User', function() {
 
         getUser(userDimitris, function(data, response){
           expect(response.statusCode).to.eql(200);
-          expect(areTheSame(userDimitris, JSON.parse(data))).to.be.ok();
+          expect(areTheSame(userDimitris, Utils.parseJSON(data))).to.be.ok();
           done();
         });
       });
@@ -223,7 +223,7 @@ suite('REST: User', function() {
           expect(response.statusCode).to.eql(200);
           client.get(host+"users?access_key="+userDimitris.username, {}, function(data,response) {
             expect(response.statusCode).to.eql(200);
-            var parsedData = JSON.parse(data);
+            var parsedData = Utils.parseJSON(data);
             expect(parsedData).to.have.length(2);
             for(obj of parsedData) {
               expect(obj.isActive).to.eql(1);
@@ -248,7 +248,7 @@ suite('REST: User', function() {
           expect(response.statusCode).to.eql(200);
           client.get(host+"users?access_key=SSNAdmin", {}, function(data,response) {
             expect(response.statusCode).to.eql(200);
-            var parsedData = JSON.parse(data);
+            var parsedData = Utils.parseJSON(data);
             expect(parsedData).to.have.length(3);
             for(obj of parsedData) {
               if (obj.username == userArmin.username) {
