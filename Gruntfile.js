@@ -69,7 +69,6 @@ module.exports = function(grunt) {
   // Load tasks
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-mocha-istanbul');
-  grunt.loadNpmTasks('grunt-cucumberjs');
   grunt.loadNpmTasks('grunt-contrib-jshint'); 
 
   // Register tasks (Both `$ grunt` and `$ grunt test` would run mochaTest)
@@ -79,11 +78,8 @@ module.exports = function(grunt) {
   // jslint
   grunt.registerTask('hint', 'jshint');
 
-  // Cucumber
-  grunt.registerTask('cucumber', ['cucumberjs:local']);
-
   // Circle
-  grunt.registerTask('circle', ['mochaTest:circle', 'cucumberjs:circle', 'mocha_istanbul']);
+  grunt.registerTask('circle', ['mochaTest:circle', 'mocha_istanbul']);
 
   //Coverage
   grunt.registerTask('coverage', ['mocha_istanbul']);
