@@ -34,21 +34,6 @@ module.exports = function(grunt) {
         }
       }
     },
-    cucumberjs: {
-      circle: {
-        src: 'features',
-        options: {
-          format: 'html',
-          output: process.env.CIRCLE_TEST_REPORTS + '/cucumber/report.html'
-        }
-      },
-      local: {
-        src: 'features',
-        options: {
-          format: 'pretty',
-        }
-      }
-    },
     jshint: {
       options: {
         curly: true,
