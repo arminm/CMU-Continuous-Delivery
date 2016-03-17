@@ -34,7 +34,7 @@ test:
     - DB=test grunt circle
 
 deployment:
-      staging:
+    staging:
         branch: master
         heroku:
             appname: SSNoC
