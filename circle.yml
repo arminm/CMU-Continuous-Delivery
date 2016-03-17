@@ -37,4 +37,4 @@ deployment:
   staging:
     branch: master
     heroku:
-      appname: ssnoc
+        appname: ssnoc-fantastic4
