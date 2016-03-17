@@ -36,5 +36,5 @@ test:
 deployment:
     staging:
         branch: master
-    heroku:
-        appname: SSNoC
+        heroku:
+            appname: SSNoC
