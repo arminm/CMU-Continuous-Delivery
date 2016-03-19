@@ -10,8 +10,5 @@
     "angular-ui-router": "latest",
     "angular-translate": "~2.8.1",
     "angular-translate-loader-static-files": "~2.8.1"
-  },
-  "resolutions": {
-    "angular": "1.5.1"
   }
 }
