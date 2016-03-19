@@ -1,5 +1,5 @@
 angular.module('socketService', ['MessageService']).factory('Socket', function($rootScope) {
-	var socket = io.connect("http://" + window.location.hostname + ":4444");
+	var socket = io.connect();
 	console.log(socket);
 	return socket;
 });
