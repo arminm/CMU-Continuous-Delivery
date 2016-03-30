@@ -12,7 +12,6 @@
     "angular-translate-loader-static-files": "~2.8.1"
   },
   "resolutions": {
-	"angular": "1.5.2"
+	"angular": "1.5.3"
   }
-
 }
